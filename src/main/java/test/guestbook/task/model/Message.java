@@ -1,6 +1,8 @@
 package test.guestbook.task.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by Qouer on 30.06.2016.
@@ -53,5 +55,13 @@ public class Message {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getFormattedDate() {
+        return getDateTime().toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    public String getFormattedTime() {
+        return getDateTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 }

@@ -18,5 +18,18 @@
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
 
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
+
+    <!--<bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">-->
+        <!--<property name="formatters">-->
+            <!--<set>-->
+                <!--<bean class="ru.javawebinar.topjava.util.converter.LocalTimeFormatter"/>-->
+                <!--<bean class="ru.javawebinar.topjava.util.converter.LocalDateFormatter"/>-->
+            <!--</set>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+
     <mvc:annotation-driven/>
 </beans>
