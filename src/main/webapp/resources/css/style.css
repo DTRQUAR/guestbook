@@ -1,0 +1,22 @@
+#inputArea {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFFF;
+}
+
+#nameField {
+    width: 100%;
+}
+
+#messageField {
+    width: 100%;
+    resize: none;
+}
+
+#sendButton {
+    display:block;
+    width: 20%;
+    margin:0 auto;
+    margin-top: 2%;
+}
