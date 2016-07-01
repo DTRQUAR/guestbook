@@ -11,22 +11,19 @@
 <html>
 
   <head>
+    <meta charset="utf-8"/>
     <title>Гостевая книга</title>
     <link rel="stylesheet" href="resources/css/style.css"/>
-    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'></script>
+    <script src="resources/js/jquery.min.js"></script>
     <script src='resources/js/jquery.autosize.js'></script>
-    <script>
-      $("document").ready(function(){
-        $('.textOfMessage').autosize();
-      });
-    </script>
+    <script src="resources/js/check_input_fields.js"></script>
   </head>
 
   <body>
     <div id="messagesArea">
       <c:forEach items="${allMessages}" var="message">
         <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
-        <p class="nameOfMessage"><b>${message.name}</b></p>
+        <textarea readonly disabled class="nameOfMessage">${message.name}</textarea>
         <textarea readonly disabled class="textOfMessage">${message.text}</textarea>
         <p class="dateOfMessage"><i>${message.formattedDate}</i>
           &nbsp;&nbsp<i>${message.formattedTime}</i></p></br>
@@ -34,15 +31,17 @@
     </div>
 
     <div id="inputArea">
-      <form id="messageForm" action="main" method="post">
+      <form id="messageForm" class="inputForm" action="main" method="post">
         <label>Ваше имя:</label></br>
-        <input placeholder="Введите ваше имя..." id="nameField" type="text" name="name" size="10"/></br></br>
+        <input placeholder="Введите ваше имя..." id="nameField" class="inputField" type="text" name="name" maxlength="50"/></br></br>
         <label>Отзыв:</label></br>
+
         <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"
-                  id="messageField" name="text" cols="102" rows="8" maxlength="1500"></textarea></br>
-        <input id="sendButton" type="submit" value="Hello Nigger"/></br>
+                  id="messageField" class="inputField" name="text" cols="102" rows="8" maxlength="1500"></textarea></br>
+        <input id="sendButton" class="button" type="submit" value="Hello Nigger"/></br>
       </form>
     </div>
+
 
   </body>
 

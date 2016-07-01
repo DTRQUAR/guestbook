@@ -1,6 +1,6 @@
 #inputArea {
-    width: 40%;
-    left: 30%;
+    width: 50%;
+    left: 25%;
     background-color: #FFFFFF;
     position: fixed;
     bottom: 5%;
@@ -24,16 +24,29 @@
 
 #messagesArea {
     top: 2%;
-    width: 41.5%;
+    width: 51.5%;
     height: 63%;
-    left: 30%;
+    left: 25%;
     background-color: #FFFFFF;
     position: fixed;
     bottom: 5%;
     overflow-y: auto;
 }
 
+.nameOfMessage {
+    width: 98.5%;
+    resize: none;
+    border: none;
+    height: auto;
+    max-height: 500px;
+    background-color: #FFFFFF;
+    text-align: left;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
 .textOfMessage {
+    margin-top: -1.5%;
     width: 98.5%;
     resize: none;
     border: none;
@@ -42,14 +55,9 @@
     background-color: #FFFFFF;
 }
 
-.nameOfMessage {
-    text-align: left;
-    font-size: 1.4em;
-}
-
 .dateOfMessage {
     margin-top: -0.5%;
     text-align: right;
     margin-right: 2%;
-    font-size: 1.1em;
+    font-size: 1em;
 }
