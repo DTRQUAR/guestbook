@@ -38,7 +38,8 @@
         <label>Ваше имя:</label></br>
         <input placeholder="Введите ваше имя..." id="nameField" type="text" name="name" size="10"/></br></br>
         <label>Отзыв:</label></br>
-        <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm" id="messageField" name="text" cols="102" rows="8" maxlength="200"></textarea></br>
+        <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"
+                  id="messageField" name="text" cols="102" rows="8" maxlength="1500"></textarea></br>
         <input id="sendButton" type="submit" value="Hello Nigger"/></br>
       </form>
     </div>
