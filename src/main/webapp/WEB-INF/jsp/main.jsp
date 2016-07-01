@@ -34,7 +34,7 @@
     <div id="inputArea">
       <form id="messageForm" class="inputForm" action="main" method="post">
         <label>Ваше имя:</label></br>
-        <input placeholder="Введите ваше имя..." id="nameField" class="inputField" type="text" name="name" maxlength="50"/></br></br>
+        <input placeholder="Введите ваше имя..." id="nameField" class="inputField" type="text" name="name" maxlength="800"/></br></br>
         <label>Отзыв:</label></br>
 
         <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"

@@ -1,6 +1,7 @@
 $("document").ready(function(){
     $('.textOfMessage').autosize();
     $('.nameOfMessage').autosize();
+    $('#messagesArea')
     $(".button").click(function(){
         var error=false;
         $(".inputField").each(function(){
@@ -10,7 +11,12 @@ $("document").ready(function(){
             }
         })
         if(error===true){
-            alert("Заполните все обязательные поля");
+            $(".inputField").each(function(){
+                var text = $(this).val("Введите значение");
+                if(text == ""){
+                    error=true;
+                }
+            })
             return false;
         }
     });
