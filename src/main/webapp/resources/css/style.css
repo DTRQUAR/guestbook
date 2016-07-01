@@ -1,35 +1,14 @@
-#inputArea {
-    width: 50%;
-    left: 25%;
-    background-color: #FFFFFF;
-    position: fixed;
-    bottom: 5%;
-}
-
-#nameField {
-    width: 100%;
-}
-
-#messageField {
-    width: 100%;
-    resize: none;
-}
-
-#sendButton {
-    display:block;
-    width: 20%;
-    margin:0 auto;
-    margin-top: 2%;
+.title {
+    font-size: 5em;
 }
 
 #messagesArea {
-    top: 2%;
     width: 51.5%;
-    height: 63%;
+    height: 58%;
     left: 25%;
+    margin-bottom: 3%;
     background-color: #FFFFFF;
-    position: fixed;
-    bottom: 5%;
+    position: relative;
     overflow-y: auto;
 }
 
@@ -60,4 +39,28 @@
     text-align: right;
     margin-right: 2%;
     font-size: 1em;
+}
+
+#inputArea {
+    width: 50%;
+    left: 25%;
+    background-color: #FFFFFF;
+    position: relative;
+    bottom: 5%;
+}
+
+#nameField {
+    width: 100%;
+}
+
+#messageField {
+    width: 100%;
+    resize: none;
+}
+
+#sendButton {
+    display:block;
+    width: 20%;
+    margin:0 auto;
+    margin-top: 2%;
 }
