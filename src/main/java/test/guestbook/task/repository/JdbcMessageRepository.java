@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.model.Message;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -22,38 +24,19 @@ import java.util.List;
 @Transactional
 public class JdbcMessageRepository implements MessageRepository {
 
-    private static final RowMapper<Message> ROW_MAPPER =
-            (rs, rowNum) -> new Message(rs.getString("name"), rs.getString("text"),
-                            rs.getTimestamp("datetime").toLocalDateTime());
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    private SimpleJdbcInsert insertMessage;
-
-    public JdbcMessageRepository() {
-    }
-
-    @Autowired
-    public JdbcMessageRepository(DataSource dataSource) {
-        this.insertMessage = new SimpleJdbcInsert(dataSource)
-                .withTableName("MESSAGES")
-                .usingGeneratedKeyColumns("id");
-    }
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public void create(Message message) {
-        MapSqlParameterSource map = new MapSqlParameterSource()
-                .addValue("name", message.getName())
-                .addValue("text", message.getText())
-                .addValue("datetime", Timestamp.valueOf(message.getDateTime()));
-        insertMessage.executeAndReturnKey(map);
+        em.persist(message);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Message> getAllMessages() {
-        return jdbcTemplate.query("SELECT * FROM messages ORDER BY datetime DESC", ROW_MAPPER);
+        return em.createNamedQuery(Message.ALL_SORTED, Message.class)
+                .getResultList();
     }
 
 }

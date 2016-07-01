@@ -35,7 +35,7 @@ public class RootController {
                     @RequestParam("name") String name,
                     @RequestParam("text") String text) {
         System.out.println(text);
-        Message message = new Message(name, text, LocalDateTime.now());
+        Message message = new Message(text, LocalDateTime.now());
         messageRepository.create(message);
         return "redirect:main";
     }
