@@ -23,7 +23,7 @@ public class RootController {
     @Autowired
     MessageRepository messageRepository;
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getAll(Model model) {
         List<Message> allMessages = messageRepository.getAllMessages();
         model.addAttribute("allMessages", allMessages);

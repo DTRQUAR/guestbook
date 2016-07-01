@@ -24,7 +24,7 @@
     <div id="messagesArea">
       <c:forEach items="${allMessages}" var="message">
         <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
-        <textarea readonly disabled class="nameOfMessage">${message.name}</textarea>
+        <textarea readonly disabled class="nameOfMessage">${message.user.name}</textarea>
         <textarea readonly disabled class="textOfMessage">${message.text}</textarea>
         <p class="dateOfMessage"><i>${message.formattedDate}</i>
           &nbsp;&nbsp<i>${message.formattedTime}</i></p></br>

@@ -1,8 +1,19 @@
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS users;
 
-CREATE SEQUENCE message_seq START WITH 1;
+DROP SEQUENCE IF EXISTS user_seq;
+DROP SEQUENCE IF EXISTS message_seq;
+
 CREATE SEQUENCE user_seq START WITH 1;
+CREATE SEQUENCE message_seq START WITH 1;
+
+CREATE TABLE users
+(
+  id INTEGER PRIMARY KEY DEFAULT nextval('user_seq'),
+  email VARCHAR NOT NULL,
+  name VARCHAR NOT NULL,
+  password VARCHAR NOT NULL
+);
 
 CREATE TABLE messages
 (
@@ -13,10 +24,4 @@ CREATE TABLE messages
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
-CREATE TABLE users
-(
-  id INTEGER PRIMARY KEY DEFAULT nextval('user_seq'),
-  email VARCHAR NOT NULL,
-  name VARCHAR NOT NULL,
-  password VARCHAR NOT NULL
-)
+

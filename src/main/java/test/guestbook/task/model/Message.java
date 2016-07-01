@@ -13,8 +13,8 @@ import java.time.format.DateTimeFormatter;
  */
 @NamedQueries({
         @NamedQuery(name = Message.GET, query = "SELECT m FROM Message m WHERE m.id=:id AND m.user.id=:userId"),
-        @NamedQuery(name = Message.ALL_SORTED, query = "SELECT m, u.name FROM Message m " +
-                "LEFT OUTER JOIN User u ON (u.id=m.user_id) ORDER BY m.dateTime DESC"),
+        @NamedQuery(name = Message.ALL_SORTED, query = "SELECT m FROM Message m " +
+                "JOIN m.user ORDER BY m.dateTime DESC"),
 //        @NamedQuery(name = Message.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
 //        @NamedQuery(name = Message.GET_BETWEEN,
 //                query = "SELECT m from UserMeal m WHERE m.user.id=:userId " +
@@ -22,36 +22,32 @@ import java.time.format.DateTimeFormatter;
 
 })
 @Entity
-@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
-
+@Table(name = "messages")
+@Access(AccessType.FIELD)
 public class Message {
-    public static final String GET = "UserMeal.get";
-    public static final String ALL_SORTED = "UserMeal.getAll";
+    public static final String GET = "Messages.get";
+    public static final String ALL_SORTED = "Messages.getAll";
 //    public static final String DELETE = "UserMeal.delete";
 //    public static final String GET_BETWEEN = "UserMeal.getBetween";
 
-    @Column(name = "description", nullable = false)
+    @Id
+    @SequenceGenerator(name = "messages_seq", sequenceName = "messages_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "messages_seq")
+    protected Integer id;
+
+    @Column(name = "text", nullable = false)
     @NotEmpty
     @Length(min = 1)
     private String text;
 
-    @Column(name = "date_time", columnDefinition = "timestamp default now()")
+    @Column(name = "datetime", columnDefinition = "timestamp default now()")
     @NotNull
     private LocalDateTime dateTime;
 
-    private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Message() {
     }
@@ -59,6 +55,22 @@ public class Message {
     public Message(String text, LocalDateTime dateTime) {
         this.text = text;
         this.dateTime = dateTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getText() {
