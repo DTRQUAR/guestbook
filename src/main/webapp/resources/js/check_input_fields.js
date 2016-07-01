@@ -11,7 +11,12 @@ $("document").ready(function(){
             }
         })
         if(error===true){
-            alert("Заполните все обязательные поля");
+            $(".inputField").each(function(){
+                var text = $.trim($(this).val());
+                if (text == ""){
+                    $(this).val("Введите значение");
+                }
+            })
             return false;
         }
     });
