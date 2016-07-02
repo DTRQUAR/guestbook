@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.User;
 import test.guestbook.task.repository.UserRepository;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * Created by Qouer on 02.07.2016.
  */
+@Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
