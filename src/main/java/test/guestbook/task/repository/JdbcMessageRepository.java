@@ -2,6 +2,7 @@ package test.guestbook.task.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Message;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,6 +32,7 @@ public class JdbcMessageRepository implements MessageRepository {
 
     @Override
     public void create(Message message) {
+//        message.setId(LoggedUser.safeGet().getAuthUser().getId());
         em.persist(message);
     }
 

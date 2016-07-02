@@ -31,7 +31,7 @@ public class Message {
 //    public static final String GET_BETWEEN = "UserMeal.getBetween";
 
     @Id
-    @SequenceGenerator(name = "message_seq", sequenceName = "message_seq")
+    @SequenceGenerator(name = "message_seq", sequenceName = "message_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
 //    @Column(name = "id", columnDefinition = "default nextval('message_seq')")
     private Integer id;

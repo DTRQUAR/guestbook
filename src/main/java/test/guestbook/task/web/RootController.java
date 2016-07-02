@@ -47,15 +47,16 @@ public class RootController {
     @RequestMapping(value = "/main", method = RequestMethod.POST)
     public String createMessage(
                     @RequestParam(value = "name", required = false) String defaultName,
-                    @RequestParam(value = "text", required = false) String text) {
+                    @RequestParam(value = "text", required = true) String text) {
         System.out.println("createMessage invoke");
-        if (defaultName == null) defaultName = LoggedUser.safeGet().getAuthUser().getName();
-        if (text != null) {
-            System.out.println(defaultName + " " + text);
-            Message message = new Message(defaultName, text, LocalDateTime.now());
-            messageRepository.create(message);
-            return "redirect:/main";
+        Message message;
+        if (defaultName != null && text != null) {
+            message = new Message(defaultName, text, LocalDateTime.now());
+        }else{
+            message = new Message(null, text, LocalDateTime.now());
+            message.setUser(LoggedUser.safeGet().getAuthUser());
         }
+        messageRepository.create(message);
         return "redirect:/main";
 
     }
