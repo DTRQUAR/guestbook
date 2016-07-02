@@ -1,7 +1,7 @@
 $("document").ready(function(){
     $('.textOfMessage').autosize();
     $('.nameOfMessage').autosize();
-    $('#messagesArea')
+    $('#messagesArea').autosize();
     $(".button").click(function(){
         var error=false;
         $(".inputField").each(function(){
