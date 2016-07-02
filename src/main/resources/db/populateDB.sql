@@ -24,12 +24,3 @@ INSERT INTO user_roles (user_id, role) VALUES
   (2, 'ROLE_USER'),
   (3, 'ROLE_USER'),
   (4, 'ROLE_USER');
-
--- DELETE FROM Message;
--- DELETE FROM Users;
---
--- INSERT INTO User (id, email, name, password) VALUES
---   (1, 'trimmerx@yandex.ru', 'Ildar', '1admin2'),
---   (2, 'user1@ya.ru', 'Timur', '111111'),
---   (3, 'user2@ya.ru', 'Dante', '222222'),
---   (4, 'user3@ya.ru', 'Wolverine', '333333');
