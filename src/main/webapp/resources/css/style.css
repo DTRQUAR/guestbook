@@ -2,14 +2,14 @@
     font-size: 5em;
 }
 
-#messagesArea {
+.messagesArea {
     width: 51.5%;
+    max-height: 58%;
     left: 25%;
     margin-bottom: 3%;
     background-color: #FFFFFF;
     position: relative;
     overflow-y: auto;
-    max-height: 58%;
 }
 
 .nameOfMessage {

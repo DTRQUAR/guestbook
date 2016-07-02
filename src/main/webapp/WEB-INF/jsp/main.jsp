@@ -21,7 +21,7 @@
 
   <body>
     <h1 align="center">Гостевая книга</h1>
-    <div id="messagesArea">
+    <div class="messagesArea">
       <c:forEach items="${allMessages}" var="message">
         <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
         <c:choose>

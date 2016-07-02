@@ -1,16 +1,16 @@
 $("document").ready(function(){
     $('.textOfMessage').autosize();
     $('.nameOfMessage').autosize();
-    $('#messagesArea').autosize();
+    $('.messagesArea').autosize();
     $(".button").click(function(){
-        var error=false;
+        var error = false;
         $(".inputField").each(function(){
             var text = $.trim($(this).val());
             if(text == ""){
                 error=true;
             }
         })
-        if(error===true){
+        if(error == true){
             $(".inputField").each(function(){
                 var text = $.trim($(this).val());
                 if (text == ""){
