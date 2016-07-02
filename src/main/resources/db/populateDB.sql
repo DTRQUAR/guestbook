@@ -12,9 +12,12 @@ INSERT INTO users (id, email, name, password) VALUES
   (4, 'user3@ya.ru', 'Wolverine', '333333');
 
 INSERT INTO messages (id, text, user_id) VALUES
-  (2, 'I am Timur. I want to say that i am senior java developer', 1),
-  (3, 'I am Dante. I like Java, but at this moment i am junior java developer', 2),
-  (4, 'I am Wolverine. And know what Java is, and a dont want to know. I dont need Java, i am Wolverine. AAAAAA!', 3);
+  (1, 'I am Timur. I want to say that i am senior java developer', 2),
+  (2, 'I am Dante. I like Java, but at this moment i am junior java developer', 3),
+  (3, 'I am Wolverine. And know what Java is, and a dont want to know. I dont need Java, i am Wolverine. AAAAAA!', 4);
+
+ALTER SEQUENCE user_seq RESTART WITH 5;
+ALTER SEQUENCE message_seq RESTART WITH 4;
 
 INSERT INTO user_roles (user_id, role) VALUES
   (1, 'ROLE_ADMIN'),

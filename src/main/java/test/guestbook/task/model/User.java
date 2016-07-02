@@ -29,7 +29,7 @@ public class User {
 //    public static final String BY_EMAIL = "User.getByEmail";
 
     @Id
-    @SequenceGenerator(name = "user_seq", allocationSize = 1)
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
 //    @Column(name = "id", columnDefinition = "default nextval('user_seq')")
     protected Integer id;

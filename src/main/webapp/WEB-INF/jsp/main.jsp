@@ -20,8 +20,17 @@
   </head>
 
   <body>
-    <h1 align="center">Гостевая книга</h1>
+
+
     <div class="messagesArea">
+
+      <table id="loginTable">
+        <tr>
+          <td><h1>Гостевая книга</h1></td>
+          <td id="loginFormAttribute"><jsp:include page="login.jsp"/></td>
+        </tr>
+      </table>
+
       <c:forEach items="${allMessages}" var="message">
         <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
         <c:choose>

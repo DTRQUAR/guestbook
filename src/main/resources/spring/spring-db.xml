@@ -19,6 +19,7 @@
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
     <tx:annotation-driven/>
+
     <bean id="dataSource"
           class="org.apache.tomcat.jdbc.pool.DataSource"
           p:driverClassName="org.postgresql.Driver"
@@ -36,7 +37,7 @@
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
                 <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).DIALECT}" value="org.hibernate.dialect.PostgreSQL94Dialect"/>-->
-                <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_IMPORT_FILES}" value="classpath:/db/populateDB.sql"/>
+                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_IMPORT_FILES}" value="classpath:/db/populateDB.sql"/>-->
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="create"/>
             </map>
         </property>
