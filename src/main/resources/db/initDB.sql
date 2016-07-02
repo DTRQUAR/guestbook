@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS users;
 
@@ -18,9 +19,10 @@ CREATE TABLE users
 CREATE TABLE messages
 (
   id INTEGER PRIMARY KEY DEFAULT nextval('message_seq'),
+  default_name VARCHAR,
   text VARCHAR NOT NULL,
   datetime TIMESTAMP DEFAULT now(),
-  user_id INTEGER NOT NULL,
+  user_id INTEGER,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

@@ -24,7 +24,14 @@
     <div id="messagesArea">
       <c:forEach items="${allMessages}" var="message">
         <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
-        <textarea readonly disabled class="nameOfMessage">${message.user.name}</textarea>
+        <c:choose>
+          <c:when test="${message.defaultName == null}">
+            <textarea readonly disabled class="nameOfMessage">${message.user.name}</textarea>
+          </c:when>
+          <c:when test="${message.defaultName != null}">
+            <textarea readonly disabled class="nameOfMessage">${message.defaultName}</textarea>
+          </c:when>
+        </c:choose>
         <textarea readonly disabled class="textOfMessage">${message.text}</textarea>
         <p class="dateOfMessage"><i>${message.formattedDate}</i>
           &nbsp;&nbsp<i>${message.formattedTime}</i></p></br>

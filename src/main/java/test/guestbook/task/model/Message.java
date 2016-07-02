@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 @NamedQueries({
         @NamedQuery(name = Message.GET, query = "SELECT m FROM Message m WHERE m.id=:id AND m.user.id=:userId"),
         @NamedQuery(name = Message.ALL_SORTED, query = "SELECT m FROM Message m " +
-                "JOIN m.user ORDER BY m.dateTime DESC"),
+                "LEFT JOIN m.user  ORDER BY m.dateTime DESC"),
 //        @NamedQuery(name = Message.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
 //        @NamedQuery(name = Message.GET_BETWEEN,
 //                query = "SELECT m from UserMeal m WHERE m.user.id=:userId " +
@@ -31,9 +31,12 @@ public class Message {
 //    public static final String GET_BETWEEN = "UserMeal.getBetween";
 
     @Id
-    @SequenceGenerator(name = "messages_seq", sequenceName = "messages_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "messages_seq")
-    protected Integer id;
+    @SequenceGenerator(name = "message_seq", sequenceName = "message_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
+    private Integer id;
+
+    @Column(name = "default_name", nullable = true)
+    private String defaultName;
 
     @Column(name = "text", nullable = false)
     @NotEmpty
@@ -46,7 +49,7 @@ public class Message {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     public Message() {
@@ -55,6 +58,20 @@ public class Message {
     public Message(String text, LocalDateTime dateTime) {
         this.text = text;
         this.dateTime = dateTime;
+    }
+
+    public Message(String defaultName, String text, LocalDateTime dateTime) {
+        this.defaultName = defaultName;
+        this.text = text;
+        this.dateTime = dateTime;
+    }
+
+    public String getDefaultName() {
+        return defaultName;
+    }
+
+    public void setDefaultName(String defaultName) {
+        this.defaultName = defaultName;
     }
 
     public User getUser() {

@@ -22,7 +22,7 @@
 
 
     <!--<bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">-->
-        <!--<property name="formatters">-->
+        <!--<property defaultName="formatters">-->
             <!--<set>-->
                 <!--<bean class="ru.javawebinar.topjava.util.converter.LocalTimeFormatter"/>-->
                 <!--<bean class="ru.javawebinar.topjava.util.converter.LocalDateFormatter"/>-->

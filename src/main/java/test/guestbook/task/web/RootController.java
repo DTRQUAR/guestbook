@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import test.guestbook.task.model.Message;
 import test.guestbook.task.repository.MessageRepository;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,16 +26,19 @@ public class RootController {
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getAll(Model model) {
         List<Message> allMessages = messageRepository.getAllMessages();
+        Iterator<Message> iterator = allMessages.iterator();
+        while(iterator.hasNext()) System.out.println(iterator.next());
         model.addAttribute("allMessages", allMessages);
+        System.out.println("allMessages put in model");
         return "main";
     }
 
     @RequestMapping(value = "/main", method = RequestMethod.POST)
     public String createMessage(
-                    @RequestParam("name") String name,
+                    @RequestParam("name") String defaultName,
                     @RequestParam("text") String text) {
-        System.out.println(text);
-        Message message = new Message(text, LocalDateTime.now());
+        System.out.println(defaultName + " " + text);
+        Message message = new Message(defaultName, text, LocalDateTime.now());
         messageRepository.create(message);
         return "redirect:main";
     }
