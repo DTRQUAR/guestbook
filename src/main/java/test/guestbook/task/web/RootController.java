@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import test.guestbook.task.model.Message;
 import test.guestbook.task.repository.MessageRepository;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 

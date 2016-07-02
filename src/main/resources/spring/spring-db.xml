@@ -12,15 +12,13 @@
          http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-    <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
-        <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
-        <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>
-    </jdbc:initialize-database>
 
-    <tx:annotation-driven/>
+
+
 
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
+    <tx:annotation-driven/>
     <bean id="dataSource"
           class="org.apache.tomcat.jdbc.pool.DataSource"
           p:driverClassName="org.postgresql.Driver"
@@ -37,7 +35,9 @@
             <map>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>-->
+                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).DIALECT}" value="org.hibernate.dialect.PostgreSQL94Dialect"/>-->
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_IMPORT_FILES}" value="classpath:/db/populateDB.sql"/>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="create"/>
             </map>
         </property>
 
@@ -47,6 +47,11 @@
             </bean>
         </property>
     </bean>
+
+    <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
+        <!--<jdbc:script location="classpath:db/${jdbc.initLocation}"/>-->
+        <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>
+    </jdbc:initialize-database>
 
     <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
