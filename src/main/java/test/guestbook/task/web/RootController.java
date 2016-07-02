@@ -22,14 +22,27 @@ public class RootController {
     @Autowired
     MessageRepository messageRepository;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String defaultURL(){
+        return "redirect:main";
+    }
+
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
+    public String getAllAsAuth(Model model){
+        model.addAttribute("authSuccess", true);
+        return "main";
+    }
+
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String getAll(Model model) {
+    public String getAll(Model model,
+                        @RequestParam(value = "auth", required = false) boolean auth) {
         List<Message> allMessages = messageRepository.getAllMessages();
         Iterator<Message> iterator = allMessages.iterator();
         while(iterator.hasNext()) System.out.println(iterator.next());
         model.addAttribute("allMessages", allMessages);
+        model.addAttribute("auth", auth);
         System.out.println("allMessages put in model");
-        return "main";
+        return "redirect:main";
     }
 
     @RequestMapping(value = "/main", method = RequestMethod.POST)

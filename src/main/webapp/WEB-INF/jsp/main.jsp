@@ -3,25 +3,31 @@
 
 <html>
 
-  <head>
-    <meta charset="utf-8"/>
-    <title>Гостевая книга</title>
-    <link rel="stylesheet" href="resources/css/style.css"/>
-    <script src="resources/js/jquery.min.js"></script>
-    <script src='resources/js/jquery.autosize.js'></script>
-    <script src="resources/js/check_input_fields.js"></script>
-  </head>
+<jsp:include page="fragments/headTag.jsp"/>
 
   <body>
 
     <div class="messagesArea">
 
-      <table id="topTable">
-        <tr>
-          <td><h1>Гостевая книга</h1></td>
-          <td id="loginFormAttribute"><jsp:include page="login.jsp"/></td>
-        </tr>
-      </table>
+      <c:choose>
+        <c:when test="${auth == true}">
+          <table class="topTable">
+            <tr>
+              <td><h1>Гостевая книга</h1></td>
+              <td class="loginFormAttribute"><jsp:include page="logout.jsp"/></td>
+            </tr>
+          </table>
+        </c:when>
+        <c:when test="${auth != true}">
+          <table class="topTable">
+            <tr>
+              <td><h1>Гостевая книга</h1></td>
+              <td class="loginFormAttribute"><jsp:include page="login.jsp"/></td>
+            </tr>
+          </table>
+        </c:when>
+      </c:choose>
+
 
       <c:forEach items="${allMessages}" var="message">
         <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
@@ -50,7 +56,6 @@
         <input id="sendButton" class="button" type="submit" value="Hello Nigger"/></br>
       </form>
     </div>
-
 
   </body>
 

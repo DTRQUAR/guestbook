@@ -2,17 +2,18 @@
     font-size: 5em;
 }
 
-#topTable {
+.topTable {
     width: 100%;
 }
 
-#loginFormAttribute{
+.loginFormAttribute{
     text-align: right;
     padding-right: 2%;
 }
 
 .authInputField {
     margin: 1%;
+    width: 20%;
 }
 
 .messagesArea {

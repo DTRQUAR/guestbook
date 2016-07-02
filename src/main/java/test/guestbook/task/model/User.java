@@ -19,6 +19,7 @@ import java.util.Set;
  */
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1")
 //        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
 })
 @Entity
@@ -26,7 +27,7 @@ import java.util.Set;
 public class User {
     public static final String DELETE = "User.delete";
     public static final String ALL_SORTED = "User.getAllSorted";
-//    public static final String BY_EMAIL = "User.getByEmail";
+    public static final String BY_EMAIL = "User.getByEmail";
 
     @Id
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq")
@@ -66,10 +67,11 @@ public class User {
     public User() {
     }
 
-    public User(String email, String name, String password) {
+    public User(String email, String name, String password, Set<Role> roles) {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.roles = roles;
     }
 
     public Integer getId() {
