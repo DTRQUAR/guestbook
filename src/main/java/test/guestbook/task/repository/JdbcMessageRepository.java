@@ -60,8 +60,12 @@ public class JdbcMessageRepository implements MessageRepository {
 
     @Override
     public void deleteMessageRate(Integer messageRate_id) {
-        em.createNamedQuery(MessageRate.DELETE_BY_MESSAGE_AND_USER)
-                .setParameter("id", messageRate_id);
+        em.createNamedQuery(MessageRate.DELETE_BY_ID)
+                .setParameter("id", messageRate_id).executeUpdate();
+
+//        em.createQuery("DELETE FROM MessageRate r where r.id=:id").setParameter("id", messageRate_id).executeUpdate();
+        System.err.println("DELETED");
+//        em.remove(new MessageRate(rate.getId(), rate.getUser(), rate.getMessage(), rate.getRate()));
     }
 
 

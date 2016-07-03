@@ -1,6 +1,7 @@
 package test.guestbook.task.service;
 
 import test.guestbook.task.model.Message;
+import test.guestbook.task.model.User;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface MessageService {
 
     List<Message> getAllMessages();
 
-    void rateMessage(String action, Integer message_id, Integer user_id);
+    void rateMessage(String action, Integer message_id, User user);
 }

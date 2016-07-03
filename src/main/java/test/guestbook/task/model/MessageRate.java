@@ -11,21 +11,20 @@ import javax.persistence.*;
                         "LEFT JOIN Message m " +
                         "LEFT JOIN User u " +
                         "WHERE m.id=:message_id AND u.id=:user_id"),
-        @NamedQuery(name = MessageRate.DELETE_BY_MESSAGE_AND_USER,
-                query = "DELETE FROM MessageRate r " +
-                        "WHERE r.id=:id"),
+        @NamedQuery(name = MessageRate.DELETE_BY_ID,
+                query = "DELETE FROM MessageRate r WHERE r.id=:id"),
 })
 @Entity
 @Table(name = "message_rates")
 public class MessageRate {
 
     public static final String GET_BY_MESSAGE_AND_USER = "MessageRate.GetByMessageAndUser";
-    public static final String DELETE_BY_MESSAGE_AND_USER = "MessageRate.DeleteByMessageAndUser";
+    public static final String DELETE_BY_ID = "MessageRate.DeleteById";
 
     @Id
     @SequenceGenerator(name = "rate_seq", sequenceName = "rate_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rate_seq")
-    protected Integer id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
@@ -39,6 +38,12 @@ public class MessageRate {
     private boolean rate;
 
     public MessageRate() {
+    }
+
+    public MessageRate(User user, Message message, boolean rate) {
+        this.user = user;
+        this.message = message;
+        this.rate = rate;
     }
 
     public Integer getId() {

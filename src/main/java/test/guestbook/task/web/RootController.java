@@ -85,7 +85,7 @@ public class RootController {
     @RequestMapping(value = "main/rate", method = RequestMethod.GET)
     public String rateMessage(@RequestParam("action") String action,
                               @RequestParam("message") Integer message_id) {
-        messageService.rateMessage(action, message_id, LoggedUser.safeGet().getAuthUser().getId());
+        messageService.rateMessage(action, message_id, LoggedUser.safeGet().getAuthUser());
         return "redirect:/main";
     }
 

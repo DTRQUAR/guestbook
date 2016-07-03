@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import test.guestbook.task.model.Message;
 import test.guestbook.task.model.MessageRate;
+import test.guestbook.task.model.User;
 import test.guestbook.task.repository.MessageRepository;
 
 import java.util.List;
@@ -30,17 +31,19 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void rateMessage(String action, Integer message_id, Integer user_id) {
+    public void rateMessage(String action, Integer message_id, User user) {
+        Integer user_id = user.getId();
         boolean newRate = action.equals("like") ? true : false;
 
         Message message = messageRepository.get(message_id);
 
-        MessageRate messageRateForUserId = message.getMessageRates()
+        List<MessageRate> messageRates = message.getMessageRates()
                 .stream()
                 .filter(r -> r.getUser().getId() == user_id)
-                .collect(Collectors.toList()).get(0);
+                .collect(Collectors.toList());
 
-        if (messageRateForUserId != null) {
+        if (messageRates.size() != 0) {
+            MessageRate messageRateForUserId = messageRates.get(0);
             boolean currentRate = messageRateForUserId.getRate();
 
             if (newRate != currentRate) {
@@ -49,7 +52,10 @@ public class MessageServiceImpl implements MessageService {
             } else if (newRate == currentRate) {
 
                 messageRepository.deleteMessageRate(messageRateForUserId.getId());
+//                messageRepository.deleteMessageRate(messageRateForUserId);
             }
+        }else {
+            messageRepository.updateMessageRate(new MessageRate(user, message, newRate));
         }
     }
 }

@@ -23,6 +23,7 @@ INSERT INTO message_rates (id, rate, message_id, user_id) VALUES
   (3, TRUE, 1, 3),
   (4, FALSE, 1, 4);
 
+ALTER SEQUENCE rate_seq RESTART WITH 5;
 ALTER SEQUENCE user_seq RESTART WITH 5;
 ALTER SEQUENCE message_seq RESTART WITH 4;
 
