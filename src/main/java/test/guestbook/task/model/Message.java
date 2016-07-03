@@ -32,9 +32,6 @@ import java.util.stream.Collectors;
 public class Message {
     public static final String GET = "Messages.get";
     public static final String ALL_SORTED = "Messages.getAll";
-//    public static final String DELETE = "UserMeal.delete";
-//    public static final String GET_BETWEEN = "UserMeal.getBetween";
-
     @Id
     @SequenceGenerator(name = "message_seq", sequenceName = "message_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
@@ -57,14 +54,6 @@ public class Message {
     @NotNull
     private LocalDateTime dateTime;
 
-//    @Column(name = "plus_count", columnDefinition = "default 0")
-//    @NotNull
-//    private Integer plusCount;
-//
-//    @Column(name = "minus_count", columnDefinition = "default 0")
-//    @NotNull
-//    private Integer minusCount;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
@@ -81,22 +70,6 @@ public class Message {
     public void setMessageRates(List<MessageRate> messageRates) {
         this.messageRates = messageRates;
     }
-
-//    public Integer getMinusCount() {
-//        return minusCount;
-//    }
-//
-//    public void setMinusCount(Integer minusCount) {
-//        this.minusCount = minusCount;
-//    }
-//
-//    public Integer getPlusCount() {
-//        return plusCount;
-//    }
-//
-//    public void setPlusCount(Integer plusCount) {
-//        this.plusCount = plusCount;
-//    }
 
     public Message() {
     }
@@ -172,5 +145,15 @@ public class Message {
                 .stream()
                 .filter(r -> r.getRate() == false)
                 .collect(Collectors.toList()).size();
+    }
+
+    public String getRateFromAuthUser(User user){
+        List<MessageRate> messageRates = getMessageRates()
+                .stream()
+                .filter(r -> user.getId() == r.getUser().getId())
+                .collect(Collectors.toList());
+        return messageRates.size() != 0 ?
+                messageRates.get(0).getRate() == true ? "1" : "2"
+                : "0";
     }
 }

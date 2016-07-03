@@ -58,8 +58,24 @@
         </c:choose>
         <textarea readonly disabled class="textOfMessage">${message.text}</textarea>
 
-        <a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">+</a>&nbsp${message.plus}&nbsp
-        <a class="rateButton" id="notlikeButton"href="main/rate?action=notlike&message=${message.id}">-</a>&nbsp${message.minus}&nbsp
+        <sec:authorize access="isAuthenticated()">
+          <c:set var="authUser" scope="session" value="${authUser}"/>
+          <c:choose>
+            <c:when test="${message.getRateFromAuthUser(authUser).equals('0')}">
+              <a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp
+              <a class="rateButton" id="notLikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp
+            </c:when>
+            <c:when test="${message.getRateFromAuthUser(authUser).equals('1')}">
+              <a class="rateButton" id="selectlikeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp
+              <a class="rateButton" id="notLikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp
+            </c:when>
+            <c:when test="${message.getRateFromAuthUser(authUser).equals('2')}">
+              <a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp
+              <a class="rateButton" id="selectNotlikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp
+            </c:when>
+          </c:choose>
+        </sec:authorize>
+
         <div class="dateOfMessage"><i>${message.formattedDate}</i>
           &nbsp;&nbsp<i>${message.formattedTime}</i></div></br>
       </c:forEach>

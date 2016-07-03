@@ -100,8 +100,8 @@
 
 .rateButton {
     display: inline;
-    width: 20px;
-    height: 20px;
+    width: 37px;
+    height: 37px;
     /*background: #4E9CAF;*/
     padding: 10px;
     text-align: center;
@@ -115,6 +115,14 @@
     background-image: url("like.png");
 }
 
-#notlikeButton{
+#notLikeButton{
     background-image: url("notlike.png");
+}
+
+#selectLikeButton{
+    background-image: url("selectLike.png");
+}
+
+#selectNotlikeButton{
+    background-image: url("selectNotLike.png");
 }
