@@ -1,5 +1,6 @@
 package test.guestbook.task.model;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -37,11 +38,14 @@ public class Message {
     private Integer id;
 
     @Column(name = "default_name", nullable = true)
+    @Type(type = "text")
+    @Length(min = 1, max = 800)
     private String defaultName;
 
     @Column(name = "text", nullable = false)
+    @Type(type = "text")
     @NotEmpty
-    @Length(min = 1)
+    @Length(min = 1, max = 2500)
     private String text;
 
     @Column(name = "datetime", columnDefinition = "timestamp default now()")

@@ -41,8 +41,9 @@ public class User {
     private String email;
 
     @Column(name = "name", nullable = false)
+    @Type(type = "text")
     @NotEmpty
-    @Length(min = 1)
+    @Length(min = 1, max = 800)
     private String name;
 
     @Column(name = "password", nullable = false)

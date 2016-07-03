@@ -53,12 +53,12 @@
 
         <sec:authorize access="!isAuthenticated()">
           <label>Ваше имя:</label></br>
-          <input placeholder="Введите ваше имя..." id="nameField" class="inputField" type="text" name="name" maxlength="50"/></br></br>
+          <input placeholder="Введите ваше имя..." id="nameField" class="inputField" type="text" name="name" maxlength="800"/></br></br>
         </sec:authorize>
 
         <label>Отзыв:</label></br>
         <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"
-                  id="messageField" class="inputField" name="text" cols="102" rows="8" maxlength="1500"></textarea></br>
+                  id="messageField" class="inputField" name="text" cols="102" rows="8" maxlength="2500"></textarea></br>
         <input id="sendButton" class="button" type="submit" value="Hello Nigger"/></br>
       </form>
     </div>
