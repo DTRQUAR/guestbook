@@ -8,7 +8,7 @@
 
     <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
-
+    <%--<p>${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}</p>--%>
     <title>Гостевая книга</title>
     <link rel="stylesheet" href="resources/css/style.css"/>
     <script src="resources/js/jquery.min.js"></script>

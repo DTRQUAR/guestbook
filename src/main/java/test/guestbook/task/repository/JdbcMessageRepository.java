@@ -4,9 +4,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Message;
+import test.guestbook.task.model.MessageRate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PostPersist;
+import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,16 +21,12 @@ import java.util.List;
 @Transactional
 public class JdbcMessageRepository implements MessageRepository {
 
-
-
-
     @PersistenceContext
     private EntityManager em;
 
-    @PostPersist
-    public void initDB(){
-        Message dgfadswg = new Message("dgfadswg", "dgsd@ya.ru", LocalDateTime.now());
-        em.persist(dgfadswg);
+    @Override
+    public Message get(Integer message_id) {
+        return em.createNamedQuery(Message.GET, Message.class).setParameter("id", message_id).getSingleResult();
     }
 
     @Override
@@ -42,5 +41,28 @@ public class JdbcMessageRepository implements MessageRepository {
         return em.createNamedQuery(Message.ALL_SORTED, Message.class)
                 .getResultList();
     }
+
+    @Override
+    public MessageRate getMessageRate(Integer message_id, Integer user_id) {
+//        return em.createNamedQuery(MessageRate.GET_BY_MESSAGE_AND_USER, MessageRate.class)
+//                .setParameter(1, message_id).setParameter(2, user_id).getSingleResult();
+        return null;
+    }
+
+    @Override
+    public void updateMessageRate(MessageRate messageRate) {
+        if (messageRate.getId() == null){
+            em.persist(messageRate);
+        }else{
+            em.merge(messageRate);
+        }
+    }
+
+    @Override
+    public void deleteMessageRate(Integer messageRate_id) {
+        em.createNamedQuery(MessageRate.DELETE_BY_MESSAGE_AND_USER)
+                .setParameter("id", messageRate_id);
+    }
+
 
 }

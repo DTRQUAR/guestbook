@@ -8,14 +8,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Qouer on 30.06.2016.
  */
 @NamedQueries({
-        @NamedQuery(name = Message.GET, query = "SELECT m FROM Message m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = Message.GET, query = "SELECT m FROM Message m WHERE m.id=:id"),
         @NamedQuery(name = Message.ALL_SORTED, query = "SELECT m FROM Message m " +
-                "LEFT JOIN m.user  ORDER BY m.dateTime DESC"),
+                "LEFT JOIN m.user ORDER BY m.dateTime DESC"),
 //        @NamedQuery(name = Message.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
 //        @NamedQuery(name = Message.GET_BETWEEN,
 //                query = "SELECT m from UserMeal m WHERE m.user.id=:userId " +
@@ -24,7 +28,7 @@ import java.time.format.DateTimeFormatter;
 })
 @Entity
 @Table(name = "messages")
-@Access(AccessType.FIELD)
+//@Access(AccessType.FIELD)
 public class Message {
     public static final String GET = "Messages.get";
     public static final String ALL_SORTED = "Messages.getAll";
@@ -34,6 +38,7 @@ public class Message {
     @Id
     @SequenceGenerator(name = "message_seq", sequenceName = "message_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
+    @Column(name = "id")
 //    @Column(name = "id", columnDefinition = "default nextval('message_seq')")
     private Integer id;
 
@@ -52,10 +57,46 @@ public class Message {
     @NotNull
     private LocalDateTime dateTime;
 
+//    @Column(name = "plus_count", columnDefinition = "default 0")
+//    @NotNull
+//    private Integer plusCount;
+//
+//    @Column(name = "minus_count", columnDefinition = "default 0")
+//    @NotNull
+//    private Integer minusCount;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "message")
+//    @OrderBy("dateTime DESC")
+//    @JsonIgnore
+    protected List<MessageRate> messageRates;
+//
+    public List<MessageRate> getMessageRates() {
+        return messageRates;
+    }
+
+    public void setMessageRates(List<MessageRate> messageRates) {
+        this.messageRates = messageRates;
+    }
+
+//    public Integer getMinusCount() {
+//        return minusCount;
+//    }
+//
+//    public void setMinusCount(Integer minusCount) {
+//        this.minusCount = minusCount;
+//    }
+//
+//    public Integer getPlusCount() {
+//        return plusCount;
+//    }
+//
+//    public void setPlusCount(Integer plusCount) {
+//        this.plusCount = plusCount;
+//    }
 
     public Message() {
     }
@@ -117,5 +158,19 @@ public class Message {
 
     public String getFormattedTime() {
         return getDateTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+    }
+
+    public Integer getPlus(){
+        return getMessageRates()
+                .stream()
+                .filter(r -> r.getRate() == true)
+                .collect(Collectors.toList()).size();
+    }
+
+    public Integer getMinus(){
+        return getMessageRates()
+                .stream()
+                .filter(r -> r.getRate() == false)
+                .collect(Collectors.toList()).size();
     }
 }

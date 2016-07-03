@@ -11,8 +11,9 @@
     <http pattern="/webjars/**" security="none"/>
 
     <http>
-        <intercept-url pattern="/main" access="permitAll"/>
+        <intercept-url pattern="/main/**" access="permitAll"/>
         <intercept-url pattern="/register" access="permitAll"/>
+
         <!--<intercept-url pattern="/register" access="!isAuthenticated()"/>-->
 
         <intercept-url pattern="/**" access="isAuthenticated()" />

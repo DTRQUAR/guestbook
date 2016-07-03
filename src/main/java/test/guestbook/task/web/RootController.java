@@ -3,6 +3,7 @@ package test.guestbook.task.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,14 +11,13 @@ import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Message;
 import test.guestbook.task.model.Role;
 import test.guestbook.task.model.User;
-import test.guestbook.task.repository.MessageRepository;
+import test.guestbook.task.service.MessageService;
 import test.guestbook.task.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,11 +25,11 @@ import java.util.List;
  */
 
 @Controller
-//@RequestMapping(value = "/guestbook")
+//@RequestMapping("/gb")
 public class RootController {
 
     @Autowired
-    MessageRepository messageRepository;
+    MessageService messageService;
 
     @Autowired
     UserService userService;
@@ -50,13 +50,14 @@ public class RootController {
             message = new Message(null, text, LocalDateTime.now());
             message.setUser(LoggedUser.safeGet().getAuthUser());
         }
-        messageRepository.create(message);
+        messageService.create(message);
         return "redirect:/main";
     }
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getAll(Model model) {
-        List<Message> allMessages = messageRepository.getAllMessages();
+        List<Message> allMessages = messageService.getAllMessages();
+        System.err.println(allMessages.get(0).getMessageRates().size());
         model.addAttribute("allMessages", allMessages);
         return "main";
     }
@@ -78,6 +79,13 @@ public class RootController {
         } catch (ServletException e) {
             e.printStackTrace();
         }
+        return "redirect:/main";
+    }
+
+    @RequestMapping(value = "main/rate", method = RequestMethod.GET)
+    public String rateMessage(@RequestParam("action") String action,
+                              @RequestParam("message") Integer message_id) {
+        messageService.rateMessage(action, message_id, LoggedUser.safeGet().getAuthUser().getId());
         return "redirect:/main";
     }
 

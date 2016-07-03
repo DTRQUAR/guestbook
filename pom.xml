@@ -11,7 +11,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <build>
-        <finalName>guestbook</finalName>
+        <finalName>gb</finalName>
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>

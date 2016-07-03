@@ -46,7 +46,6 @@
 
 
     <div class="messagesArea">
-
       <c:forEach items="${allMessages}" var="message">
         <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
         <c:choose>
@@ -58,8 +57,11 @@
           </c:when>
         </c:choose>
         <textarea readonly disabled class="textOfMessage">${message.text}</textarea>
-        <p class="dateOfMessage"><i>${message.formattedDate}</i>
-          &nbsp;&nbsp<i>${message.formattedTime}</i></p></br>
+
+        <a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">+</a>&nbsp${message.plus}&nbsp
+        <a class="rateButton" id="notlikeButton"href="main/rate?action=notlike&message=${message.id}">-</a>&nbsp${message.minus}&nbsp
+        <div class="dateOfMessage"><i>${message.formattedDate}</i>
+          &nbsp;&nbsp<i>${message.formattedTime}</i></div></br>
       </c:forEach>
     </div>
 
