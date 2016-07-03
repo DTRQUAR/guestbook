@@ -12,7 +12,11 @@
         <table class="topTable">
           <tr>
             <td><h1>Гостевая книга </h1></td>
-            <td class="loginFormAttribute"><jsp:include page="/WEB-INF/jsp/logout.jsp"/></td>
+            <td class="loginFormAttribute">
+              <form action="logout" method="post">
+                <button type="submit">Выход</button>
+              </form>
+            </td>
           </tr>
         </table>
       </sec:authorize>
@@ -21,7 +25,13 @@
         <table class="topTable">
           <tr>
             <td><h1>Гостевая книга</h1></td>
-            <td class="loginFormAttribute"><jsp:include page="/WEB-INF/jsp/login.jsp"/>
+            <td class="loginFormAttribute">
+              <form action="spring_security_check" method="post">
+                <input type="text" placeholder="Email" class="authInputField" name='username'>
+                <input type="password" placeholder="Password" class="authInputField" name='password'>
+                <button type="submit">Вход</button>
+              </form>
+            </td>
 
             </td>
             <td class="loginFormAttribute" id="registerButton">
