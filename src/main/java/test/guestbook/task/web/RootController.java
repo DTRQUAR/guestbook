@@ -36,7 +36,6 @@ public class RootController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String defaultURL(){
-        System.err.println("defaultURL");
         return "redirect:main";
     }
 
@@ -44,7 +43,6 @@ public class RootController {
     public String createMessage(
             @RequestParam(value = "name", required = false) String defaultName,
             @RequestParam(value = "text", required = true) String text) {
-        System.err.println("createMessage invoke");
         Message message;
         if (defaultName != null && text != null) {
             message = new Message(defaultName, text, LocalDateTime.now());
@@ -58,10 +56,7 @@ public class RootController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getAll(Model model) {
-//        System.err.println("getALL invoke");
         List<Message> allMessages = messageRepository.getAllMessages();
-//        Iterator<Message> iterator = allMessages.iterator();
-//        while(iterator.hasNext()) System.out.println(iterator.next());
         model.addAttribute("allMessages", allMessages);
         return "main";
     }
