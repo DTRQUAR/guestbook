@@ -21,7 +21,14 @@
         <table class="topTable">
           <tr>
             <td><h1>Гостевая книга</h1></td>
-            <td class="loginFormAttribute"><jsp:include page="/WEB-INF/jsp/login.jsp"/></td>
+            <td class="loginFormAttribute"><jsp:include page="/WEB-INF/jsp/login.jsp"/>
+
+            </td>
+            <td class="loginFormAttribute" id="registerButton">
+              <form action="register" method="post">
+                <button type="submit">Регистрация</button>
+              </form>
+            </td>
           </tr>
         </table>
       </sec:authorize>
