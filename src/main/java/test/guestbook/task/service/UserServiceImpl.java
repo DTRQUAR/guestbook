@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository repository;
 
     @Override
+    public void save(User u) {
+        repository.save(u);
+    }
+
+    @Override
     public List<User> getAll() {
         return null;
     }

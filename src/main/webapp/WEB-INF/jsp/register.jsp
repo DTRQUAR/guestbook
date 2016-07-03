@@ -6,18 +6,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>Регистрация</title>
-</head>
+    <jsp:include page="fragments/headTag.jsp"/>
 <body>
-    <h1>Гостевая книга | Регистрация</h1>
-    <form action="register" method="post">
-        <input type="text" placeholder="Email" class="authInputField" name='email'>
-        <input type="password" placeholder="Password" class="authInputField" name='password'>
-        <input type="password" placeholder="Password" class="authInputField" name='name'>
-        <button type="submit">Зарегистрироваться</button>
-    </form>
+    <div class="registerForm">
+        <h1>Гостевая книга | Регистрация</h1>
+        <form action="register" method="post">
+            <input type="text" placeholder="Email" class="authInputField" name='email'><br>
+            <input type="password" placeholder="Password" class="authInputField" name='password'><br>
+            <input type="text" placeholder="Your name" class="authInputField" name='name' maxlength="800"><br>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+
 </body>
 </html>

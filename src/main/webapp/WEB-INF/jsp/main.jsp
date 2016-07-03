@@ -35,7 +35,7 @@
 
             </td>
             <td class="loginFormAttribute" id="registerButton">
-              <form action="register" method="post">
+              <form action="register" method="get">
                 <button type="submit">Регистрация</button>
               </form>
             </td>
@@ -43,6 +43,8 @@
         </table>
       </sec:authorize>
     </div>
+
+
     <div class="messagesArea">
 
       <c:forEach items="${allMessages}" var="message">

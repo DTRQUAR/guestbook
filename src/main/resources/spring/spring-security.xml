@@ -12,9 +12,11 @@
 
     <http>
         <intercept-url pattern="/main" access="permitAll"/>
+        <intercept-url pattern="/register" access="permitAll"/>
+        <!--<intercept-url pattern="/register" access="!isAuthenticated()"/>-->
 
         <intercept-url pattern="/**" access="isAuthenticated()" />
-        <form-login login-page="/main"
+        <form-login login-page="/main" default-target-url="/main"
                     authentication-failure-url="/main?error=true"
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/main"/>

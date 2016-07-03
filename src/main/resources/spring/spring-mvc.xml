@@ -12,8 +12,8 @@
 
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 
-    <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
-    <mvc:default-servlet-handler/>
+    <!--&lt;!&ndash; serve static resources (*.html, ...) from src/main/webapp/ &ndash;&gt;-->
+    <!--<mvc:default-servlet-handler/>-->
 
     <context:component-scan base-package="test.guestbook.**.web"/>
 

@@ -21,7 +21,6 @@ public class JdbcUserRepository implements UserRepository {
     @Transactional
     public void save(User user) {
         em.persist(user);
-
     }
 
     @Override
