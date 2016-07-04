@@ -46,9 +46,9 @@ public class RootController {
             @RequestParam(value = "text", required = true) String text) {
         Message message;
         if (defaultName != null && text != null) {
-            message = new Message(defaultName, text, LocalDateTime.now());
+            message = new Message(defaultName, text);
         }else{
-            message = new Message(null, text, LocalDateTime.now());
+            message = new Message(null, text);
             message.setUser(LoggedUser.safeGet().getAuthUser());
         }
         messageService.create(message);

@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -19,8 +20,7 @@ import java.util.Set;
  * Created by Qouer on 01.07.2016.
  */
 @NamedQueries({
-        @NamedQuery(name = User.GET, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+        @NamedQuery(name = User.GET, query = "SELECT u FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.id")
 })
@@ -28,7 +28,6 @@ import java.util.Set;
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
 public class User {
     public static final String GET = "User.get";
-    public static final String DELETE = "User.delete";
     public static final String ALL_SORTED = "User.getAllSorted";
     public static final String BY_EMAIL = "User.getByEmail";
 

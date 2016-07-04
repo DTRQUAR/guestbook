@@ -13,4 +13,7 @@ public interface UserRepository {
     User getByEmail(String email);
 
     List<User> getAll();
+
+    User get(Integer user_id);
+
 }

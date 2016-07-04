@@ -84,6 +84,8 @@
       </c:forEach>
     </div>
 
+  <hr id="hr">
+
   <%--Область ввода нового сообщения--%>
     <div id="inputArea">
       <form id="messageForm" class="inputForm" action="main" method="post">

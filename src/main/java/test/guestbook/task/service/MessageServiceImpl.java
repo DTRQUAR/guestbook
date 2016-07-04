@@ -53,13 +53,13 @@ public class MessageServiceImpl implements MessageService {
 
             if (newRate != currentRate) {
                 messageRateForUserId.setRate(!currentRate);
-                messageRateRepository.updateMessageRate(messageRateForUserId);
+                messageRateRepository.updateOrCreateMessageRate(messageRateForUserId);
             } else if (newRate == currentRate) {
 
                 messageRateRepository.deleteMessageRate(messageRateForUserId.getId());
             }
         }else {
-            messageRateRepository.updateMessageRate(new MessageRate(user, message, newRate));
+            messageRateRepository.updateOrCreateMessageRate(new MessageRate(user, message, newRate));
         }
     }
 }

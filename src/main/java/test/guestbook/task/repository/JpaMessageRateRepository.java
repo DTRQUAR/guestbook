@@ -6,6 +6,7 @@ import test.guestbook.task.model.MessageRate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by Qouer on 04.07.2016.
@@ -19,7 +20,7 @@ public class JpaMessageRateRepository implements MessageRateRepository {
     private EntityManager em;
 
     @Override
-    public void updateMessageRate(MessageRate messageRate) {
+    public void updateOrCreateMessageRate(MessageRate messageRate) {
         if (messageRate.getId() == null){
             em.persist(messageRate);
         }else{
@@ -31,5 +32,10 @@ public class JpaMessageRateRepository implements MessageRateRepository {
     public void deleteMessageRate(Integer messageRate_id) {
         em.createNamedQuery(MessageRate.DELETE_BY_ID)
                 .setParameter("id", messageRate_id).executeUpdate();
+    }
+
+    @Override
+    public List<MessageRate> getAllMessageRate() {
+        return em.createNamedQuery(MessageRate.GET_ALL, MessageRate.class).getResultList();
     }
 }

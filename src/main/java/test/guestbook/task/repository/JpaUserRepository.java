@@ -29,6 +29,11 @@ public class JpaUserRepository implements UserRepository {
     }
 
     @Override
+    public User get(Integer user_id) {
+        return em.createNamedQuery(User.GET, User.class).setParameter("id", user_id).getSingleResult();
+    }
+
+    @Override
     public User getByEmail(String email) {
         return em.createNamedQuery(User.BY_EMAIL, User.class).setParameter(1, email).getSingleResult();
     }

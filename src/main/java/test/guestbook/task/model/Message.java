@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @NamedQueries({
         @NamedQuery(name = Message.GET, query = "SELECT m FROM Message m WHERE m.id=:id"),
         @NamedQuery(name = Message.ALL_SORTED, query = "SELECT m FROM Message m " +
-                "LEFT JOIN m.user ORDER BY m.dateTime DESC"),
+                "LEFT JOIN m.user ORDER BY m.dateTime DESC, m.id DESC"),
 //        @NamedQuery(name = Message.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
 //        @NamedQuery(name = Message.GET_BETWEEN,
 //                query = "SELECT m from UserMeal m WHERE m.user.id=:userId " +
@@ -58,7 +59,7 @@ public class Message {
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "message")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "message")
 //    @OrderBy("dateTime DESC")
 //    @JsonIgnore
     protected List<MessageRate> messageRates;
@@ -74,15 +75,17 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, LocalDateTime dateTime) {
+    public Message(String defaultName, String text) {
+        this.defaultName = defaultName;
         this.text = text;
-        this.dateTime = dateTime;
     }
 
-    public Message(String defaultName, String text, LocalDateTime dateTime) {
+    public Message(Integer id, String defaultName, String text, LocalDateTime dateTime, User user) {
+        this.id = id;
         this.defaultName = defaultName;
         this.text = text;
         this.dateTime = dateTime;
+        this.user = user;
     }
 
     public String getDefaultName() {
@@ -125,4 +128,31 @@ public class Message {
         this.dateTime = dateTime;
     }
 
+    @Override
+    public String toString() {
+        return "Message{" +
+                "dateTime=" + dateTime +
+                ", text='" + text + '\'' +
+                ", defaultName='" + defaultName + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Message that = (Message) o;
+        return Objects.equals(this.id, that.id)
+                && Objects.equals(this.dateTime, that.dateTime)
+                && Objects.equals(this.text, that.text)
+                && Objects.equals(this.defaultName, that.defaultName)
+                && Objects.equals(this.user.getId(), that.user.getId())
+                && Objects.equals(this.user.getEmail(), that.user.getEmail());
+    }
 }
