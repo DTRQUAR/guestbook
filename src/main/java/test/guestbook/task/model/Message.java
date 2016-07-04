@@ -125,35 +125,4 @@ public class Message {
         this.dateTime = dateTime;
     }
 
-    public String getFormattedDate() {
-        return getDateTime().toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
-
-    public String getFormattedTime() {
-        return getDateTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-    }
-
-    public Integer getPlus(){
-        return getMessageRates()
-                .stream()
-                .filter(r -> r.getRate() == true)
-                .collect(Collectors.toList()).size();
-    }
-
-    public Integer getMinus(){
-        return getMessageRates()
-                .stream()
-                .filter(r -> r.getRate() == false)
-                .collect(Collectors.toList()).size();
-    }
-
-    public String getRateFromAuthUser(User user){
-        List<MessageRate> messageRates = getMessageRates()
-                .stream()
-                .filter(r -> user.getId() == r.getUser().getId())
-                .collect(Collectors.toList());
-        return messageRates.size() != 0 ?
-                messageRates.get(0).getRate() == true ? "1" : "2"
-                : "0";
-    }
 }

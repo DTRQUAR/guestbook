@@ -13,6 +13,7 @@ import test.guestbook.task.model.Role;
 import test.guestbook.task.model.User;
 import test.guestbook.task.service.MessageService;
 import test.guestbook.task.service.UserService;
+import test.guestbook.task.to.MessageTo;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +57,7 @@ public class RootController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getAll(Model model) {
-        List<Message> allMessages = messageService.getAllMessages();
+        List<MessageTo> allMessages = messageService.getAllMessages();
         System.err.println(allMessages.get(0).getMessageRates().size());
         model.addAttribute("allMessages", allMessages);
         return "main";

@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 @Repository
 @Transactional(readOnly = true)
-public class JdbcUserRepository implements UserRepository {
+public class JpaUserRepository implements UserRepository {
 
     @PersistenceContext
     private EntityManager em;

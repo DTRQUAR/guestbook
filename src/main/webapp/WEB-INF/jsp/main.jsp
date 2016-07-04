@@ -7,6 +7,8 @@
 <jsp:include page="fragments/headTag.jsp"/>
 
   <body>
+
+  <%--Область Top: здесь выводится форма авторизации и кнопка регистрации--%>
     <div class="topArea">
       <sec:authorize access="isAuthenticated()">
         <table class="topTable">
@@ -45,9 +47,10 @@
     </div>
 
 
+  <%--Область сообщений: здесь выводятся все сообщения оставленные пользователями--%>
     <div class="messagesArea">
       <c:forEach items="${allMessages}" var="message">
-        <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
+        <jsp:useBean id="message" type="test.guestbook.task.to.MessageTo"/>
         <c:choose>
           <c:when test="${message.defaultName == null}">
             <textarea readonly disabled class="nameOfMessage">${message.user.name}</textarea>
@@ -81,6 +84,7 @@
       </c:forEach>
     </div>
 
+  <%--Область ввода нового сообщения--%>
     <div id="inputArea">
       <form id="messageForm" class="inputForm" action="main" method="post">
 

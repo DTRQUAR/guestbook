@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 import test.guestbook.task.model.Message;
 import test.guestbook.task.model.MessageRate;
 import test.guestbook.task.model.User;
+import test.guestbook.task.repository.MessageRateRepository;
 import test.guestbook.task.repository.MessageRepository;
+import test.guestbook.task.to.MessageTo;
+import test.guestbook.task.util.MessageUtil;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -20,14 +22,17 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private MessageRateRepository messageRateRepository;
+
     @Override
     public void create(Message message) {
         messageRepository.create(message);
     }
 
     @Override
-    public List<Message> getAllMessages() {
-        return messageRepository.getAllMessages();
+    public List<MessageTo> getAllMessages() {
+        return MessageUtil.getMessageToList(messageRepository.getAllMessages());
     }
 
     @Override
@@ -48,14 +53,13 @@ public class MessageServiceImpl implements MessageService {
 
             if (newRate != currentRate) {
                 messageRateForUserId.setRate(!currentRate);
-                messageRepository.updateMessageRate(messageRateForUserId);
+                messageRateRepository.updateMessageRate(messageRateForUserId);
             } else if (newRate == currentRate) {
 
-                messageRepository.deleteMessageRate(messageRateForUserId.getId());
-//                messageRepository.deleteMessageRate(messageRateForUserId);
+                messageRateRepository.deleteMessageRate(messageRateForUserId.getId());
             }
         }else {
-            messageRepository.updateMessageRate(new MessageRate(user, message, newRate));
+            messageRateRepository.updateMessageRate(new MessageRate(user, message, newRate));
         }
     }
 }
