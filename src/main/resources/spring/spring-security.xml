@@ -13,6 +13,7 @@
     <http>
         <intercept-url pattern="/main/**" access="permitAll"/>
         <intercept-url pattern="/register" access="permitAll"/>
+        <intercept-url pattern="/ajax/messages" access="permitAll"/>
 
         <!--<intercept-url pattern="/register" access="!isAuthenticated()"/>-->
 

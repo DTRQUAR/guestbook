@@ -6,6 +6,8 @@ import test.guestbook.task.model.Message;
 import test.guestbook.task.model.MessageRate;
 import test.guestbook.task.model.User;
 import test.guestbook.task.repository.MessageRepository;
+import test.guestbook.task.to.MessageTo;
+import test.guestbook.task.util.MessageUtil;
 
 import java.util.List;
 import java.util.stream.Collector;
@@ -26,8 +28,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> getAllMessages() {
-        return messageRepository.getAllMessages();
+    public List<MessageTo> getAllMessages() {
+        return MessageUtil.getMessagesTo(messageRepository.getAllMessages());
     }
 
     @Override

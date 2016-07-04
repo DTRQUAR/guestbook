@@ -7,6 +7,8 @@
 <jsp:include page="fragments/headTag.jsp"/>
 
   <body>
+
+  <%--Область Top: форма авторизации, либо кнопку "Выход"--%>
     <div class="topArea">
       <sec:authorize access="isAuthenticated()">
         <table class="topTable">
@@ -27,7 +29,7 @@
             <td><h1>Гостевая книга</h1></td>
             <td class="loginFormAttribute">
               <form action="spring_security_check" method="post">
-                <input type="text" placeholder="Email" class="authInputField" name='username'>
+                <input type="text" placeholder="Email" class="authInputField" name='username' id="emailInput">
                 <input type="password" placeholder="Password" class="authInputField" name='password'>
                 <button type="submit">Вход</button>
               </form>
@@ -44,10 +46,10 @@
       </sec:authorize>
     </div>
 
-
+    <%--Область сообщений--%>
     <div class="messagesArea">
       <c:forEach items="${allMessages}" var="message">
-        <jsp:useBean id="message" type="test.guestbook.task.model.Message"/>
+        <jsp:useBean id="message" type="test.guestbook.task.to.MessageTo"/>
         <c:choose>
           <c:when test="${message.defaultName == null}">
             <textarea readonly disabled class="nameOfMessage">${message.user.name}</textarea>
@@ -81,8 +83,9 @@
       </c:forEach>
     </div>
 
+    <%--Область ввода нового сообщения--%>
     <div id="inputArea">
-      <form id="messageForm" class="inputForm" action="main" method="post">
+      <form id="messageForm" method="POST" action="main">
 
         <sec:authorize access="isAuthenticated()">
           <label>Ваше имя: <b>${authUser.name}</b></label></br></br>
