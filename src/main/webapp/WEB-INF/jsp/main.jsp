@@ -47,40 +47,40 @@
     </div>
 
     <%--Область сообщений--%>
-    <div class="messagesArea">
-      <c:forEach items="${allMessages}" var="message">
-        <jsp:useBean id="message" type="test.guestbook.task.to.MessageTo"/>
-        <c:choose>
-          <c:when test="${message.defaultName == null}">
-            <textarea readonly disabled class="nameOfMessage">${message.user.name}</textarea>
-          </c:when>
-          <c:when test="${message.defaultName != null}">
-            <textarea readonly disabled class="nameOfMessage">${message.defaultName}</textarea>
-          </c:when>
-        </c:choose>
-        <textarea readonly disabled class="textOfMessage">${message.text}</textarea>
+    <div class="messagesArea" id="messageAreaId">
+      <%--<c:forEach items="${allMessages}" var="message">--%>
+        <%--<jsp:useBean id="message" type="test.guestbook.task.to.MessageTo"/>--%>
+        <%--<c:choose>--%>
+          <%--<c:when test="${message.defaultName == null}">--%>
+            <%--<textarea readonly disabled class="nameOfMessage">${message.user.name}</textarea>--%>
+          <%--</c:when>--%>
+          <%--<c:when test="${message.defaultName != null}">--%>
+            <%--<textarea readonly disabled class="nameOfMessage">${message.defaultName}</textarea>--%>
+          <%--</c:when>--%>
+        <%--</c:choose>--%>
+        <%--<textarea readonly disabled class="textOfMessage">${message.text}</textarea>--%>
 
-        <sec:authorize access="isAuthenticated()">
-          <c:set var="authUser" scope="session" value="${authUser}"/>
-          <c:choose>
-            <c:when test="${message.getRateFromAuthUser(authUser).equals('0')}">
-              <a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp
-              <a class="rateButton" id="notLikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp
-            </c:when>
-            <c:when test="${message.getRateFromAuthUser(authUser).equals('1')}">
-              <a class="rateButton" id="selectlikeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp
-              <a class="rateButton" id="notLikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp
-            </c:when>
-            <c:when test="${message.getRateFromAuthUser(authUser).equals('2')}">
-              <a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp
-              <a class="rateButton" id="selectNotlikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp
-            </c:when>
-          </c:choose>
-        </sec:authorize>
+        <%--<sec:authorize access="isAuthenticated()">--%>
+          <%--<c:set var="authUser" scope="session" value="${authUser}"/>--%>
+          <%--<c:choose>--%>
+            <%--<c:when test="${message.getRateFromAuthUser(authUser).equals('0')}">--%>
+              <%--<a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp--%>
+              <%--<a class="rateButton" id="notLikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp--%>
+            <%--</c:when>--%>
+            <%--<c:when test="${message.getRateFromAuthUser(authUser).equals('1')}">--%>
+              <%--<a class="rateButton" id="selectlikeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp--%>
+              <%--<a class="rateButton" id="notLikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp--%>
+            <%--</c:when>--%>
+            <%--<c:when test="${message.getRateFromAuthUser(authUser).equals('2')}">--%>
+              <%--<a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp--%>
+              <%--<a class="rateButton" id="selectNotlikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp--%>
+            <%--</c:when>--%>
+          <%--</c:choose>--%>
+        <%--</sec:authorize>--%>
 
-        <div class="dateOfMessage"><i>${message.formattedDate}</i>
-          &nbsp;&nbsp<i>${message.formattedTime}</i></div></br>
-      </c:forEach>
+        <%--<div class="dateOfMessage"><i>${message.formattedDate}</i>--%>
+          <%--&nbsp;&nbsp<i>${message.formattedTime}</i></div></br>--%>
+      <%--</c:forEach>--%>
     </div>
 
     <%--Область ввода нового сообщения--%>
@@ -104,5 +104,8 @@
     </div>
 
   </body>
+
+  <script type="text/javascript" src="resources/js/messageList.js"></script>
+
 
 </html>
