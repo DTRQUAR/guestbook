@@ -1,6 +1,7 @@
 package test.guestbook.task.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Created by Qouer on 03.07.2016.
@@ -13,11 +14,14 @@ import javax.persistence.*;
                         "WHERE m.id=:message_id AND u.id=:user_id"),
         @NamedQuery(name = MessageRate.DELETE_BY_ID,
                 query = "DELETE FROM MessageRate r WHERE r.id=:id"),
+        @NamedQuery(name = MessageRate.GET_ALL,
+                query = "SELECT r FROM MessageRate r ORDER BY r.id"),
 })
 @Entity
 @Table(name = "message_rates")
 public class MessageRate {
 
+    public static final String GET_ALL = "MessageRate.GetAll";
     public static final String GET_BY_MESSAGE_AND_USER = "MessageRate.GetByMessageAndUser";
     public static final String DELETE_BY_ID = "MessageRate.DeleteById";
 
@@ -41,6 +45,13 @@ public class MessageRate {
     }
 
     public MessageRate(User user, Message message, boolean rate) {
+        this.user = user;
+        this.message = message;
+        this.rate = rate;
+    }
+
+    public MessageRate(Integer id, User user, Message message, boolean rate) {
+        this.id = id;
         this.user = user;
         this.message = message;
         this.rate = rate;
@@ -77,4 +88,31 @@ public class MessageRate {
     public void setRate(boolean rate) {
         this.rate = rate;
     }
+
+    @Override
+    public String toString() {
+        return "MessageRate{" +
+                "id=" + id +
+                ", userId=" + user.getId() +
+                ", messageId=" + message.getId() +
+                ", rate=" + rate +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        MessageRate that = (MessageRate) o;
+        return Objects.equals(this.id, that.id)
+                && Objects.equals(this.user.getId(), that.user.getId())
+                && Objects.equals(this.message.getId(), that.message.getId())
+                && Objects.equals(this.rate, that.rate);
+    }
+
 }

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,6 @@ import java.util.stream.Collectors;
 //@Access(AccessType.FIELD)
 public class Message {
     public static final String GET = "Messages.get";
-//    public static final String GET_LAST = "Messages.getLast";
     public static final String ALL_SORTED = "Messages.getAll";
 
     @Id
@@ -83,10 +83,17 @@ public class Message {
         this.dateTime = dateTime;
     }
 
-    public Message(String defaultName, String text, LocalDateTime dateTime) {
+    public Message(String defaultName, String text) {
+        this.defaultName = defaultName;
+        this.text = text;
+    }
+
+    public Message(Integer id, String defaultName, String text, LocalDateTime dateTime, User user) {
+        this.id = id;
         this.defaultName = defaultName;
         this.text = text;
         this.dateTime = dateTime;
+        this.user = user;
     }
 
     public String getDefaultName() {
@@ -127,5 +134,33 @@ public class Message {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "dateTime=" + dateTime +
+                ", text='" + text + '\'' +
+                ", defaultName='" + defaultName + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Message that = (Message) o;
+        return Objects.equals(this.id, that.id)
+                && Objects.equals(this.dateTime, that.dateTime)
+                && Objects.equals(this.text, that.text)
+                && Objects.equals(this.defaultName, that.defaultName)
+                && Objects.equals(this.user.getId(), that.user.getId())
+                && Objects.equals(this.user.getEmail(), that.user.getEmail());
     }
 }

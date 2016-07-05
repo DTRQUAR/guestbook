@@ -39,9 +39,9 @@ public class MessageAjaxController {
         Message message;
         System.err.println(defaultName + " " + text);
         if (defaultName != null && text != null) {
-            message = new Message(defaultName, text, LocalDateTime.now());
+            message = new Message(defaultName, text);
         }else{
-            message = new Message(null, text, LocalDateTime.now());
+            message = new Message(null, text);
             message.setUser(LoggedUser.safeGet().getAuthUser());
         }
         return messageService.create(message);

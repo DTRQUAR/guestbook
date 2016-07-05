@@ -12,22 +12,21 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * Created by Qouer on 01.07.2016.
  */
 @NamedQueries({
-        @NamedQuery(name = User.GET, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1")
-//        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
+        @NamedQuery(name = User.GET, query = "SELECT u FROM User u WHERE u.id=:id"),
+        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.id")
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
 public class User {
     public static final String GET = "User.get";
-    public static final String DELETE = "User.delete";
     public static final String ALL_SORTED = "User.getAllSorted";
     public static final String BY_EMAIL = "User.getByEmail";
 
@@ -77,6 +76,14 @@ public class User {
         this.roles = roles;
     }
 
+    public User(Integer id, String email, String name, String password, Set<Role> roles) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.roles = roles;
+    }
+
 
     public Integer getId() {
         return id;
@@ -116,5 +123,33 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        User that = (User) o;
+        return Objects.equals(this.password, that.password)
+                && Objects.equals(this.id, that.id)
+                && Objects.equals(this.name, that.name)
+                && Objects.equals(this.email, that.email)
+                && Objects.equals(this.roles, that.roles);
     }
 }
