@@ -175,8 +175,9 @@ function drawMessageList(messageList){
         $(dateTime).insertAfter(notlikeCount);
 
         var br = document.createElement('br');
+        var br1 = document.createElement('br');
         $(br).insertAfter(dateTime);
-        $(br).insertAfter(dateTime);
+        $(br1).insertAfter(br);
     }
 
     $('.textOfMessage').autosize();

@@ -3,12 +3,9 @@ package test.guestbook.task.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import test.guestbook.task.LoggedUser;
-import test.guestbook.task.model.Message;
 import test.guestbook.task.model.Role;
 import test.guestbook.task.model.User;
 import test.guestbook.task.service.MessageService;
@@ -17,7 +14,6 @@ import test.guestbook.task.to.MessageTo;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.EnumSet;
 import java.util.List;
 

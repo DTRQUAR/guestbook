@@ -26,7 +26,7 @@ public class JpaMessageRepositoryTest extends AbstractTest {
         messageRepository.create(message);
         Assert.assertEquals(Arrays.asList(
                 message, MessageTestData.MESSAGE_3, MessageTestData.MESSAGE_2, MessageTestData.MESSAGE_1).toString(),
-                messageRepository.getAllMessages().toString()
+                messageRepository.getAll().toString()
         );
     }
 
@@ -42,7 +42,7 @@ public class JpaMessageRepositoryTest extends AbstractTest {
     public void testGetAllMessages(){
         Assert.assertEquals(
                 Arrays.asList(MessageTestData.MESSAGE_3, MessageTestData.MESSAGE_2, MessageTestData.MESSAGE_1).toString(),
-                messageRepository.getAllMessages().toString()
+                messageRepository.getAll().toString()
         );
 
     }

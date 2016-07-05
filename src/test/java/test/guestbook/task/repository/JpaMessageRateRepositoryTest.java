@@ -26,38 +26,38 @@ public class JpaMessageRateRepositoryTest extends AbstractTest {
     @Test
     public void testCreateMessageRate(){
         MessageRate messageRate = new MessageRate(UserTestData.USER_1, MessageTestData.MESSAGE_2, false);
-        messageRateRepository.updateOrCreateMessageRate(messageRate);
+        messageRateRepository.updateOrCreate(messageRate);
         Assert.assertEquals(
                 Arrays.asList(
                         MessageRateTestData.MESSAGE_RATE_1,
                         MessageRateTestData.MESSAGE_RATE_2,
                         MessageRateTestData.MESSAGE_RATE_3,
                         messageRate),
-                messageRateRepository.getAllMessageRate()
+                messageRateRepository.getAll()
         );
     }
 
     @Test
     public void testUpdateMessageRate(){
         MessageRate messageRate = new MessageRate(1, UserTestData.USER_1, MessageTestData.MESSAGE_1, false);
-        messageRateRepository.updateOrCreateMessageRate(messageRate);
+        messageRateRepository.updateOrCreate(messageRate);
         Assert.assertEquals(
                 Arrays.asList(
                         messageRate,
                         MessageRateTestData.MESSAGE_RATE_2,
                         MessageRateTestData.MESSAGE_RATE_3),
-                messageRateRepository.getAllMessageRate()
+                messageRateRepository.getAll()
         );
     }
 
     @Test
     public void testDeleteMessageRate() {
-        messageRateRepository.deleteMessageRate(2);
+        messageRateRepository.delete(2);
         Assert.assertEquals(
                 Arrays.asList(
                         MessageRateTestData.MESSAGE_RATE_1,
                         MessageRateTestData.MESSAGE_RATE_3),
-                messageRateRepository.getAllMessageRate()
+                messageRateRepository.getAll()
         );
     }
 

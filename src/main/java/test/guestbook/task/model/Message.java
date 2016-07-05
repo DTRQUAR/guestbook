@@ -7,12 +7,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * Created by Qouer on 30.06.2016.
@@ -78,7 +74,8 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, LocalDateTime dateTime) {
+    public Message(String defaultName,String text, LocalDateTime dateTime) {
+        this.defaultName = defaultName;
         this.text = text;
         this.dateTime = dateTime;
     }

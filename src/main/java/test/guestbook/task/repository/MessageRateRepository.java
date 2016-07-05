@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface MessageRateRepository {
 
-    void updateOrCreateMessageRate(MessageRate messageRate);
+    void updateOrCreate(MessageRate messageRate);
 
-    void deleteMessageRate(Integer messageRate_id);
+    void delete(Integer messageRate_id);
 
-    List<MessageRate> getAllMessageRate();
+    List<MessageRate> getAll();
 
 }

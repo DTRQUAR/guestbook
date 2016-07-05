@@ -2,8 +2,6 @@ package test.guestbook.task.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Message;
@@ -39,9 +37,9 @@ public class MessageAjaxController {
         Message message;
         System.err.println(defaultName + " " + text);
         if (defaultName != null && text != null) {
-            message = new Message(defaultName, text);
+            message = new Message(defaultName, text, LocalDateTime.now());
         }else{
-            message = new Message(null, text);
+            message = new Message(null, text, LocalDateTime.now());
             message.setUser(LoggedUser.safeGet().getAuthUser());
         }
         return messageService.create(message);

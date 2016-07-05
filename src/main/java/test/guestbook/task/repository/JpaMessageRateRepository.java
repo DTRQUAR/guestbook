@@ -20,7 +20,7 @@ public class JpaMessageRateRepository implements MessageRateRepository {
     private EntityManager em;
 
     @Override
-    public void updateOrCreateMessageRate(MessageRate messageRate) {
+    public void updateOrCreate(MessageRate messageRate) {
         if (messageRate.getId() == null){
             em.persist(messageRate);
         }else{
@@ -29,13 +29,14 @@ public class JpaMessageRateRepository implements MessageRateRepository {
     }
 
     @Override
-    public void deleteMessageRate(Integer messageRate_id) {
+    public void delete(Integer messageRate_id) {
         em.createNamedQuery(MessageRate.DELETE_BY_ID)
-                .setParameter("id", messageRate_id).executeUpdate();
+                .setParameter("id", messageRate_id)
+                .executeUpdate();
     }
 
     @Override
-    public List<MessageRate> getAllMessageRate() {
+    public List<MessageRate> getAll() {
         return em.createNamedQuery(MessageRate.GET_ALL, MessageRate.class).getResultList();
     }
 }

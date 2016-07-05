@@ -1,14 +1,6 @@
 package test.guestbook.task.to;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import test.guestbook.task.model.Message;
-import test.guestbook.task.model.MessageRate;
-import test.guestbook.task.model.User;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Qouer on 04.07.2016.

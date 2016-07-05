@@ -6,6 +6,7 @@ import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Message;
 import test.guestbook.task.model.MessageRate;
 import test.guestbook.task.model.User;
+import test.guestbook.task.repository.MessageRateRepository;
 import test.guestbook.task.repository.MessageRepository;
 import test.guestbook.task.to.MessageTo;
 import test.guestbook.task.util.MessageUtil;
@@ -21,6 +22,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    private MessageRateRepository messageRateRepository;
 
     @Override
     public MessageTo get(Integer message_id) {
@@ -54,10 +58,10 @@ public class MessageServiceImpl implements MessageService {
         LoggedUser loggedUser = LoggedUser.safeGet();
         if (loggedUser == null) {
             return MessageUtil.getMessagesToList(
-                    messageRepository.getAllMessages(), null);
+                    messageRepository.getAll(), null);
         } else{
             return MessageUtil.getMessagesToList(
-                    messageRepository.getAllMessages(),
+                    messageRepository.getAll(),
                     loggedUser.getAuthUser());
         }
 
@@ -81,14 +85,12 @@ public class MessageServiceImpl implements MessageService {
 
             if (newRate != currentRate) {
                 messageRateForUserId.setRate(!currentRate);
-                messageRepository.updateMessageRate(messageRateForUserId);
+                messageRateRepository.updateOrCreate(messageRateForUserId);
             } else if (newRate == currentRate) {
-
-                messageRepository.deleteMessageRate(messageRateForUserId.getId());
-//                messageRepository.deleteMessageRate(messageRateForUserId);
+                messageRateRepository.delete(messageRateForUserId.getId());
             }
         }else {
-            messageRepository.updateMessageRate(new MessageRate(user, message, newRate));
+            messageRateRepository.updateOrCreate(new MessageRate(user, message, newRate));
         }
     }
 }
