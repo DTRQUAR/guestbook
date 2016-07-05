@@ -83,6 +83,8 @@
       <%--</c:forEach>--%>
     </div>
 
+    <hr>
+
     <%--Область ввода нового сообщения--%>
     <div id="inputArea">
       <form id="messageForm" method="post">
@@ -99,7 +101,7 @@
         <label>Отзыв:</label></br>
         <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"
                   id="messageField" class="inputField" name="text" cols="102" rows="8" maxlength="2500"></textarea></br>
-        <input id="sendButton" class="button" type="button" value="Hello Nigger"/></br>
+        <input id="sendButton" class="button" type="button" value="Отправить сообщение"/></br>
       </form>
     </div>
 

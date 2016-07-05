@@ -42,7 +42,7 @@
 
 .nameOfMessage {
     width: 98.5%;
-    resize: none;
+    /*resize: none;*/
     border: none;
     height: auto;
     max-height: 500px;
@@ -101,11 +101,12 @@
 
 .rateButton {
     display: inline;
-    width: 30px;
-    height: 30px;
+    width: 1.5em;
+    height: 1.5em;
     /*background: #4E9CAF;*/
     padding: 10px;
     text-align: center;
+    margin-right: 0.3%;
     /*border-radius: 5px;*/
     color: white;
     font-weight: bold;
@@ -113,6 +114,7 @@
     background-color: Transparent;
     border: none;
     outline:none;
+    background-size: cover;
 
 }
 
