@@ -45,7 +45,15 @@ public class MessageAjaxController {
             message.setUser(LoggedUser.safeGet().getAuthUser());
         }
         return messageService.create(message);
-        }
+    }
+
+    @RequestMapping(value = "/rate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public MessageTo rateMessage(@RequestParam(value = "action", required = true) String action,
+                              @RequestParam(value = "message", required = true) Integer message_id) {
+
+        messageService.rateMessage(action, message_id, LoggedUser.safeGet().getAuthUser());
+        return messageService.get(message_id);
+    }
 
 
 }

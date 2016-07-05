@@ -82,14 +82,14 @@ public class RootController {
         return "redirect:/main";
     }
 
-    @RequestMapping(value = "main/rate", method = RequestMethod.GET)
-    public String rateMessage(@RequestParam("action") String action,
-                              @RequestParam("message") Integer message_id) {
-        LoggedUser loggedUser = LoggedUser.safeGet();
-        if (loggedUser != null)
-            messageService.rateMessage(action, message_id, LoggedUser.safeGet().getAuthUser());
-        return "redirect:/main";
-    }
+//    @RequestMapping(value = "main/rate", method = RequestMethod.GET)
+//    public String rateMessage(@RequestParam("action") String action,
+//                              @RequestParam("message") Integer message_id) {
+//        LoggedUser loggedUser = LoggedUser.safeGet();
+//        if (loggedUser != null)
+//            messageService.rateMessage(action, message_id, LoggedUser.safeGet().getAuthUser());
+//        return "redirect:/main";
+//    }
 
 
 }

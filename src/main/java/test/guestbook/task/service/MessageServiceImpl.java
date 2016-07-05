@@ -23,6 +23,19 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
 
     @Override
+    public MessageTo get(Integer message_id) {
+        LoggedUser loggedUser = LoggedUser.safeGet();
+        if (loggedUser == null) {
+            return MessageUtil.getMessageTo(
+                    messageRepository.get(message_id), null);
+        } else{
+            return MessageUtil.getMessageTo(
+                    messageRepository.get(message_id),
+                    loggedUser.getAuthUser());
+        }
+    }
+
+    @Override
     public MessageTo create(Message message) {
         messageRepository.create(message);
         LoggedUser loggedUser = LoggedUser.safeGet();

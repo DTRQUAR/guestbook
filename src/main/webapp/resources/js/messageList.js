@@ -3,21 +3,36 @@
  */
 var ajaxUrl = 'ajax/messages';
 
-$("document").ready(function() {
+$(document).ready(function() {
+
     $.ajax({
         type: "GET",
         url: ajaxUrl,
         success: function (messageList) {
             drawMessageList(messageList);
         }
-    })
+    });
+
+
 });
 //
 
-//
+//Отрисовка всего списка существующих сообщений
 function drawMessageList(messageList){
 
     for (i = 0; i < messageList.length; i++){
+        var divCurrentMessage = document.createElement('div');
+        divCurrentMessage.id = 'message_' + messageList[i].id;
+        $(divCurrentMessage).addClass('messageBox');
+
+        if (i == 0) {
+            var mArea = document.getElementsByClassName('messagesArea');
+            mArea[0].appendChild(divCurrentMessage);
+        }else{
+            var messageBoxList = document.getElementsByClassName('messageBox');
+            $(divCurrentMessage).insertAfter(messageBoxList[messageBoxList.length-1]);
+        }
+
         //Вывод имени автора сообщения
         var textareaName = document.createElement('textarea');
         $(textareaName).attr('readonly','readonly');
@@ -29,28 +44,26 @@ function drawMessageList(messageList){
             textareaName.innerHTML = messageList[i].defaultName;
         }
         $("#inputField").val(messageList[i].userName);
+        divCurrentMessage.appendChild(textareaName);
 
         //Вывод текста сообщения
-        var mArea = document.getElementsByClassName('messagesArea');
-        mArea[0].appendChild(textareaName);
-
         var textareaText = document.createElement('textarea');
         $(textareaText).attr('readonly','readonly');
         $(textareaText).attr('disabled','disabled');
         $(textareaText).addClass('textOfMessage');
         textareaText.innerHTML = messageList[i].text;
-
         $(textareaText).insertAfter(textareaName);
 
-        //Вывод лайков и дизлайков
-        //Если страницу просматривает НЕАВТОРИЗИРОВАННЫЙ пользователь
         var like;
         var likeCount;
         var notlike;
         var notlikeCount;
+
+        //Вывод лайков и дизлайков
+        //Если страницу просматривает НЕАВТОРИЗИРОВАННЫЙ пользователь
         if (messageList[i].authRate == '-1'){
             //Вставляет иконку лайка
-            like = document.createElement('a');
+            like = document.createElement('button');
             $(like).addClass('rateButton');
             like.id = 'likeButton';
             like.innerHTML = '&nbsp&nbsp';
@@ -62,9 +75,9 @@ function drawMessageList(messageList){
             $(likeCount).insertAfter(like);
 
             //Вставляет иконку дизлайка
-            notlike = document.createElement('a');
+            notlike = document.createElement('button');
             $(notlike).addClass('rateButton');
-            notlike.id = 'notlikeButton';
+            notlike.id = 'notLikeButton';
             notlike.innerHTML = '&nbsp&nbsp';
             $(notlike).insertAfter(likeCount);
 
@@ -78,9 +91,9 @@ function drawMessageList(messageList){
         //Если страницу просматривает АВТОРИЗИРОВАННЫЙ, НО НЕ ОЦЕНИВШИЙ СООБЩЕНИЕ пользователь
         else if (messageList[i].authRate == '0'){
             //Вставляет иконку лайка
-            like = document.createElement('a');
+            like = document.createElement('button');
             $(like).addClass('rateButton');
-            like.href = 'main/rate?action=like&message=' + messageList[i].id;
+            //like.href = ajaxUrl + '/rate?action=like&message=' + messageList[i].id;
             like.id = 'likeButton';
             like.innerHTML = '&nbsp&nbsp';
             $(like).insertAfter(textareaText);
@@ -91,10 +104,10 @@ function drawMessageList(messageList){
             $(likeCount).insertAfter(like);
 
             //Вставляет иконку дизлайка
-            notlike = document.createElement('a');
+            notlike = document.createElement('button');
             $(notlike).addClass('rateButton');
-            notlike.href = 'main/rate?action=notlike&message=' + messageList[i].id;
-            notlike.id = 'notlikeButton';
+            //notlike.href = ajaxUrl + '/rate?action=notlike&message=' + messageList[i].id;
+            notlike.id = 'notLikeButton';
             notlike.innerHTML = '&nbsp&nbsp';
             $(notlike).insertAfter(likeCount);
 
@@ -106,9 +119,9 @@ function drawMessageList(messageList){
         //Если страницу просматривает АВТОРИЗИРОВАННЫЙ И ПОСТАВИВШИЙ ЛАЙК пользователь
         else if (messageList[i].authRate == '1'){
             //Вставляет иконку лайка
-            like = document.createElement('a');
+            like = document.createElement('button');
             $(like).addClass('rateButton');
-            like.href = 'main/rate?action=like&message=' + messageList[i].id;
+            //like.href = ajaxUrl + '/rate?action=like&message=' + messageList[i].id;
             like.id = 'selectLikeButton';
             like.innerHTML = '&nbsp&nbsp';
             $(like).insertAfter(textareaText);
@@ -119,10 +132,10 @@ function drawMessageList(messageList){
             $(likeCount).insertAfter(like);
 
             //Вставляет иконку дизлайка
-            notlike = document.createElement('a');
+            notlike = document.createElement('button');
             $(notlike).addClass('rateButton');
-            notlike.href = 'main/rate?action=notlike&message=' + messageList[i].id;
-            notlike.id = 'notlikeButton';
+            //notlike.href = ajaxUrl +  '/rate?action=notlike&message=' + messageList[i].id;
+            notlike.id = 'notLikeButton';
             notlike.innerHTML = '&nbsp&nbsp';
             $(notlike).insertAfter(likeCount);
 
@@ -134,9 +147,9 @@ function drawMessageList(messageList){
         //Если страницу просматривает АВТОРИЗИРОВАННЫЙ И ПОСТАВИВШИЙ ДИЗЛАЙК пользователь
         else if (messageList[i].authRate == '2'){
             //Вставляет иконку лайка
-            like = document.createElement('a');
+            like = document.createElement('button');
             $(like).addClass('rateButton');
-            like.href = 'main/rate?action=like&message=' + messageList[i].id;
+            //like.href = ajaxUrl + '/rate?action=like&message=' + messageList[i].id;
             like.id = 'likeButton';
             like.innerHTML = '&nbsp&nbsp';
             $(like).insertAfter(textareaText);
@@ -147,10 +160,10 @@ function drawMessageList(messageList){
             $(likeCount).insertAfter(like);
 
             //Вставляет иконку дизлайка
-            notlike = document.createElement('a');
+            notlike = document.createElement('button');
             $(notlike).addClass('rateButton');
-            notlike.href = 'main/rate?action=notlike&message=' + messageList[i].id;
-            notlike.id = 'selectNotlikeButton';
+            //notlike.href = ajaxUrl + '/rate?action=notlike&message=' + messageList[i].id;
+            notlike.id = 'selectNotLikeButton';
             notlike.innerHTML = '&nbsp&nbsp';
             $(notlike).insertAfter(likeCount);
 
@@ -168,6 +181,7 @@ function drawMessageList(messageList){
 
         var br = document.createElement('br');
         $(br).insertAfter(dateTime);
+        $(br).insertAfter(dateTime);
     }
 
     $('.textOfMessage').autosize();
@@ -175,6 +189,7 @@ function drawMessageList(messageList){
 
 }
 
+//Обработка события нажатия на кнопку "Отправить" при отправке нового сообщения
 $('#sendButton').click(function() {
     var error = false;
     $(".inputField").each(function(){
@@ -204,7 +219,21 @@ $('#sendButton').click(function() {
     })
 });
 
+//Вставка нового сообщения в список существующих сообщений
 function insertNewMessage(message){
+
+    var divCurrentMessage = document.createElement('div');
+    divCurrentMessage.id = 'message_' + message.id;
+    $(divCurrentMessage).addClass('messageBox');
+
+    var messageBoxList = document.getElementsByClassName('messageBox');
+    if (messageBoxList == null) {
+        var mArea = document.getElementsByClassName('messagesArea');
+        mArea[0].appendChild(divCurrentMessage);
+    }else{
+        $(divCurrentMessage).insertAfter(messageBoxList[messageBoxList.length-1]);
+    }
+
     //Вывод имени автора сообщения
     var textareaName = document.createElement('textarea');
     $(textareaName).attr('readonly','readonly');
@@ -361,3 +390,156 @@ function insertNewMessage(message){
     $('.textOfMessage').autosize();
     $('.nameOfMessage').autosize();
 }
+
+//
+$(document).on('click', '.rateButton', function (event) {
+    var parent = $(event.target).parent().get(0);
+
+    var href;
+    if (event.target.id == 'likeButton' || event.target.id == 'selectLikeButton'){
+        href = ajaxUrl + '/rate?action=like&message=' + parent.id.toString().replace('message_', '');
+    }else if (event.target.id == 'notLikeButton' || event.target.id == 'selectNotLikeButton'){
+        href = ajaxUrl + '/rate?action=notlike&message=' + parent.id.toString().replace('message_', '');
+    }
+
+    $.ajax({
+        type: "GET",
+        url: href,
+        success: function (message) {
+            updateMessageRate(message);
+        }
+    })
+});
+
+function updateMessageRate(message){
+    var message_id = message.id;
+    var divMessageBox = document.getElementById('message_' + message_id);
+    var divTextOfMessage = divMessageBox.getElementsByClassName('textOfMessage');
+    var divRateButton= divMessageBox.getElementsByClassName('rateButton');
+    var aTag= divMessageBox.getElementsByTagName('a');
+    $(divRateButton).remove();
+    $(aTag).remove();
+
+    var like;
+    var likeCount;
+    var notlike;
+    var notlikeCount;
+
+    //Вывод лайков и дизлайков
+    //Если страницу просматривает НЕАВТОРИЗИРОВАННЫЙ пользователь
+    if (message.authRate == '-1'){
+        //Вставляет иконку лайка
+        like = document.createElement('button');
+        $(like).addClass('rateButton');
+        like.id = 'likeButton';
+        like.innerHTML = '&nbsp&nbsp';
+        $(like).insertAfter(divTextOfMessage);
+
+        //Вставляет количество лайков
+        likeCount = document.createElement('a');
+        likeCount.innerHTML = message.plusCount + '&nbsp&nbsp';
+        $(likeCount).insertAfter(like);
+
+        //Вставляет иконку дизлайка
+        notlike = document.createElement('button');
+        $(notlike).addClass('rateButton');
+        notlike.id = 'notLikeButton';
+        notlike.innerHTML = '&nbsp&nbsp';
+        $(notlike).insertAfter(likeCount);
+
+        //Вставляет количество дизлайков
+        notlikeCount = document.createElement('a');
+        notlikeCount.innerHTML = message.minusCount + '&nbsp&nbsp';
+        $(notlikeCount).insertAfter(notlike);
+
+
+    }
+    //Если страницу просматривает АВТОРИЗИРОВАННЫЙ, НО НЕ ОЦЕНИВШИЙ СООБЩЕНИЕ пользователь
+    else if (message.authRate == '0'){
+        //Вставляет иконку лайка
+        like = document.createElement('button');
+        $(like).addClass('rateButton');
+        //like.href = ajaxUrl + '/rate?action=like&message=' + messageList[i].id;
+        like.id = 'likeButton';
+        like.innerHTML = '&nbsp&nbsp';
+        $(like).insertAfter(divTextOfMessage);
+
+        //Вставляет количество лайков
+        likeCount = document.createElement('a');
+        likeCount.innerHTML = message.plusCount + '&nbsp&nbsp';
+        $(likeCount).insertAfter(like);
+
+        //Вставляет иконку дизлайка
+        notlike = document.createElement('button');
+        $(notlike).addClass('rateButton');
+        //notlike.href = ajaxUrl + '/rate?action=notlike&message=' + messageList[i].id;
+        notlike.id = 'notLikeButton';
+        notlike.innerHTML = '&nbsp&nbsp';
+        $(notlike).insertAfter(likeCount);
+
+        //Вставляет количество дизлайков
+        notlikeCount = document.createElement('a');
+        notlikeCount.innerHTML = message.minusCount + '&nbsp&nbsp';
+        $(notlikeCount).insertAfter(notlike);
+    }
+    //Если страницу просматривает АВТОРИЗИРОВАННЫЙ И ПОСТАВИВШИЙ ЛАЙК пользователь
+    else if (message.authRate == '1'){
+        //Вставляет иконку лайка
+        like = document.createElement('button');
+        $(like).addClass('rateButton');
+        //like.href = ajaxUrl + '/rate?action=like&message=' + messageList[i].id;
+        like.id = 'selectLikeButton';
+        like.innerHTML = '&nbsp&nbsp';
+        $(like).insertAfter(divTextOfMessage);
+
+        //Вставляет количество лайков
+        likeCount = document.createElement('a');
+        likeCount.innerHTML = message.plusCount + '&nbsp&nbsp';
+        $(likeCount).insertAfter(like);
+
+        //Вставляет иконку дизлайка
+        notlike = document.createElement('button');
+        $(notlike).addClass('rateButton');
+        //notlike.href = ajaxUrl +  '/rate?action=notlike&message=' + messageList[i].id;
+        notlike.id = 'notLikeButton';
+        notlike.innerHTML = '&nbsp&nbsp';
+        $(notlike).insertAfter(likeCount);
+
+        //Вставляет количество дизлайков
+        notlikeCount = document.createElement('a');
+        notlikeCount.innerHTML = message.minusCount + '&nbsp&nbsp';
+        $(notlikeCount).insertAfter(notlike);
+    }
+    //Если страницу просматривает АВТОРИЗИРОВАННЫЙ И ПОСТАВИВШИЙ ДИЗЛАЙК пользователь
+    else if (message.authRate == '2'){
+        //Вставляет иконку лайка
+        like = document.createElement('button');
+        $(like).addClass('rateButton');
+        //like.href = ajaxUrl + '/rate?action=like&message=' + messageList[i].id;
+        like.id = 'likeButton';
+        like.innerHTML = '&nbsp&nbsp';
+        $(like).insertAfter(divTextOfMessage);
+
+        //Вставляет количество лайков
+        likeCount = document.createElement('a');
+        likeCount.innerHTML = message.plusCount + '&nbsp&nbsp';
+        $(likeCount).insertAfter(like);
+
+        //Вставляет иконку дизлайка
+        notlike = document.createElement('button');
+        $(notlike).addClass('rateButton');
+        //notlike.href = ajaxUrl + '/rate?action=notlike&message=' + messageList[i].id;
+        notlike.id = 'selectNotLikeButton';
+        notlike.innerHTML = '&nbsp&nbsp';
+        $(notlike).insertAfter(likeCount);
+
+        //Вставляет количество дизлайков
+        notlikeCount = document.createElement('a');
+        notlikeCount.innerHTML = message.minusCount + '&nbsp&nbsp';
+        $(notlikeCount).insertAfter(notlike);
+    }
+
+
+
+}
+

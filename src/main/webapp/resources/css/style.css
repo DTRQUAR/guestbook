@@ -101,8 +101,8 @@
 
 .rateButton {
     display: inline;
-    width: 37px;
-    height: 37px;
+    width: 30px;
+    height: 30px;
     /*background: #4E9CAF;*/
     padding: 10px;
     text-align: center;
@@ -110,7 +110,16 @@
     color: white;
     font-weight: bold;
     background-repeat: no-repeat;
+    background-color: Transparent;
+    border: none;
+    outline:none;
+
 }
+
+button.rateButton:hover{
+    cursor: hand;
+}
+
 
 #likeButton{
     background-image: url("like.png");
