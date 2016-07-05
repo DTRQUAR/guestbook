@@ -8,13 +8,14 @@ $("document").ready(function() {
         type: "GET",
         url: ajaxUrl,
         success: function (messageList) {
-            updateMessageList(messageList);
+            drawMessageList(messageList);
         }
     })
 });
 //
 
-function updateMessageList(messageList){
+//
+function drawMessageList(messageList){
 
     for (i = 0; i < messageList.length; i++){
         //Вывод имени автора сообщения
@@ -168,6 +169,9 @@ function updateMessageList(messageList){
         var br = document.createElement('br');
         $(br).insertAfter(dateTime);
     }
+
+    $('.textOfMessage').autosize();
+    $('.nameOfMessage').autosize();
 
 }
 
@@ -353,4 +357,7 @@ function insertNewMessage(message){
 
     var br = document.createElement('br');
     $(br).insertAfter(dateTime);
+
+    $('.textOfMessage').autosize();
+    $('.nameOfMessage').autosize();
 }
