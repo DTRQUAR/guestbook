@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Qouer on 03.07.2016.
  */
 public interface MessageService {
-    void create(Message message);
+    MessageTo create(Message message);
 
     List<MessageTo> getAllMessages();
 

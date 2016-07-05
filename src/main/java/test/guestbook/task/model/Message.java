@@ -19,7 +19,9 @@ import java.util.stream.Collectors;
 @NamedQueries({
         @NamedQuery(name = Message.GET, query = "SELECT m FROM Message m WHERE m.id=:id"),
         @NamedQuery(name = Message.ALL_SORTED, query = "SELECT m FROM Message m " +
-                "LEFT JOIN m.user ORDER BY m.dateTime DESC"),
+                "LEFT JOIN m.user ORDER BY m.dateTime DESC, m.id DESC"),
+//        @NamedQuery(name = Message.GET_LAST, query = "SELECT m FROM Message m ORDER by m.id DESC LIMIT 1")
+
 //        @NamedQuery(name = Message.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
 //        @NamedQuery(name = Message.GET_BETWEEN,
 //                query = "SELECT m from UserMeal m WHERE m.user.id=:userId " +
@@ -31,7 +33,9 @@ import java.util.stream.Collectors;
 //@Access(AccessType.FIELD)
 public class Message {
     public static final String GET = "Messages.get";
+//    public static final String GET_LAST = "Messages.getLast";
     public static final String ALL_SORTED = "Messages.getAll";
+
     @Id
     @SequenceGenerator(name = "message_seq", sequenceName = "message_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
@@ -85,8 +89,6 @@ public class Message {
         this.dateTime = dateTime;
     }
 
-
-
     public String getDefaultName() {
         return defaultName;
     }
@@ -125,37 +127,5 @@ public class Message {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public String getFormattedDate() {
-        return getDateTime().toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
-
-    public String getFormattedTime() {
-        return getDateTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-    }
-
-    public Integer getPlus(){
-        return getMessageRates()
-                .stream()
-                .filter(r -> r.getRate() == true)
-                .collect(Collectors.toList()).size();
-    }
-
-    public Integer getMinus(){
-        return getMessageRates()
-                .stream()
-                .filter(r -> r.getRate() == false)
-                .collect(Collectors.toList()).size();
-    }
-
-    public String getRateFromAuthUser(User user){
-        List<MessageRate> messageRates = getMessageRates()
-                .stream()
-                .filter(r -> user.getId() == r.getUser().getId())
-                .collect(Collectors.toList());
-        return messageRates.size() != 0 ?
-                messageRates.get(0).getRate() == true ? "1" : "2"
-                : "0";
     }
 }

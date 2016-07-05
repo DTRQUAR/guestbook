@@ -11,7 +11,9 @@ import java.util.List;
 public interface MessageRepository {
     Message get (Integer message_id);
 
-    void create(Message message);
+    Message getLast();
+
+    Message create(Message message);
 
     List<Message> getAllMessages();
 

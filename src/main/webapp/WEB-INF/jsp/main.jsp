@@ -85,7 +85,7 @@
 
     <%--Область ввода нового сообщения--%>
     <div id="inputArea">
-      <form id="messageForm" method="POST" action="main">
+      <form id="messageForm" method="post">
 
         <sec:authorize access="isAuthenticated()">
           <label>Ваше имя: <b>${authUser.name}</b></label></br></br>
@@ -99,7 +99,7 @@
         <label>Отзыв:</label></br>
         <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"
                   id="messageField" class="inputField" name="text" cols="102" rows="8" maxlength="2500"></textarea></br>
-        <input id="sendButton" class="button" type="submit" value="Hello Nigger"/></br>
+        <input id="sendButton" class="button" type="button" value="Hello Nigger"/></br>
       </form>
     </div>
 

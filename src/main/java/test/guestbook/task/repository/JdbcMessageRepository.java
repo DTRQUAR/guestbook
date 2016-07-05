@@ -30,9 +30,15 @@ public class JdbcMessageRepository implements MessageRepository {
     }
 
     @Override
-    public void create(Message message) {
+    public Message getLast() {
+        return em.createNamedQuery(Message.ALL_SORTED, Message.class).setMaxResults(1).getSingleResult();
+    }
+
+    @Override
+    public Message create(Message message) {
 //        message.setId(LoggedUser.safeGet().getAuthUser().getId());
         em.persist(message);
+        return message;
     }
 
     @Override

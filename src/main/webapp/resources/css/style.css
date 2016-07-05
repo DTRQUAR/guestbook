@@ -63,7 +63,8 @@
 }
 
 .dateOfMessage {
-    margin-top: -0.5%;
+    margin-top: -2%;
+
     text-align: right;
     margin-right: 2%;
     font-size: 1em;
@@ -105,7 +106,7 @@
     /*background: #4E9CAF;*/
     padding: 10px;
     text-align: center;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     color: white;
     font-weight: bold;
     background-repeat: no-repeat;

@@ -2,6 +2,7 @@ package test.guestbook.task.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Message;
 import test.guestbook.task.model.MessageRate;
 import test.guestbook.task.model.User;
@@ -10,7 +11,6 @@ import test.guestbook.task.to.MessageTo;
 import test.guestbook.task.util.MessageUtil;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -23,13 +23,31 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
 
     @Override
-    public void create(Message message) {
+    public MessageTo create(Message message) {
         messageRepository.create(message);
+        LoggedUser loggedUser = LoggedUser.safeGet();
+        if (loggedUser == null) {
+            return MessageUtil.getMessageTo(
+                    messageRepository.getLast(), null);
+        } else{
+            return MessageUtil.getMessageTo(
+                    messageRepository.getLast(),
+                    loggedUser.getAuthUser());
+        }
     }
 
     @Override
     public List<MessageTo> getAllMessages() {
-        return MessageUtil.getMessagesTo(messageRepository.getAllMessages());
+        LoggedUser loggedUser = LoggedUser.safeGet();
+        if (loggedUser == null) {
+            return MessageUtil.getMessagesToList(
+                    messageRepository.getAllMessages(), null);
+        } else{
+            return MessageUtil.getMessagesToList(
+                    messageRepository.getAllMessages(),
+                    loggedUser.getAuthUser());
+        }
+
     }
 
     @Override
