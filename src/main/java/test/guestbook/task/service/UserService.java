@@ -9,8 +9,12 @@ import java.util.List;
  */
 public interface UserService {
 
-    void save(User u);
+    User get(Integer user_id);
+
+    User getByEmail(String email);
 
     List<User> getAll();
+
+    void save(User u);
 
 }

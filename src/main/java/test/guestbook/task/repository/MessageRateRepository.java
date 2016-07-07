@@ -2,6 +2,7 @@ package test.guestbook.task.repository;
 
 import test.guestbook.task.model.MessageRate;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public interface MessageRateRepository {
 
     MessageRate get(Integer messageRate_id);
 
-    List<MessageRate> getAll();
+    Collection<MessageRate> getAll();
 
     MessageRate updateOrCreate(MessageRate messageRate);
 

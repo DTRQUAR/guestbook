@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.User;
 import test.guestbook.task.repository.UserRepository;
+import test.guestbook.task.util.exception.ExceptionUtil;
 
 import java.util.List;
 
@@ -21,13 +22,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository repository;
 
     @Override
-    public void save(User u) {
-        repository.create(u);
+    public User get(Integer user_id) {
+        return ExceptionUtil.check(repository.get(user_id), user_id);
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        return ExceptionUtil.check(repository.getByEmail(email), "email=" + email);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return repository.getAll();
+    }
+
+    @Override
+    public void save(User u) {
+        repository.create(u);
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class JpaMessageRateRepository implements MessageRateRepository {
+public class JpaMessageRateRepositoryImpl implements MessageRateRepository {
 
     @PersistenceContext
     private EntityManager em;

@@ -2,6 +2,7 @@ package test.guestbook.task.repository;
 
 import test.guestbook.task.model.Message;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public interface MessageRepository {
 
     Message getLast();
 
-    List<Message> getAll();
+    Collection<Message> getAll();
 
     Message create(Message message);
 

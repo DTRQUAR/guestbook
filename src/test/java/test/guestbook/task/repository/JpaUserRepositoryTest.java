@@ -2,7 +2,11 @@ package test.guestbook.task.repository;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.AbstractTest;
 import test.guestbook.task.UserTestData;
@@ -32,7 +36,14 @@ public class JpaUserRepositoryTest extends AbstractTest {
         );
     }
 
-    //Тест на доставание из базы всех пользователей
+    //Тест на создание пользователя с уже существующим email'ом
+    @Transactional(propagation= Propagation.NEVER)
+    @Test(expected = DataAccessException.class)
+    public void testDuplicateMailSave() throws Exception {
+        userRepository.create(new User("user1@ya.ru", "Duplicate", "newPass", EnumSet.of(Role.ROLE_USER)));
+    }
+
+    //Тест на получение всех пользователей
     @Test
     public void testGetAllUsers() {
         Assert.assertEquals(
