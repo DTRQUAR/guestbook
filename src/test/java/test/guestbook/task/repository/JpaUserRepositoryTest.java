@@ -25,7 +25,7 @@ public class JpaUserRepositoryTest extends AbstractTest {
     @Test
     public void testCreate() {
         User user = new User("testuser@yandex.ru", "testuser", "testpas", EnumSet.of(Role.ROLE_USER));
-        userRepository.save(user);
+        userRepository.create(user);
         Assert.assertEquals(
                 Arrays.asList(UserTestData.USER_1, UserTestData.USER_2, UserTestData.USER_3, user).toString(),
                 userRepository.getAll().toString()

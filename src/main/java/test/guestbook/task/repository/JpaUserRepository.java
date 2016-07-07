@@ -1,5 +1,6 @@
 package test.guestbook.task.repository;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.model.User;
@@ -20,8 +21,9 @@ public class JpaUserRepository implements UserRepository {
     private EntityManager em;
 
     @Transactional
-    public void save(User user) {
+    public User create(User user) {
         em.persist(user);
+        return user;
     }
 
     public List<User> getAll(){
@@ -30,11 +32,15 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public User get(Integer user_id) {
-        return em.createNamedQuery(User.GET, User.class).setParameter("id", user_id).getSingleResult();
+        return em.find(User.class, user_id);
     }
 
     @Override
     public User getByEmail(String email) {
-        return em.createNamedQuery(User.BY_EMAIL, User.class).setParameter(1, email).getSingleResult();
+        List<User> userList = em.createNamedQuery(User.BY_EMAIL, User.class)
+                .setParameter(1, email)
+                .getResultList();
+        return DataAccessUtils.singleResult(userList);
     }
+
 }

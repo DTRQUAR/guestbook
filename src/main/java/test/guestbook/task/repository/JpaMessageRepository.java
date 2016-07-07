@@ -21,9 +21,7 @@ public class JpaMessageRepository implements MessageRepository {
 
     @Override
     public Message get(Integer message_id) {
-        return em.createNamedQuery(Message.GET, Message.class)
-                .setParameter("id", message_id)
-                .getSingleResult();
+        return em.find(Message.class, message_id);
     }
 
     @Override

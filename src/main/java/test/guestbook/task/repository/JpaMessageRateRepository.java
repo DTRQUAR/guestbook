@@ -1,5 +1,6 @@
 package test.guestbook.task.repository;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.model.MessageRate;
@@ -20,23 +21,31 @@ public class JpaMessageRateRepository implements MessageRateRepository {
     private EntityManager em;
 
     @Override
-    public void updateOrCreate(MessageRate messageRate) {
+    public MessageRate updateOrCreate(MessageRate messageRate) {
         if (messageRate.getId() == null){
             em.persist(messageRate);
+            return messageRate;
         }else{
-            em.merge(messageRate);
+            return get(messageRate.getId()) == null ? null : em.merge(messageRate);
         }
     }
 
     @Override
-    public void delete(Integer messageRate_id) {
-        em.createNamedQuery(MessageRate.DELETE_BY_ID)
+    public boolean delete(Integer messageRate_id) {
+        return em.createNamedQuery(MessageRate.DELETE_BY_ID)
                 .setParameter("id", messageRate_id)
-                .executeUpdate();
+                .executeUpdate() != 0;
     }
 
     @Override
     public List<MessageRate> getAll() {
-        return em.createNamedQuery(MessageRate.GET_ALL, MessageRate.class).getResultList();
+        return em.createNamedQuery(MessageRate.GET_ALL, MessageRate.class)
+                .getResultList();
     }
+
+    @Override
+    public MessageRate get(Integer messageRate_id) {
+        return em.find(MessageRate.class, messageRate_id);
+    }
+
 }

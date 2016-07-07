@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void save(User u) {
-        repository.save(u);
+        repository.create(u);
     }
 
     @Override
