@@ -107,7 +107,7 @@
 
   </body>
 
-  <script type="text/javascript" src="resources/js/messageList.js"></script>
+  <script type="text/javascript" src="resources/js/ajax.js"></script>
 
 
 </html>

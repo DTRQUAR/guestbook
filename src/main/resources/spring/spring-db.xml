@@ -18,6 +18,10 @@
 
     <tx:annotation-driven/>
 
+    <bean class="test.guestbook.task.util.DbPopulator">
+        <constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>
+    </bean>
+
     <bean id="dataSource"
           class="org.apache.tomcat.jdbc.pool.DataSource"
           p:driverClassName="org.postgresql.Driver"

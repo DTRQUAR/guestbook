@@ -36,31 +36,14 @@ public class RootController {
         return "redirect:main";
     }
 
-//    @RequestMapping(value = "/main", method = RequestMethod.POST)
-//    public String createMessage(
-//            @RequestParam(value = "name", required = false) String defaultName,
-//            @RequestParam(value = "text", required = true) String text) {
-//        Message message;
-//        if (defaultName != null && text != null) {
-//            message = new Message(defaultName, text, LocalDateTime.now());
-//        }else{
-//            message = new Message(null, text, LocalDateTime.now());
-//            message.setUser(LoggedUser.safeGet().getAuthUser());
-//        }
-//        messageService.create(message);
-//        return "redirect:/main";
-//    }
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getAll(Model model) {
-        List<MessageTo> allMessages = messageService.getAllMessages();
-        model.addAttribute("allMessages", allMessages);
         return "main";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration(){
-        System.err.println("registration");
         return "register";
     }
 
@@ -77,15 +60,6 @@ public class RootController {
         }
         return "redirect:/main";
     }
-
-//    @RequestMapping(value = "main/rate", method = RequestMethod.GET)
-//    public String rateMessage(@RequestParam("action") String action,
-//                              @RequestParam("message") Integer message_id) {
-//        LoggedUser loggedUser = LoggedUser.safeGet();
-//        if (loggedUser != null)
-//            messageService.rateMessage(action, message_id, LoggedUser.safeGet().getAuthUser());
-//        return "redirect:/main";
-//    }
 
 
 }

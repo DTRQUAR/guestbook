@@ -17,7 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/ajax/messages")
-public class MessageAjaxController {
+public class AjaxController {
 
     @Autowired
     MessageService messageService;
@@ -52,6 +52,5 @@ public class MessageAjaxController {
         messageService.rateMessage(action, message_id, LoggedUser.safeGet().getAuthUser());
         return messageService.get(message_id);
     }
-
 
 }

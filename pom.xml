@@ -68,12 +68,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>commons-logging</groupId>-->
-                    <!--<artifactId>commons-logging</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
         </dependency>
 
         <dependency>
@@ -218,6 +212,14 @@
             <artifactId>spring-security-test</artifactId>
             <version>${spring-security.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>3.6</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
