@@ -13,10 +13,10 @@
       <sec:authorize access="isAuthenticated()">
         <table class="topTable">
           <tr>
-            <td><h1>Гостевая книга </h1></td>
-            <td class="loginFormAttribute">
+            <td><div class="title">Гостевая книга</div></td>
+            <td class="loginFormAttribute" id="logoutButton">
               <form action="logout" method="post">
-                <button type="submit">Выход</button>
+                <button type="submit" class="btn btn-primary">Выход</button>
               </form>
             </td>
           </tr>
@@ -26,19 +26,21 @@
       <sec:authorize access="!isAuthenticated()">
         <table class="topTable">
           <tr>
-            <td><h1>Гостевая книга</h1></td>
+            <td><div class="title">Гостевая книга</div></td>
             <td class="loginFormAttribute">
-              <form action="spring_security_check" method="post">
-                <input type="text" placeholder="Email" class="authInputField" name='username' id="emailInput">
-                <input type="password" placeholder="Password" class="authInputField" name='password'>
-                <button type="submit">Вход</button>
+              <form action="spring_security_check" method="post" class="form-inline">
+                <input type="text" placeholder="Email"
+                       class="authInputField form-control-xs form-control-sm form-control-md form-control-lg" name='username' id="emailInput">
+                <input type="password" placeholder="Password"
+                       class="authInputField form-control-xs form-control-sm form-control-md form-control-lg" name='password'>
+                <button type="submit" class="btn btn-primary">Вход</button>
               </form>
             </td>
 
             </td>
             <td class="loginFormAttribute" id="registerButton">
               <form action="register" method="get">
-                <button type="submit">Регистрация</button>
+                <button type="submit" class="btn btn-primary">Регистрация</button>
               </form>
             </td>
           </tr>
@@ -48,39 +50,7 @@
 
     <%--Область сообщений--%>
     <div class="messagesArea" id="messageAreaId">
-      <%--<c:forEach items="${allMessages}" var="message">--%>
-        <%--<jsp:useBean id="message" type="test.guestbook.task.to.MessageTo"/>--%>
-        <%--<c:choose>--%>
-          <%--<c:when test="${message.defaultName == null}">--%>
-            <%--<textarea readonly disabled class="nameOfMessage">${message.user.name}</textarea>--%>
-          <%--</c:when>--%>
-          <%--<c:when test="${message.defaultName != null}">--%>
-            <%--<textarea readonly disabled class="nameOfMessage">${message.defaultName}</textarea>--%>
-          <%--</c:when>--%>
-        <%--</c:choose>--%>
-        <%--<textarea readonly disabled class="textOfMessage">${message.text}</textarea>--%>
 
-        <%--<sec:authorize access="isAuthenticated()">--%>
-          <%--<c:set var="authUser" scope="session" value="${authUser}"/>--%>
-          <%--<c:choose>--%>
-            <%--<c:when test="${message.getRateFromAuthUser(authUser).equals('0')}">--%>
-              <%--<a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp--%>
-              <%--<a class="rateButton" id="notLikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp--%>
-            <%--</c:when>--%>
-            <%--<c:when test="${message.getRateFromAuthUser(authUser).equals('1')}">--%>
-              <%--<a class="rateButton" id="selectlikeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp--%>
-              <%--<a class="rateButton" id="notLikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp--%>
-            <%--</c:when>--%>
-            <%--<c:when test="${message.getRateFromAuthUser(authUser).equals('2')}">--%>
-              <%--<a class="rateButton" id="likeButton" href="main/rate?action=like&message=${message.id}">&nbsp&nbsp</a>${message.plus}&nbsp--%>
-              <%--<a class="rateButton" id="selectNotlikeButton"href="main/rate?action=notlike&message=${message.id}">&nbsp&nbsp</a>${message.minus}&nbsp--%>
-            <%--</c:when>--%>
-          <%--</c:choose>--%>
-        <%--</sec:authorize>--%>
-
-        <%--<div class="dateOfMessage"><i>${message.formattedDate}</i>--%>
-          <%--&nbsp;&nbsp<i>${message.formattedTime}</i></div></br>--%>
-      <%--</c:forEach>--%>
     </div>
 
     <hr>
@@ -88,25 +58,33 @@
     <%--Область ввода нового сообщения--%>
     <div id="inputArea">
       <form id="messageForm" method="post">
+        <%--Область отображения или ввода имения--%>
+        <div id="inputNameStatusBox" class="form-group has-success">
+          <sec:authorize access="isAuthenticated()">
+            <label>Ваше имя: <b>${authUser.name}</b></label>
+          </sec:authorize>
 
-        <sec:authorize access="isAuthenticated()">
-          <label>Ваше имя: <b>${authUser.name}</b></label></br></br>
-        </sec:authorize>
+          <sec:authorize access="!isAuthenticated()">
+            <label>Ваше имя:</label></br>
+            <input placeholder="Введите ваше имя..." id="nameField" class="inputField form-control"
+                   type="text" name="name" maxlength="800"/>
+          </sec:authorize>
+        </div>
 
-        <sec:authorize access="!isAuthenticated()">
-          <label>Ваше имя:</label></br>
-          <input placeholder="Введите ваше имя..." id="nameField" class="inputField" type="text" name="name" maxlength="800"/></br></br>
-        </sec:authorize>
-
-        <label>Отзыв:</label></br>
-        <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"
-                  id="messageField" class="inputField" name="text" cols="102" rows="8" maxlength="2500"></textarea></br>
-        <input id="sendButton" class="button" type="button" value="Отправить сообщение"/></br>
+        <%--Область ввода текста сообщения--%>
+        <div id="inputTextStatusBox" class="form-group has-success">
+          <label>Отзыв:</label></br>
+          <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"
+                    id="messageField" class="inputField form-control" name="text" cols="102" rows="8" maxlength="2500"></textarea>
+          <input id="sendButton" class="button btn btn-primary"
+                 type="button" value="Отправить"/></br>
+        </div>
       </form>
     </div>
 
   </body>
 
+  <script type="text/javascript" src="resources/js/check_input_fields.js"></script>
   <script type="text/javascript" src="resources/js/ajax.js"></script>
 
 

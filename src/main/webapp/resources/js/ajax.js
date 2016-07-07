@@ -198,7 +198,10 @@ $('#sendButton').click(function() {
         $(".inputField").each(function(){
             var text = $.trim($(this).val());
             if (text == ""){
+                var parent = $(this).parent().get(0);
                 $(this).val("Введите значение");
+                $(parent).removeClass("form-group has-success");
+                $(parent).addClass("form-group has-error");
             }
         })
         return false;
@@ -215,6 +218,7 @@ $('#sendButton').click(function() {
             $(".inputField").each(function(){
                 $(this).val("");
             });
+            successNoty('Сообщение успешно создано');
         }
     })
 });
@@ -534,3 +538,21 @@ function updateMessageRate(message){
 
 }
 
+//Уведомление об успехе
+function successNoty(text) {
+    //closeNoty();
+    noty({
+        text: text,
+        type: 'success',
+        layout: 'bottomRight',
+        timeout: 1000,
+    });
+}
+
+//Функция реализующая закрытие окна уведомления
+//function closeNoty() {
+//    if (failedNote) {
+//        failedNote.close();
+//        failedNote = undefined;
+//    }
+//}

@@ -10,8 +10,10 @@
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
     <%--<p>${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}</p>--%>
     <title>Гостевая книга</title>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/style.css"/>
     <script src="resources/js/jquery-3.0.0.min.js"></script>
     <script src='resources/js/jquery.autosize.js'></script>
-    <script src="resources/js/check_input_fields.js"></script>
+    <script type="text/javascript" src="webjars/noty/2.3.7/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+
 </head>

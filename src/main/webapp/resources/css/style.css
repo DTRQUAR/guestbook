@@ -1,5 +1,11 @@
+a {
+    text-decoration: none;
+}
+
 .title {
-    font-size: 5em;
+    margin-top: 0%;
+    font-size: 2.5em;
+    margin-bottom: 3%;
 }
 
 .topTable {
@@ -12,7 +18,12 @@
 
 #registerButton {
     text-align: left;
-    padding-left: 2%;
+    padding-left: 1%;
+}
+
+#logoutButton{
+    text-align: right;
+    padding-right: 2%;
 }
 
 .authInputField {
@@ -21,10 +32,10 @@
 }
 
 .topArea {
+    margin-top: 1%;
     width: 51.5%;
     height: auto;
     left: 25%;
-    /*margin-bottom: 3%;*/
     background-color: #FFFFFF;
     position: relative;
 }
@@ -88,6 +99,7 @@
 }
 
 #sendButton {
+    /*font-size: 3%;*/
     display:block;
     width: 20%;
     margin:0 auto;
@@ -115,7 +127,6 @@
     border: none;
     outline:none;
     background-size: cover;
-
 }
 
 button.rateButton:hover{
