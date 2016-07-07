@@ -27,7 +27,6 @@ import java.util.Objects;
 })
 @Entity
 @Table(name = "messages")
-//@Access(AccessType.FIELD)
 public class Message {
     public static final String GET = "Messages.get";
     public static final String ALL_SORTED = "Messages.getAll";
