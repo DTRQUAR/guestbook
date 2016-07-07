@@ -3,17 +3,23 @@ a {
 }
 
 .title {
-    margin-top: 0%;
+    padding-left: 5%;
     font-size: 2.5em;
-    margin-bottom: 3%;
+    padding-bottom: 5%;
+    color: #c6c6c6;
 }
 
 .topTable {
     width: 100%;
+    margin-bottom: 2%;
 }
 
 .loginFormAttribute{
     text-align: right;
+}
+
+.vis{
+    visibility: hidden;
 }
 
 #registerButton {
@@ -32,23 +38,30 @@ a {
 }
 
 .topArea {
-    margin-top: 1%;
+    padding-top: 0.7%;
+    margin-top: 0%;
     width: 51.5%;
     height: auto;
     left: 25%;
-    background-color: #FFFFFF;
+    background-color: #3c3c3c;
+    border-radius: 5px;
+
     position: relative;
 }
 
 .messagesArea {
     width: 51.5%;
     height: 100%;
-    max-height: 60%;
+    max-height: 52%;
     left: 25%;
-    margin-bottom: 3%;
-    background-color: #FFFFFF;
+    margin-bottom: 5%;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+    background-color: #f4f4f4;
     position: relative;
     overflow-y: auto;
+    border-radius: 7px;
+    border: solid #e7e7e7;
 }
 
 .nameOfMessage {
@@ -57,7 +70,7 @@ a {
     border: none;
     height: auto;
     max-height: 500px;
-    background-color: #FFFFFF;
+    background-color: #f4f4f4;
     text-align: left;
     font-size: 1.4em;
     font-weight: bold;
@@ -70,7 +83,7 @@ a {
     border: none;
     height: auto;
     max-height: 500px;
-    background-color: #FFFFFF;
+    background-color: #f4f4f4;
 }
 
 .dateOfMessage {
@@ -82,11 +95,11 @@ a {
 }
 
 #inputArea {
-    width: 50%;
+    width: 51.5%;
     left: 25%;
     background-color: #FFFFFF;
-    position: relative;
-    bottom: 5%;
+    position: fixed;
+    bottom: 3%;
 }
 
 #nameField {

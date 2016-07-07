@@ -14,8 +14,16 @@
         <table class="topTable">
           <tr>
             <td><div class="title">Гостевая книга</div></td>
+            <td class="loginFormAttribute">
+              <form action="spring_security_check" method="post" class="form-inline">
+                <input type="text" placeholder="Email" v
+                       class="authInputField form-control-xs form-control-sm form-control-md form-control-lg vis" name='username' id="emailInput">
+                <input type="password" placeholder="Password"
+                       class="authInputField form-control-xs form-control-sm form-control-md form-control-lg vis" name='password'>
+                <button type="submit" class="btn btn-primary vis">Вход</button>
+              </form>
             <td class="loginFormAttribute" id="logoutButton">
-              <form action="logout" method="post">
+              <form action="logout" method="post" >
                 <button type="submit" class="btn btn-primary">Выход</button>
               </form>
             </td>
@@ -50,10 +58,7 @@
 
     <%--Область сообщений--%>
     <div class="messagesArea" id="messageAreaId">
-
     </div>
-
-    <hr>
 
     <%--Область ввода нового сообщения--%>
     <div id="inputArea">
@@ -75,9 +80,9 @@
         <div id="inputTextStatusBox" class="form-group has-success">
           <label>Отзыв:</label></br>
           <textarea placeholder="Введите здесь ваш отзыв..." form="messageForm"
-                    id="messageField" class="inputField form-control" name="text" cols="102" rows="8" maxlength="2500"></textarea>
+                    id="messageField" class="inputField form-control" name="text" cols="102" rows="6" maxlength="2500"></textarea>
           <input id="sendButton" class="button btn btn-primary"
-                 type="button" value="Отправить"/></br>
+                 type="button" value="Отправить"/>
         </div>
       </form>
     </div>
