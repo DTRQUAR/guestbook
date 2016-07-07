@@ -2,6 +2,8 @@ package test.guestbook.task.to;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 /**
  * Created by Qouer on 04.07.2016.
  */
@@ -118,4 +120,39 @@ public class MessageTo {
     public void setTime(String time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "MessageTo{" +
+                "id=" + id +
+                ", defaultName='" + defaultName + '\'' +
+                ", text='" + text + '\'' +
+                ", userName='" + userName + '\'' +
+                ", plusCount=" + plusCount +
+                ", minusCount=" + minusCount +
+                ", data='" + data + '\'' +
+                ", time='" + time + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        MessageTo that = (MessageTo) o;
+        return Objects.equals(this.defaultName, that.defaultName)
+                && Objects.equals(this.id, that.id)
+                && Objects.equals(this.text, that.text)
+                && Objects.equals(this.userName, that.userName)
+                && Objects.equals(this.plusCount, that.plusCount)
+                && Objects.equals(this.minusCount, that.minusCount)
+                && Objects.equals(this.data, that.data)
+                && Objects.equals(this.time, that.time);
+    }
+
 }

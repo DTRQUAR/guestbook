@@ -10,6 +10,7 @@ import test.guestbook.task.repository.MessageRateRepository;
 import test.guestbook.task.repository.MessageRepository;
 import test.guestbook.task.to.MessageTo;
 import test.guestbook.task.util.MessageUtil;
+import test.guestbook.task.util.exception.ExceptionUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,18 +25,17 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
 
     @Autowired
-    private MessageRateRepository messageRateRepository;
+    private MessageRateService messageRateService;
 
     @Override
     public MessageTo get(Integer message_id) {
+        Message message = messageRepository.get(message_id);
+        ExceptionUtil.check(message, message_id);
         LoggedUser loggedUser = LoggedUser.safeGet();
         if (loggedUser == null) {
-            return MessageUtil.getMessageTo(
-                    messageRepository.get(message_id), null);
+            return MessageUtil.getMessageTo(message, null);
         } else{
-            return MessageUtil.getMessageTo(
-                    messageRepository.get(message_id),
-                    loggedUser.getAuthUser());
+            return MessageUtil.getMessageTo(message, loggedUser.getAuthUser());
         }
     }
 
@@ -85,12 +85,12 @@ public class MessageServiceImpl implements MessageService {
 
             if (newRate != currentRate) {
                 messageRateForUserId.setRate(!currentRate);
-                messageRateRepository.updateOrCreate(messageRateForUserId);
+                messageRateService.updateOrCreate(messageRateForUserId);
             } else if (newRate == currentRate) {
-                messageRateRepository.delete(messageRateForUserId.getId());
+                messageRateService.delete(messageRateForUserId.getId());
             }
         }else {
-            messageRateRepository.updateOrCreate(new MessageRate(user, message, newRate));
+            messageRateService.updateOrCreate(new MessageRate(user, message, newRate));
         }
     }
 }

@@ -1,6 +1,7 @@
 package test.guestbook.task;
 
 import test.guestbook.task.model.Message;
+import test.guestbook.task.to.MessageTo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -44,4 +45,32 @@ public class MessageTestData {
                     "В первую с точки зрения веры — после прочтения вы наконец поверите, что заигрывать с JMM не стоит.!",
             LocalDateTime.parse("2016-07-04 15:15:15", formatter),
             UserTestData.USER_3);
+
+
+//    ----------MessageTo----------
+
+    public static final MessageTo MESSAGE_TO_1 = new MessageTo(1,
+            null,
+            "Java EE продолжает тонуть в хайпе микросервисов. " +
+                    "Парни из IBM, RedHat и нескольких других компаний решили бросить ей спасательный круг, " +
+                    "анонсировав инициативу MicroProfile.io. Задача — подогнать стандарты Java EE под современные тренды. " +
+                    "Читай — натянуть Java EE на микросервисы. Причем в буквальном смысле. Например, " +
+                    "предлагается чуть ли не стандартизировать максимальный размер джарника и время старта приложения. " +
+                    "Что-то вроде «enlarge your ...», только наоборот.",
+            UserTestData.USER_1.getName(), 3, 0, null, "2016-07-04", "15:15:15");
+
+    public static final MessageTo MESSAGE_TO_2 = new MessageTo(2,
+            null,
+            "Ребята из Google залили публичные репозитории GitHub в свой движок BigQuery, и открыли к нему доступ всем желающим. " +
+                    "Остается положить какие-то 300$ на счет, и вы легко сможете собирать всевозможную " +
+                    "статистику по этому огромному датасету. Например, найти все использования пакета sun.misc :-) ",
+            UserTestData.USER_2.getName(), 0, 0, null, "2016-07-04", "15:15:15");
+
+    public static final MessageTo MESSAGE_TO_3 = new MessageTo(3,
+            null,
+            "Алексей Шипилев проделал титанический труд, и собрал воедино огромное количество наглядных " +
+                    "примеров неправильного толкования JMM. Да, прямо такие, где «реордеринги на TSO», и вот это все. " +
+                    "Размеру статьи позавидовал бы и Лев Николаевич, но ее прочтение очень важно. " +
+                    "В первую с точки зрения веры — после прочтения вы наконец поверите, что заигрывать с JMM не стоит.!",
+            UserTestData.USER_3.getName(), 0, 0, null, "2016-07-04", "15:15:15");
 }

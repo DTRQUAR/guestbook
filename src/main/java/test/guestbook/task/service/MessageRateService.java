@@ -1,4 +1,4 @@
-package test.guestbook.task.repository;
+package test.guestbook.task.service;
 
 import test.guestbook.task.model.MessageRate;
 
@@ -6,9 +6,9 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Qouer on 05.07.2016.
+ * Created by Qouer on 07.07.2016.
  */
-public interface MessageRateRepository {
+public interface MessageRateService {
 
     MessageRate get(Integer messageRate_id);
 
@@ -16,6 +16,6 @@ public interface MessageRateRepository {
 
     MessageRate updateOrCreate(MessageRate messageRate);
 
-    boolean delete(Integer messageRate_id);
+    void delete(int messageRate_id);
 
 }

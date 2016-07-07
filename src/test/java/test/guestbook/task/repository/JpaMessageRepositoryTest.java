@@ -22,7 +22,7 @@ public class JpaMessageRepositoryTest extends AbstractTest {
     //Тест на создание нового сообщения
     @Test
     public void testCreateMessage(){
-        Message message = new Message("Anonymous", "Hello All!!!");
+        Message message = new Message("Anonymous", "Hello!!!");
         messageRepository.create(message);
         Assert.assertEquals(Arrays.asList(
                 message, MessageTestData.MESSAGE_3, MessageTestData.MESSAGE_2, MessageTestData.MESSAGE_1).toString(),
