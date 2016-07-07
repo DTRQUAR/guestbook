@@ -32,16 +32,16 @@ public class JpaMessageRepository implements MessageRepository {
     }
 
     @Override
-    public Message create(Message message) {
-        em.persist(message);
-        return message;
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<Message> getAll() {
         return em.createNamedQuery(Message.ALL_SORTED, Message.class)
                 .getResultList();
+    }
+
+    @Override
+    public Message create(Message message) {
+        em.persist(message);
+        return message;
     }
 
 }

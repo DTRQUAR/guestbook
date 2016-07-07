@@ -13,8 +13,8 @@ public interface MessageRepository {
 
     Message getLast();
 
-    Message create(Message message);
-
     List<Message> getAll();
+
+    Message create(Message message);
 
 }

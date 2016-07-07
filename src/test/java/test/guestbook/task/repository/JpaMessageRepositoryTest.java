@@ -44,6 +44,12 @@ public class JpaMessageRepositoryTest extends AbstractTest {
                 Arrays.asList(MessageTestData.MESSAGE_3, MessageTestData.MESSAGE_2, MessageTestData.MESSAGE_1).toString(),
                 messageRepository.getAll().toString()
         );
+    }
 
+    //Тест на получения последнего добавленного сообщения
+    @Test
+    public void testGetLastMessage(){
+        Message message = messageRepository.getLast();
+        Assert.assertEquals(message, MessageTestData.MESSAGE_3);
     }
 }

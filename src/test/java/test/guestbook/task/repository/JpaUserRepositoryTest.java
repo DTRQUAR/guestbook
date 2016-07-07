@@ -41,10 +41,17 @@ public class JpaUserRepositoryTest extends AbstractTest {
         );
     }
 
-    //Тест на получение юзера по id
+    //Тест на получение пользователя по id
     @Test
     public void testGetUser() {
         User user = userRepository.get(1);
         Assert.assertEquals(user, UserTestData.USER_1);
+    }
+
+    //Тест на получение пользователя по email
+    @Test
+    public void textGetByEmail(){
+        User user = userRepository.getByEmail("user2@ya.ru");
+        Assert.assertEquals(user, UserTestData.USER_2);
     }
 }

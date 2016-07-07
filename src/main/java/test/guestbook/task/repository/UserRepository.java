@@ -9,12 +9,12 @@ import java.util.List;
  */
 public interface UserRepository {
 
-    User create(User user);
+    User get(Integer user_id);
 
     User getByEmail(String email);
 
     List<User> getAll();
 
-    User get(Integer user_id);
+    User create(User user);
 
 }

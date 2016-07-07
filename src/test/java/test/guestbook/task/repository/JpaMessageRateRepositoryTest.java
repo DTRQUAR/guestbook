@@ -22,6 +22,13 @@ public class JpaMessageRateRepositoryTest extends AbstractTest {
     @Autowired
     private MessageRateRepository messageRateRepository;
 
+    //Тест на получение оценки
+    @Test
+    public void testGetMessageRate(){
+        MessageRate messageRate = messageRateRepository.get(1);
+        Assert.assertEquals(messageRate, MessageRateTestData.MESSAGE_RATE_1);
+    }
+
     //Тест на создание оценки сообщения пользовталем
     @Test
     public void testCreateMessageRate(){
@@ -37,6 +44,7 @@ public class JpaMessageRateRepositoryTest extends AbstractTest {
         );
     }
 
+    //Тест на обновления оценки сообщения
     @Test
     public void testUpdateMessageRate(){
         MessageRate messageRate = new MessageRate(1, UserTestData.USER_1, MessageTestData.MESSAGE_1, false);
@@ -50,6 +58,7 @@ public class JpaMessageRateRepositoryTest extends AbstractTest {
         );
     }
 
+    //Тест на удаление оценки сообщения
     @Test
     public void testDeleteMessageRate() {
         messageRateRepository.delete(2);

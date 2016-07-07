@@ -21,6 +21,17 @@ public class JpaMessageRateRepository implements MessageRateRepository {
     private EntityManager em;
 
     @Override
+    public MessageRate get(Integer messageRate_id) {
+        return em.find(MessageRate.class, messageRate_id);
+    }
+
+    @Override
+    public List<MessageRate> getAll() {
+        return em.createNamedQuery(MessageRate.GET_ALL, MessageRate.class)
+                .getResultList();
+    }
+
+    @Override
     public MessageRate updateOrCreate(MessageRate messageRate) {
         if (messageRate.getId() == null){
             em.persist(messageRate);
@@ -35,17 +46,6 @@ public class JpaMessageRateRepository implements MessageRateRepository {
         return em.createNamedQuery(MessageRate.DELETE_BY_ID)
                 .setParameter("id", messageRate_id)
                 .executeUpdate() != 0;
-    }
-
-    @Override
-    public List<MessageRate> getAll() {
-        return em.createNamedQuery(MessageRate.GET_ALL, MessageRate.class)
-                .getResultList();
-    }
-
-    @Override
-    public MessageRate get(Integer messageRate_id) {
-        return em.find(MessageRate.class, messageRate_id);
     }
 
 }

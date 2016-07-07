@@ -1,4 +1,5 @@
 DELETE FROM message_rates;
+DELETE FROM user_roles;
 DELETE FROM messages;
 DELETE FROM users;
 

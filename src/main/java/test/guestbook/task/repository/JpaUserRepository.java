@@ -20,17 +20,6 @@ public class JpaUserRepository implements UserRepository {
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional
-    public User create(User user) {
-        em.persist(user);
-        return user;
-    }
-
-    public List<User> getAll(){
-        return em.createNamedQuery(User.ALL_SORTED, User.class)
-                .getResultList();
-    }
-
     @Override
     public User get(Integer user_id) {
         return em.find(User.class, user_id);
@@ -42,6 +31,17 @@ public class JpaUserRepository implements UserRepository {
                 .setParameter(1, email)
                 .getResultList();
         return DataAccessUtils.singleResult(userList);
+    }
+
+    public List<User> getAll(){
+        return em.createNamedQuery(User.ALL_SORTED, User.class)
+                .getResultList();
+    }
+
+    @Transactional
+    public User create(User user) {
+        em.persist(user);
+        return user;
     }
 
 }
