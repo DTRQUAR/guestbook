@@ -18,26 +18,26 @@ import java.util.List;
 
 public class SeleniumTest extends AbstractTest{
 
-    public static final String driverChromePath = "C:\\chromedriver.exe";
-    public static final WebDriver driver = new ChromeDriver();
+    String driverChromePath = "C:\\chromedriver.exe";
 
     @Autowired
-    private static DbPopulator dbPopulator;
+    private DbPopulator dbPopulator;
 
     @Before
     public void setUp() throws Exception {
         dbPopulator.execute();
     }
 
-    @AfterClass
-    public static void rollBack() throws Exception {
+    @After
+    public void rollBack() throws Exception {
         dbPopulator.execute();
     }
 
     //Тест нажатия кнопки "Отправить" при пустых полях ввода
     @Test
     public void testEmptyInputValuesSubmit() throws InterruptedException {
-
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         WebElement submitButton = driver.findElement(new By.ById("sendButton"));
@@ -55,6 +55,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testWrongInputValueSubmit() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -77,6 +79,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testRightInputValueSubmit() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -105,6 +109,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testWrongInputAuthValueLogin() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         WebElement loginButton = driver.findElement(new By.ById("loginButton"));
@@ -122,6 +128,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testRightInputAuthValueLogin() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -146,6 +154,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testLike() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -178,6 +188,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testRepeatLike() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -216,6 +228,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testNotLike() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -247,6 +261,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testRepeatNotLike() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -285,6 +301,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testLikeAfterNotLike() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -324,6 +342,8 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testNotLikeAfterLike() throws InterruptedException {
 
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -363,7 +383,9 @@ public class SeleniumTest extends AbstractTest{
     @Test
     public void testRegisterWithExistingEmail() throws InterruptedException {
 
-        driver.get("http://localhost:8080/gb/register");
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('registerEmailField').setAttribute('value', 'user1@ya.ru')");
