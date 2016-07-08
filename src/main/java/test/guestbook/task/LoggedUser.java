@@ -37,4 +37,8 @@ public class LoggedUser extends org.springframework.security.core.userdetails.Us
     public User getAuthUser() {
         return authUser;
     }
+
+    public void setAuthUser(User authUser) {
+        this.authUser = authUser;
+    }
 }

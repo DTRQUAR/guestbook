@@ -8,9 +8,9 @@ ALTER SEQUENCE user_seq RESTART WITH 1;
 ALTER SEQUENCE message_seq RESTART WITH 1;
 
 INSERT INTO users (id, email, name, password, email_notif) VALUES
-  (1, 'user1@ya.ru', 'Timur', '111111', false),
-  (2, 'user2@ya.ru', 'Dante', '222222', false),
-  (3, 'user3@ya.ru', 'Wolverine', '333333', false);
+  (1, 'user1@ya.ru', 'Timur', '111111Qw', false),
+  (2, 'user2@ya.ru', 'Dante', '222222Qw', false),
+  (3, 'user3@ya.ru', 'Wolverine', '333333Qw', false);
 
 INSERT INTO messages (id, datetime, text, user_id) VALUES
   (1, TIMESTAMP '2016-07-04 15:15:15', 'Java EE продолжает тонуть в хайпе микросервисов. Парни из IBM, RedHat и нескольких других компаний решили бросить ей спасательный круг, анонсировав инициативу MicroProfile.io. Задача — подогнать стандарты Java EE под современные тренды. Читай — натянуть Java EE на микросервисы. Причем в буквальном смысле. Например, предлагается чуть ли не стандартизировать максимальный размер джарника и время старта приложения. Что-то вроде «enlarge your ...», только наоборот.', 1),

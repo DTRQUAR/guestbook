@@ -17,7 +17,7 @@
         <form action="register" method="post" id="registerForm">
             <div class="registerArea">
                 <sec:authorize access="isAuthenticated()">
-                    <input type="text" name="id" value="${authUser.id}">
+                    <input type="text" name="id" value="${authUser.id}" hidden>
                     <label>Введите ваш email:</label>
                     <input type="email"   pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" title="Введи корректный email" required
                            placeholder="Email" class="registerInputField form-control" name='email' id="registerEmailField"
@@ -41,13 +41,13 @@
                         <input type="checkbox" name="isEmailNotif">
                     </c:if>
                     <c:if test="${authUser.emailNotif == true}">
-                        <input type="checkbox" name="isEmailNotif" checked>
+                        <input type="checkbox" name="isEmailNotif" value="true" checked>
                     </c:if>
                     <br><br>
                 </sec:authorize>
 
                 <sec:authorize access="!isAuthenticated()">
-                    <input type="text" name="id">
+                    <input type="text" name="id" hidden>
                     <label>Введите ваш email:</label>
                     <input type="email"   pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" title="Введи корректный email" required
                            placeholder="Email" class="registerInputField form-control" name='email' id="registerEmailField"
@@ -67,16 +67,16 @@
                            value="${name}">
                     <br>
                     Получать уведомления о новых сообщениях на email &nbsp&nbsp
-                    <c:if test="${emailNotif  != true}">
+                    <c:if test="${isEmailNotif  != true}">
                         <input type="checkbox" name="isEmailNotif">
                     </c:if>
-                    <c:if test="${emailNotif == true}">
+                    <c:if test="${isEmailNotif == true}">
                         <input type="checkbox" name="isEmailNotif" checked>
                     </c:if>
                     <br><br>
                 </sec:authorize>
             </div>
-            <button type="submit" class="btn btn-info" id="submitRegisterButton" >Зарегистрироваться</button>
+            <button type="submit" class="btn btn-info" id="submitRegisterButton">Сохранить</button>
         </form>
     </div>
 

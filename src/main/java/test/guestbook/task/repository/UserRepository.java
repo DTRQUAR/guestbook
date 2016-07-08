@@ -16,6 +16,6 @@ public interface UserRepository {
 
     List<User> getAll();
 
-    User create(User user);
+    User createOrUpdate(User user);
 
 }

@@ -82,7 +82,7 @@
         <%--Область отображения или ввода имения--%>
         <div id="inputNameStatusBox" class="form-group has-success">
           <sec:authorize access="isAuthenticated()">
-            <label>Ваше имя: <b>${authUser.password}</b></label>
+            <label>Ваше имя: <b>${authUser.name}</b></label>
           </sec:authorize>
 
           <sec:authorize access="!isAuthenticated()">

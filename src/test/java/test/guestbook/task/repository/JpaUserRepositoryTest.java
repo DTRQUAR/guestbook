@@ -2,10 +2,8 @@ package test.guestbook.task.repository;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.AbstractTest;
@@ -29,7 +27,7 @@ public class JpaUserRepositoryTest extends AbstractTest {
     @Test
     public void testCreate() {
         User user = new User("testuser@yandex.ru", "testuser", "testpas", EnumSet.of(Role.ROLE_USER), false);
-        userRepository.create(user);
+        userRepository.createOrUpdate(user);
         Assert.assertEquals(
                 Arrays.asList(UserTestData.USER_1, UserTestData.USER_2, UserTestData.USER_3, user).toString(),
                 userRepository.getAll().toString()
@@ -40,7 +38,7 @@ public class JpaUserRepositoryTest extends AbstractTest {
     @Transactional(propagation= Propagation.NEVER)
     @Test(expected = DataAccessException.class)
     public void testDuplicateMailSave() throws Exception {
-        userRepository.create(new User("user1@ya.ru", "Duplicate", "newPass", EnumSet.of(Role.ROLE_USER), false));
+        userRepository.createOrUpdate(new User("user1@ya.ru", "Duplicate", "newPass", EnumSet.of(Role.ROLE_USER), false));
     }
 
     //Тест на получение всех пользователей
@@ -70,7 +68,7 @@ public class JpaUserRepositoryTest extends AbstractTest {
 //    @Test
 //    public void testUpdateUser(){
 //        User kalach = new User(4, "user8@ya.ru", "Kalach", "111111");
-//        userRepository.create(kalach);
+//        userRepository.createOrUpdate(kalach);
 //        User user = userRepository.get(1);
 ////        System.out.println(user.getName() + " " + user.getPassword() + " " + user.getRoles().toString());
 //    }

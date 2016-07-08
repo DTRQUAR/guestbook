@@ -96,7 +96,7 @@ public class User {
         this.roles = roles;
     }
 
-    public User(Integer id, String email, String name, String password, Set<Role> roles, boolean isEmailNotif) {
+    public User(Integer id, String email, String name, String password, Set<Role> roles, boolean emailNotif) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -157,11 +157,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "emailNotif=" + emailNotif +
+                ", id=" + id +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 
@@ -179,6 +179,7 @@ public class User {
                 && Objects.equals(this.id, that.id)
                 && Objects.equals(this.name, that.name)
                 && Objects.equals(this.email, that.email)
-                && Objects.equals(this.roles, that.roles);
+                && Objects.equals(this.roles, that.roles)
+                && Objects.equals(this.emailNotif, that.emailNotif);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Role;
 import test.guestbook.task.model.User;
@@ -52,11 +53,7 @@ public class RootController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration(){
-        if (LoggedUser.safeGet() == null) {
-            return "register";
-        }else{
-            return "register";
-        }
+        return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -64,23 +61,28 @@ public class RootController {
                                      @RequestParam("email") String email,
                                      @RequestParam("password") String password,
                                      @RequestParam("name") String name,
-                                     @RequestParam("isEmailNotif") boolean isEmailNotif,
-                                     Model model){
+                                     @RequestParam(value = "isEmailNotif", required = false) String isEmailNotif,
+                                     Model model, ModelAndView modelAndView){
+        boolean isEmailNotifValue = isEmailNotif != null ? true : false;
+        System.err.println(isEmailNotifValue);
         if (id == null) {
             try{
                 userService.getByEmail(email);
                 model.addAttribute("email", "Пользователь с таким email'ом уже существует");
                 model.addAttribute("password", password);
                 model.addAttribute("name", name);
-                model.addAttribute("isEmailNotif", isEmailNotif);
+                model.addAttribute("isEmailNotif", isEmailNotifValue);
                 return "register";
             }catch(NotFoundException e){
-                userService.save(new User(null, email, name, password, EnumSet.of(Role.ROLE_USER), isEmailNotif));
+
+                userService.save(new User(null, email, name, password, EnumSet.of(Role.ROLE_USER), isEmailNotifValue));
             }
         }else{
-            userService.save(new User(id, email, name, password, EnumSet.of(Role.ROLE_USER), isEmailNotif));
+            User savedUser = userService.save(new User(id, email, name, password, EnumSet.of(Role.ROLE_USER), isEmailNotifValue));
+            LoggedUser loggedUser = LoggedUser.safeGet();
+            loggedUser.setAuthUser(savedUser);
+            modelAndView.getModelMap().addAttribute("authUser", loggedUser.getAuthUser());
         }
-
         return "redirect:/main";
     }
 
