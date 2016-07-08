@@ -28,7 +28,7 @@ public class JpaUserRepositoryTest extends AbstractTest {
     //Тест на создание нового пользователя
     @Test
     public void testCreate() {
-        User user = new User("testuser@yandex.ru", "testuser", "testpas", EnumSet.of(Role.ROLE_USER));
+        User user = new User("testuser@yandex.ru", "testuser", "testpas", EnumSet.of(Role.ROLE_USER), false);
         userRepository.create(user);
         Assert.assertEquals(
                 Arrays.asList(UserTestData.USER_1, UserTestData.USER_2, UserTestData.USER_3, user).toString(),
@@ -40,7 +40,7 @@ public class JpaUserRepositoryTest extends AbstractTest {
     @Transactional(propagation= Propagation.NEVER)
     @Test(expected = DataAccessException.class)
     public void testDuplicateMailSave() throws Exception {
-        userRepository.create(new User("user1@ya.ru", "Duplicate", "newPass", EnumSet.of(Role.ROLE_USER)));
+        userRepository.create(new User("user1@ya.ru", "Duplicate", "newPass", EnumSet.of(Role.ROLE_USER), false));
     }
 
     //Тест на получение всех пользователей

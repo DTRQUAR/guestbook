@@ -24,7 +24,7 @@ public class UserServiceTest extends AbstractTest{
 
     @Test
     public void testCreate(){
-        User user = new User("testuser@yandex.ru", "testuser", "testpas", EnumSet.of(Role.ROLE_USER));
+        User user = new User("testuser@yandex.ru", "testuser", "testpas", EnumSet.of(Role.ROLE_USER),false);
         userService.save(user);
         Assert.assertEquals(
                 Arrays.asList(UserTestData.USER_1, UserTestData.USER_2, UserTestData.USER_3, user).toString(),

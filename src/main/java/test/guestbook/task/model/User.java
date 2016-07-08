@@ -52,6 +52,9 @@ public class User {
     @Length(min = 5)
     private String password;
 
+    @Column(name = "email_notif", nullable = false)
+    private boolean emailNotif;
+
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -69,11 +72,12 @@ public class User {
     public User() {
     }
 
-    public User(String email, String name, String password, Set<Role> roles) {
+    public User(String email, String name, String password, Set<Role> roles, boolean emailNotif) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.roles = roles;
+        this.emailNotif = emailNotif;
     }
 
     public User(Integer id, String email, String name, String password) {
@@ -90,6 +94,15 @@ public class User {
         this.name = name;
         this.password = password;
         this.roles = roles;
+    }
+
+    public User(Integer id, String email, String name, String password, Set<Role> roles, boolean isEmailNotif) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.roles = roles;
+        this.emailNotif = emailNotif;
     }
 
 
@@ -131,6 +144,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isEmailNotif() {
+        return emailNotif;
+    }
+
+    public void setEmailNotif(boolean emailNotif) {
+        this.emailNotif = emailNotif;
     }
 
     @Override

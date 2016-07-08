@@ -14,14 +14,11 @@
         <table class="topTable">
           <tr>
             <td><div class="title">Гостевая книга</div></td>
-            <td class="loginFormAttribute">
-              <form action="spring_security_check" method="post" class="form-inline">
-                <input type="text" placeholder="Email"
-                       class="authInputField form-control-xs form-control-sm form-control-md form-control-lg vis" name='username' id="emailInput">
-                <input type="password" placeholder="Password"
-                       class="authInputField form-control-xs form-control-sm form-control-md form-control-lg vis" name='password'>
-                <button type="submit" class="btn btn-primary vis">Вход</button>
+            <td class="loginFormAttribute" id="profileButton">
+              <form action="register" method="get" class="form-inline">
+                <button type="submit" class="btn btn-primary">Мой профиль</button>
               </form>
+            </td>
             <td class="loginFormAttribute" id="logoutButton">
               <form action="logout" method="post" >
                 <button type="submit" class="btn btn-danger">Выход</button>
@@ -32,7 +29,7 @@
       </sec:authorize>
 
       <sec:authorize access="!isAuthenticated()">
-        <table class="topTable" cellspacing="1" cellpadding="1">
+        <table class="topTable">
           <tr>
             <td><div class="title">Гостевая книга</div></td>
             <td class="loginFormAttribute">
@@ -85,7 +82,7 @@
         <%--Область отображения или ввода имения--%>
         <div id="inputNameStatusBox" class="form-group has-success">
           <sec:authorize access="isAuthenticated()">
-            <label>Ваше имя: <b>${authUser.name}</b></label>
+            <label>Ваше имя: <b>${authUser.password}</b></label>
           </sec:authorize>
 
           <sec:authorize access="!isAuthenticated()">

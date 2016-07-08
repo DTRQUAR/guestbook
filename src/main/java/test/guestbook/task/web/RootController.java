@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Role;
 import test.guestbook.task.model.User;
 import test.guestbook.task.service.MessageService;
@@ -51,28 +52,33 @@ public class RootController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration(){
-        return "register";
+        if (LoggedUser.safeGet() == null) {
+            return "register";
+        }else{
+            return "register";
+        }
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String submitRegistration(@RequestParam("email") String email,
+    public String submitRegistration(@RequestParam("id") Integer id,
+                                     @RequestParam("email") String email,
                                      @RequestParam("password") String password,
                                      @RequestParam("name") String name,
-                                     HttpServletRequest request,
+                                     @RequestParam("isEmailNotif") boolean isEmailNotif,
                                      Model model){
-        try{
-            userService.getByEmail(email);
-            model.addAttribute("email", "Пользователь с таким email'ом уже существует");
-            model.addAttribute("password", password);
-            model.addAttribute("name", name);
-            return "register";
-        }catch(NotFoundException e){
-            userService.save(new User(email, name, password, EnumSet.of(Role.ROLE_USER)));
-            try {
-                request.logout();
-            } catch (ServletException e1) {
-                e1.printStackTrace();
+        if (id == null) {
+            try{
+                userService.getByEmail(email);
+                model.addAttribute("email", "Пользователь с таким email'ом уже существует");
+                model.addAttribute("password", password);
+                model.addAttribute("name", name);
+                model.addAttribute("isEmailNotif", isEmailNotif);
+                return "register";
+            }catch(NotFoundException e){
+                userService.save(new User(null, email, name, password, EnumSet.of(Role.ROLE_USER), isEmailNotif));
             }
+        }else{
+            userService.save(new User(id, email, name, password, EnumSet.of(Role.ROLE_USER), isEmailNotif));
         }
 
         return "redirect:/main";
