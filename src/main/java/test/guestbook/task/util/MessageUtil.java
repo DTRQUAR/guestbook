@@ -4,7 +4,6 @@ import test.guestbook.task.model.Message;
 import test.guestbook.task.model.MessageRate;
 import test.guestbook.task.model.User;
 import test.guestbook.task.to.MessageTo;
-
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;

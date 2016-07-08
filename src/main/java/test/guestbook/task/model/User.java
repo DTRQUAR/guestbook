@@ -21,7 +21,8 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = User.GET, query = "SELECT u FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.id")
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.id"),
+        @NamedQuery(name = User.GET_FOR_MAIL, query = "SELECT u FROM User u WHERE u.emailNotif=TRUE ORDER BY u.id")
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
@@ -29,6 +30,7 @@ public class User {
     public static final String GET = "User.get";
     public static final String ALL_SORTED = "User.getAllSorted";
     public static final String BY_EMAIL = "User.getByEmail";
+    public static final String GET_FOR_MAIL = "User.getForMail";
 
     @Id
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)

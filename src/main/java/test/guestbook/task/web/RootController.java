@@ -12,20 +12,14 @@ import test.guestbook.task.model.Role;
 import test.guestbook.task.model.User;
 import test.guestbook.task.service.MessageService;
 import test.guestbook.task.service.UserService;
-import test.guestbook.task.to.MessageTo;
 import test.guestbook.task.util.exception.NotFoundException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import java.util.EnumSet;
-import java.util.List;
 
 /**
  * Created by Qouer on 30.06.2016.
  */
 
 @Controller
-//@RequestMapping("/gb")
 public class RootController {
 
     @Autowired
@@ -64,7 +58,6 @@ public class RootController {
                                      @RequestParam(value = "isEmailNotif", required = false) String isEmailNotif,
                                      Model model, ModelAndView modelAndView){
         boolean isEmailNotifValue = isEmailNotif != null ? true : false;
-        System.err.println(isEmailNotifValue);
         if (id == null) {
             try{
                 userService.getByEmail(email);
@@ -85,6 +78,5 @@ public class RootController {
         }
         return "redirect:/main";
     }
-
 
 }

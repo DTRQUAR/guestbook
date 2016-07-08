@@ -3,7 +3,6 @@ package test.guestbook.task;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import test.guestbook.task.model.User;
-
 import static java.util.Objects.requireNonNull;
 
 /**

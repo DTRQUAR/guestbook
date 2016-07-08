@@ -13,6 +13,8 @@ public interface UserService {
 
     User getByEmail(String email);
 
+    List<String> getEmails();
+
     List<User> getAll();
 
     User save(User u);

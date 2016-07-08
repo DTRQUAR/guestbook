@@ -11,6 +11,7 @@ import test.guestbook.task.repository.UserRepository;
 import test.guestbook.task.util.exception.ExceptionUtil;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Qouer on 02.07.2016.
@@ -29,6 +30,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getByEmail(String email) {
         return ExceptionUtil.check(repository.getByEmail(email), "email=" + email);
+    }
+
+    @Override
+    public List<String> getEmails(){
+        List<User> userForMail = repository.getForMail();
+        return userForMail.stream()
+                .map(um -> um.getEmail())
+                .collect(Collectors.toList());
     }
 
     @Override

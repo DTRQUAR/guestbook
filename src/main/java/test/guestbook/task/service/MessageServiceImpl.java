@@ -6,9 +6,9 @@ import test.guestbook.task.LoggedUser;
 import test.guestbook.task.model.Message;
 import test.guestbook.task.model.MessageRate;
 import test.guestbook.task.model.User;
-import test.guestbook.task.repository.MessageRateRepository;
 import test.guestbook.task.repository.MessageRepository;
 import test.guestbook.task.to.MessageTo;
+import test.guestbook.task.util.EmailSender;
 import test.guestbook.task.util.MessageUtil;
 import test.guestbook.task.util.exception.ExceptionUtil;
 
@@ -27,6 +27,9 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageRateService messageRateService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public MessageTo get(Integer message_id) {
         Message message = messageRepository.get(message_id);
@@ -42,15 +45,19 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public MessageTo create(Message message) {
         messageRepository.create(message);
+        List<String> emails = userService.getEmails();
         LoggedUser loggedUser = LoggedUser.safeGet();
+        MessageTo messageTo;
         if (loggedUser == null) {
-            return MessageUtil.getMessageTo(
+            messageTo = MessageUtil.getMessageTo(
                     messageRepository.getLast(), null);
         } else{
-            return MessageUtil.getMessageTo(
+            messageTo = MessageUtil.getMessageTo(
                     messageRepository.getLast(),
                     loggedUser.getAuthUser());
         }
+        EmailSender.sendMails(messageTo, emails);
+        return messageTo;
     }
 
     @Override
@@ -64,7 +71,6 @@ public class MessageServiceImpl implements MessageService {
                     messageRepository.getAll(),
                     loggedUser.getAuthUser());
         }
-
     }
 
     @Override
@@ -93,4 +99,6 @@ public class MessageServiceImpl implements MessageService {
             messageRateService.updateOrCreate(new MessageRate(user, message, newRate));
         }
     }
+
+
 }

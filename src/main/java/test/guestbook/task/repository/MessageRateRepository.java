@@ -2,7 +2,6 @@ package test.guestbook.task.repository;
 
 import test.guestbook.task.model.MessageRate;
 
-import java.util.Collection;
 import java.util.List;
 
 /**

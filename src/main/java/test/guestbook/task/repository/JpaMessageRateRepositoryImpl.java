@@ -1,6 +1,5 @@
 package test.guestbook.task.repository;
 
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.model.MessageRate;

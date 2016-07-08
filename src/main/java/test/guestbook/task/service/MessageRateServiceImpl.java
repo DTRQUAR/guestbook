@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import test.guestbook.task.model.MessageRate;
 import test.guestbook.task.repository.MessageRateRepository;
-import test.guestbook.task.repository.MessageRepository;
 import test.guestbook.task.util.exception.ExceptionUtil;
 
-import java.util.Collection;
 import java.util.List;
 
 /**

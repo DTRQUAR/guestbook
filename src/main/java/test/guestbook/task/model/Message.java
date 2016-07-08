@@ -17,13 +17,6 @@ import java.util.Objects;
         @NamedQuery(name = Message.GET, query = "SELECT m FROM Message m WHERE m.id=:id"),
         @NamedQuery(name = Message.ALL_SORTED, query = "SELECT m FROM Message m " +
                 "LEFT JOIN m.user ORDER BY m.dateTime DESC, m.id DESC"),
-//        @NamedQuery(name = Message.GET_LAST, query = "SELECT m FROM Message m ORDER by m.id DESC LIMIT 1")
-
-//        @NamedQuery(name = Message.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
-//        @NamedQuery(name = Message.GET_BETWEEN,
-//                query = "SELECT m from UserMeal m WHERE m.user.id=:userId " +
-//                        " AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC"),
-
 })
 @Entity
 @Table(name = "messages")
@@ -58,8 +51,6 @@ public class Message {
     private User user;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "message")
-//    @OrderBy("dateTime DESC")
-//    @JsonIgnore
     protected List<MessageRate> messageRates;
 //
     public List<MessageRate> getMessageRates() {

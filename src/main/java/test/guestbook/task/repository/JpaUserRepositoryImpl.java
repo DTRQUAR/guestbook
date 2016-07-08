@@ -33,6 +33,12 @@ public class JpaUserRepositoryImpl implements UserRepository {
         return DataAccessUtils.singleResult(userList);
     }
 
+    @Override
+    public List<User> getForMail(){
+        return em.createNamedQuery(User.GET_FOR_MAIL, User.class)
+                .getResultList();
+    }
+
     public List<User> getAll(){
         return em.createNamedQuery(User.ALL_SORTED, User.class)
                 .getResultList();
