@@ -35,7 +35,6 @@ public class AjaxController {
                         @RequestParam(value = "name", required = false) String defaultName,
                         @RequestParam(value = "text", required = true) String text) {
         Message message;
-        System.err.println(defaultName + " " + text);
         if (defaultName != null && text != null) {
             message = new Message(defaultName, text, LocalDateTime.now());
         }else{

@@ -40,7 +40,11 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Transactional
     public User create(User user) {
-        em.persist(user);
+        if(user.getId() == null){
+            em.persist(user);
+        }else{
+            em.merge(user);
+        }
         return user;
     }
 

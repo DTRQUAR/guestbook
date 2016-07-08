@@ -65,4 +65,13 @@ public class JpaUserRepositoryTest extends AbstractTest {
         User user = userRepository.getByEmail("user2@ya.ru");
         Assert.assertEquals(user, UserTestData.USER_2);
     }
+
+//    @Transactional(propagation = Propagation.NEVER)
+//    @Test
+//    public void testUpdateUser(){
+//        User kalach = new User(4, "user8@ya.ru", "Kalach", "111111");
+//        userRepository.create(kalach);
+//        User user = userRepository.get(1);
+////        System.out.println(user.getName() + " " + user.getPassword() + " " + user.getRoles().toString());
+//    }
 }

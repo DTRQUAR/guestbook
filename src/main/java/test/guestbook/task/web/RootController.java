@@ -67,7 +67,6 @@ public class RootController {
             model.addAttribute("name", name);
             return "register";
         }catch(NotFoundException e){
-            System.err.println("I not catch you!");
             userService.save(new User(email, name, password, EnumSet.of(Role.ROLE_USER)));
             try {
                 request.logout();
