@@ -15,8 +15,6 @@
         <intercept-url pattern="/register" access="permitAll"/>
         <intercept-url pattern="/ajax/messages/**" access="permitAll"/>
 
-        <!--<intercept-url pattern="/register" access="!isAuthenticated()"/>-->
-
         <intercept-url pattern="/**" access="isAuthenticated()" />
         <form-login login-page="/main" default-target-url="/main"
                     authentication-failure-url="/main/auth_error"
@@ -27,16 +25,7 @@
 
     <authentication-manager>
         <authentication-provider user-service-ref="userService">
-            <!--<jdbc-authUser-service data-source-ref="dataSource"-->
-                               <!--users-by-username-query="SELECT email, password FROM users WHERE email = ?"-->
-                               <!--authorities-by-username-query="SELECT u.email, r.role FROM users u, user_roles r-->
-                               <!--WHERE u.id = r.user_id AND u.email = ?"-->
-            <!--/>-->
 
-            <!--<authUser-service>-->
-                <!--<authUser name="authUser@yandex.ru" password="password" authorities="ROLE_USER"/>-->
-                <!--<authUser name="admin@gmail.com" password="admin" authorities="ROLE_ADMIN"/>-->
-            <!--</authUser-service>-->
         </authentication-provider>
     </authentication-manager>
 </beans:beans>
