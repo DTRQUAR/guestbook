@@ -36,6 +36,7 @@ public class SeleniumTest extends AbstractTest{
     //Тест нажатия кнопки "Отправить" при пустых полях ввода
     @Test
     public void testEmptyInputValuesSubmit() throws InterruptedException {
+
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
@@ -174,8 +175,8 @@ public class SeleniumTest extends AbstractTest{
 
         Thread.sleep(500);
 
-        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
-        WebElement selectLikeButton = new_message_3.findElement(new By.ById("selectLikeButton"));
+        WebElement new_message_3_1 = driver.findElement(new By.ById("message_3"));
+        WebElement selectLikeButton = new_message_3_1.findElement(new By.ById("selectLikeButton"));
 
         boolean displayed = selectLikeButton.isDisplayed();
 
@@ -207,17 +208,17 @@ public class SeleniumTest extends AbstractTest{
 
         Thread.sleep(500);
 
-        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
-        WebElement selectLikeButton = new_message_3.findElement(new By.ById("selectLikeButton"));
+        WebElement message_3_1 = driver.findElement(new By.ById("message_3"));
+        WebElement selectLikeButton = message_3_1.findElement(new By.ById("selectLikeButton"));
 
         selectLikeButton.click();
 
         Thread.sleep(500);
 
-        WebElement final_message_3 = driver.findElement(new By.ById("message_3"));
-        WebElement final_likeButton = final_message_3.findElement(new By.ById("likeButton"));
+        WebElement message_3_2 = driver.findElement(new By.ById("message_3"));
+        WebElement likeButton_1 = message_3_2.findElement(new By.ById("likeButton"));
 
-        boolean displayed = final_likeButton.isDisplayed();
+        boolean displayed = likeButton_1.isDisplayed();
 
         Assert.assertEquals(displayed, true);
 
@@ -247,8 +248,8 @@ public class SeleniumTest extends AbstractTest{
 
         Thread.sleep(500);
 
-        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
-        WebElement selectNotLikeButton = new_message_3.findElement(new By.ById("selectNotLikeButton"));
+        WebElement message_3_1 = driver.findElement(new By.ById("message_3"));
+        WebElement selectNotLikeButton = message_3_1.findElement(new By.ById("selectNotLikeButton"));
 
         boolean displayed = selectNotLikeButton.isDisplayed();
 
@@ -280,17 +281,17 @@ public class SeleniumTest extends AbstractTest{
 
         Thread.sleep(500);
 
-        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
-        WebElement selectNotLikeButton = new_message_3.findElement(new By.ById("selectNotLikeButton"));
+        WebElement message_3_1 = driver.findElement(new By.ById("message_3"));
+        WebElement selectNotLikeButton = message_3_1.findElement(new By.ById("selectNotLikeButton"));
 
         selectNotLikeButton.click();
 
         Thread.sleep(500);
 
-        WebElement final_message_3 = driver.findElement(new By.ById("message_3"));
-        WebElement final_notLikeButton = final_message_3.findElement(new By.ById("notLikeButton"));
+        WebElement message_3_2 = driver.findElement(new By.ById("message_3"));
+        WebElement notLikeButton_1 = message_3_2.findElement(new By.ById("notLikeButton"));
 
-        boolean displayed = final_notLikeButton.isDisplayed();
+        boolean displayed = notLikeButton_1.isDisplayed();
 
         Assert.assertEquals(displayed, true);
 
@@ -327,11 +328,11 @@ public class SeleniumTest extends AbstractTest{
 
         Thread.sleep(500);
 
-        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
-        WebElement selectLikeButton = new_message_3.findElement(new By.ById("selectLikeButton"));
-        WebElement final_notLikeButton = new_message_3.findElement(new By.ById("notLikeButton"));
+        WebElement for_like_message_3_1 = driver.findElement(new By.ById("message_3"));
+        WebElement selectLikeButton = for_like_message_3_1.findElement(new By.ById("selectLikeButton"));
+        WebElement notLikeButton_1 = for_like_message_3_1.findElement(new By.ById("notLikeButton"));
 
-        boolean displayed = selectLikeButton.isDisplayed() && final_notLikeButton.isDisplayed();
+        boolean displayed = selectLikeButton.isDisplayed() && notLikeButton_1.isDisplayed();
 
         Assert.assertEquals(displayed, true);
 
@@ -368,11 +369,11 @@ public class SeleniumTest extends AbstractTest{
 
         Thread.sleep(500);
 
-        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
-        WebElement selectNotLikeButton = new_message_3.findElement(new By.ById("selectNotLikeButton"));
-        WebElement final_likeButton = new_message_3.findElement(new By.ById("likeButton"));
+        WebElement for_dislike_message_3_1 = driver.findElement(new By.ById("message_3"));
+        WebElement selectNotLikeButton = for_dislike_message_3_1.findElement(new By.ById("selectNotLikeButton"));
+        WebElement likeButton_1 = for_dislike_message_3_1.findElement(new By.ById("likeButton"));
 
-        boolean displayed = selectNotLikeButton.isDisplayed() && final_likeButton.isDisplayed();
+        boolean displayed = selectNotLikeButton.isDisplayed() && likeButton_1.isDisplayed();
 
         Assert.assertEquals(displayed, true);
 
@@ -385,7 +386,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get("http://localhost:8080/gb/register");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('registerEmailField').setAttribute('value', 'user1@ya.ru')");
