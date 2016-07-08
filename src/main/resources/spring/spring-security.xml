@@ -19,7 +19,7 @@
 
         <intercept-url pattern="/**" access="isAuthenticated()" />
         <form-login login-page="/main" default-target-url="/main"
-                    authentication-failure-url="/main?error=true"
+                    authentication-failure-url="/main/auth_error"
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/main"/>
         <csrf disabled="true"/>

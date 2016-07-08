@@ -11,6 +11,7 @@ import test.guestbook.task.model.User;
 import test.guestbook.task.service.MessageService;
 import test.guestbook.task.service.UserService;
 import test.guestbook.task.to.MessageTo;
+import test.guestbook.task.util.exception.NotFoundException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,12 @@ public class RootController {
         return "main";
     }
 
+    @RequestMapping(value = "/main/auth_error", method = RequestMethod.GET)
+    public String failLogin(Model model) {
+        model.addAttribute("auth_error", true);
+        return "main";
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration(){
         return "register";
@@ -51,13 +58,24 @@ public class RootController {
     public String submitRegistration(@RequestParam("email") String email,
                                      @RequestParam("password") String password,
                                      @RequestParam("name") String name,
-                                     HttpServletRequest request){
-        userService.save(new User(email, name, password, EnumSet.of(Role.ROLE_USER)));
-        try {
-            request.logout();
-        } catch (ServletException e) {
-            e.printStackTrace();
+                                     HttpServletRequest request,
+                                     Model model){
+        try{
+            userService.getByEmail(email);
+            model.addAttribute("email", "Пользователь с таким email'ом уже существует");
+            model.addAttribute("password", password);
+            model.addAttribute("name", name);
+            return "register";
+        }catch(NotFoundException e){
+            System.err.println("I not catch you!");
+            userService.save(new User(email, name, password, EnumSet.of(Role.ROLE_USER)));
+            try {
+                request.logout();
+            } catch (ServletException e1) {
+                e1.printStackTrace();
+            }
         }
+
         return "redirect:/main";
     }
 

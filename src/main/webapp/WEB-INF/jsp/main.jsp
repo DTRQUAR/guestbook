@@ -16,7 +16,7 @@
             <td><div class="title">Гостевая книга</div></td>
             <td class="loginFormAttribute">
               <form action="spring_security_check" method="post" class="form-inline">
-                <input type="text" placeholder="Email" v
+                <input type="text" placeholder="Email"
                        class="authInputField form-control-xs form-control-sm form-control-md form-control-lg vis" name='username' id="emailInput">
                 <input type="password" placeholder="Password"
                        class="authInputField form-control-xs form-control-sm form-control-md form-control-lg vis" name='password'>
@@ -24,7 +24,7 @@
               </form>
             <td class="loginFormAttribute" id="logoutButton">
               <form action="logout" method="post" >
-                <button type="submit" class="btn btn-primary">Выход</button>
+                <button type="submit" class="btn btn-danger">Выход</button>
               </form>
             </td>
           </tr>
@@ -32,23 +32,42 @@
       </sec:authorize>
 
       <sec:authorize access="!isAuthenticated()">
-        <table class="topTable">
+        <table class="topTable" cellspacing="1" cellpadding="1">
           <tr>
             <td><div class="title">Гостевая книга</div></td>
             <td class="loginFormAttribute">
-              <form action="spring_security_check" method="post" class="form-inline">
-                <input type="text" placeholder="Email"
-                       class="authInputField form-control-xs form-control-sm form-control-md form-control-lg" name='username' id="emailInput">
-                <input type="password" placeholder="Password"
-                       class="authInputField form-control-xs form-control-sm form-control-md form-control-lg" name='password'>
-                <button type="submit" class="btn btn-primary">Вход</button>
-              </form>
+              <c:if test="${auth_error == true}">
+                  <form action="spring_security_check" method="post" class="login-form form-inline">
+                    <div class="form-group has-error">
+                      <input type="text" placeholder="Email"
+                           class="authInputField form-control" name='username' id="emailInput" size="10">
+                    </div>
+                    <div class="form-group has-error">
+                      <input type="password" placeholder="Password"
+                           class="authInputField form-control" name='password' size="10">
+                    </div>
+                      <button type="submit" class="btn btn-success">Вход</button>
+                  </form>
+              </c:if>
+              <c:if test="${auth_error == null}">
+                <form action="spring_security_check" method="post" class="login-form form-inline">
+                  <div class="form-group">
+                    <input type="text" placeholder="Email"
+                           class="authInputField form-control" name='username' id="emailInput" size="10">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" placeholder="Password"
+                           class="authInputField form-control" name='password' size="10">
+                  </div>
+                  <button type="submit" class="btn btn-success">Вход</button>
+                </form>
+              </c:if>
             </td>
 
             </td>
             <td class="loginFormAttribute" id="registerButton">
               <form action="register" method="get">
-                <button type="submit" class="btn btn-primary">Регистрация</button>
+                <button type="submit" class="btn btn-warning">Регистрация</button>
               </form>
             </td>
           </tr>

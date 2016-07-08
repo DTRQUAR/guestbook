@@ -9,34 +9,6 @@ a {
     color: #c6c6c6;
 }
 
-.topTable {
-    width: 100%;
-    margin-bottom: 2%;
-}
-
-.loginFormAttribute{
-    text-align: right;
-}
-
-.vis{
-    visibility: hidden;
-}
-
-#registerButton {
-    text-align: left;
-    padding-left: 1%;
-}
-
-#logoutButton{
-    text-align: right;
-    padding-right: 2%;
-}
-
-.authInputField {
-    margin: 1%;
-    width: 20%;
-}
-
 .topArea {
     padding-top: 0.7%;
     margin-top: 0%;
@@ -45,9 +17,57 @@ a {
     left: 25%;
     background-color: #3c3c3c;
     border-radius: 5px;
-
     position: relative;
 }
+
+.topTable {
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.login-form{
+    text-align: right;
+}
+
+.loginFormAttribute{
+    /*text-align: right;*/
+}
+
+.vis{
+    visibility: hidden;
+}
+
+.authInputField {
+    margin: 1%;
+    width: 20%;
+}
+
+#registerButton {
+    text-align: center;
+    padding-right: 2%;
+}
+
+/*#registerForm{*/
+    /*text-align: left;*/
+/*}*/
+
+.registerArea{
+    width: 30%;
+    margin-left:35%;
+    text-align: left;
+}
+
+.registerInputField{
+    /*width: 30%;*/
+    /*text-align: center;*/
+    /*margin-left:35%*/
+}
+
+#logoutButton{
+    text-align: right;
+    padding-right: 2%;
+}
+
 
 .messagesArea {
     width: 51.5%;
