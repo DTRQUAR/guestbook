@@ -22,18 +22,18 @@ import java.util.List;
 public class MessageRateServiceTest extends AbstractTest{
 
     @Autowired
-    protected MessageRateService messageRateService;
+    protected MessageRateService service;
 
     //Тест на получение несуществующего рейтинга
     @Test(expected = NotFoundException.class)
     public void testNotFoundGet(){
-        messageRateService.get(10);
+        service.get(10);
     }
 
     //Тест на получение всех рейтингов
     @Test
     public void testGetAll(){
-        Collection<MessageRate> MessageRates = messageRateService.getAll();
+        Collection<MessageRate> MessageRates = service.getAll();
         Assert.assertEquals(Arrays.asList(
                 MessageRateTestData.MESSAGE_RATE_1,
                 MessageRateTestData.MESSAGE_RATE_2,
@@ -46,23 +46,23 @@ public class MessageRateServiceTest extends AbstractTest{
     @Test
     public void testCreateMessageRate(){
         MessageRate messageRate = new MessageRate(UserTestData.USER_2, MessageTestData.MESSAGE_2, true);
-        messageRateService.updateOrCreate(messageRate);
+        service.updateOrCreate(messageRate);
         messageRate.setId(4);
         Assert.assertEquals(Arrays.asList(
                 MessageRateTestData.MESSAGE_RATE_1,
                 MessageRateTestData.MESSAGE_RATE_2,
                 MessageRateTestData.MESSAGE_RATE_3,
                 messageRate).toString(),
-                messageRateService.getAll().toString()
+                service.getAll().toString()
         );
     }
 
     //Тест на изменение существующей оценки
     @Test
     public void testUpdateMessageRate(){
-        List<MessageRate> messageRates = messageRateService.getAll();
+        List<MessageRate> messageRates = service.getAll();
         MessageRate messageRate = new MessageRate(1, UserTestData.USER_1, MessageTestData.MESSAGE_1, false);
-        messageRateService.updateOrCreate(messageRate);
+        service.updateOrCreate(messageRate);
         Assert.assertEquals(Arrays.asList(
                 messageRate,
                 MessageRateTestData.MESSAGE_RATE_2,
@@ -74,11 +74,11 @@ public class MessageRateServiceTest extends AbstractTest{
     //Тест на удалние существующей оценки
     @Test
     public void testDeleteMessageRate(){
-        messageRateService.delete(3);
+        service.delete(3);
         Assert.assertEquals(Arrays.asList(
                 MessageRateTestData.MESSAGE_RATE_1,
                 MessageRateTestData.MESSAGE_RATE_2).toString(),
-                messageRateService.getAll().toString()
+                service.getAll().toString()
         );
     }
 

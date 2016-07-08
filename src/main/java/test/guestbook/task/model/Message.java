@@ -52,14 +52,7 @@ public class Message {
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "message")
     protected List<MessageRate> messageRates;
-//
-    public List<MessageRate> getMessageRates() {
-        return messageRates;
-    }
 
-    public void setMessageRates(List<MessageRate> messageRates) {
-        this.messageRates = messageRates;
-    }
 
     public Message() {
     }
@@ -121,6 +114,14 @@ public class Message {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public List<MessageRate> getMessageRates() {
+        return messageRates;
+    }
+
+    public void setMessageRates(List<MessageRate> messageRates) {
+        this.messageRates = messageRates;
     }
 
     @Override

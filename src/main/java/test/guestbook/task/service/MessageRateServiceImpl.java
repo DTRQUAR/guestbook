@@ -15,25 +15,25 @@ import java.util.List;
 public class MessageRateServiceImpl implements MessageRateService{
 
     @Autowired
-    private MessageRateRepository messageRateRepository;
+    private MessageRateRepository repository;
 
     @Override
     public MessageRate get(Integer messageRate_id) {
-        return ExceptionUtil.check(messageRateRepository.get(messageRate_id), messageRate_id);
+        return ExceptionUtil.check(repository.get(messageRate_id), messageRate_id);
     }
 
     @Override
     public List<MessageRate> getAll() {
-        return messageRateRepository.getAll();
+        return repository.getAll();
     }
 
     @Override
     public MessageRate updateOrCreate(MessageRate messageRate) {
-        return messageRateRepository.updateOrCreate(messageRate);
+        return repository.updateOrCreate(messageRate);
     }
 
     @Override
     public void delete(int messageRate_id) {
-        ExceptionUtil.check(messageRateRepository.delete(messageRate_id), messageRate_id);
+        ExceptionUtil.check(repository.delete(messageRate_id), messageRate_id);
     }
 }

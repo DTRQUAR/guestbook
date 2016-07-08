@@ -79,7 +79,6 @@
             <button type="submit" class="btn btn-info" id="saveUserButton">Сохранить</button>
         </form>
     </div>
-
 </body>
 
     <script type="text/javascript" src="resources/js/check_input_fields.js"></script>

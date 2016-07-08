@@ -67,10 +67,6 @@ public class User {
     @OrderBy("dateTime DESC")
     protected List<Message> messages;
 
-    public List<Message> getMessages() {
-        return messages;
-    }
-
     public User() {
     }
 
@@ -87,7 +83,6 @@ public class User {
         this.email = email;
         this.name = name;
         this.password = password;
-//        this.roles = roles;
     }
 
     public User(Integer id, String email, String name, String password, Set<Role> roles) {
@@ -106,7 +101,6 @@ public class User {
         this.roles = roles;
         this.emailNotif = emailNotif;
     }
-
 
     public Integer getId() {
         return id;
@@ -154,6 +148,10 @@ public class User {
 
     public void setEmailNotif(boolean emailNotif) {
         this.emailNotif = emailNotif;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
     }
 
     @Override

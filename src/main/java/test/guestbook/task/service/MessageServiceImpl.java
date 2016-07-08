@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
-    private MessageRepository messageRepository;
+    private MessageRepository repository;
 
     @Autowired
     private MessageRateService messageRateService;
@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public MessageTo get(Integer message_id) {
-        Message message = messageRepository.get(message_id);
+        Message message = repository.get(message_id);
         ExceptionUtil.check(message, message_id);
         LoggedUser loggedUser = LoggedUser.safeGet();
         if (loggedUser == null) {
@@ -44,16 +44,16 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public MessageTo create(Message message) {
-        messageRepository.create(message);
+        repository.create(message);
         List<String> emails = userService.getEmails();
         LoggedUser loggedUser = LoggedUser.safeGet();
         MessageTo messageTo;
         if (loggedUser == null) {
             messageTo = MessageUtil.getMessageTo(
-                    messageRepository.getLast(), null);
+                    repository.getLast(), null);
         } else{
             messageTo = MessageUtil.getMessageTo(
-                    messageRepository.getLast(),
+                    repository.getLast(),
                     loggedUser.getAuthUser());
         }
         EmailSender.sendMails(messageTo, emails);
@@ -65,10 +65,10 @@ public class MessageServiceImpl implements MessageService {
         LoggedUser loggedUser = LoggedUser.safeGet();
         if (loggedUser == null) {
             return MessageUtil.getMessagesToList(
-                    messageRepository.getAll(), null);
+                    repository.getAll(), null);
         } else{
             return MessageUtil.getMessagesToList(
-                    messageRepository.getAll(),
+                    repository.getAll(),
                     loggedUser.getAuthUser());
         }
     }
@@ -78,7 +78,7 @@ public class MessageServiceImpl implements MessageService {
         Integer user_id = user.getId();
         boolean newRate = action.equals("like") ? true : false;
 
-        Message message = messageRepository.get(message_id);
+        Message message = repository.get(message_id);
 
         List<MessageRate> messageRates = message.getMessageRates()
                 .stream()

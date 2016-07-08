@@ -7,10 +7,9 @@ import test.guestbook.task.model.MessageRate;
  */
 public class MessageRateTestData {
 
-//    INSERT INTO message_rates (id, rate, message_id, user_id) VALUES
-//    (1, TRUE, 1, 1),
-//    (2, TRUE, 1, 2),
-//    (3, TRUE, 1, 2);
+//  (1, TRUE, 1, 1),
+//  (2, TRUE, 1, 2),
+//  (3, TRUE, 1, 2);
 
     public static final MessageRate MESSAGE_RATE_1
             = new MessageRate(1, UserTestData.USER_1, MessageTestData.MESSAGE_1, true);

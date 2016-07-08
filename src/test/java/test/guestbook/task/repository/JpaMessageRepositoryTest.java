@@ -17,23 +17,23 @@ import java.util.Arrays;
 public class JpaMessageRepositoryTest extends AbstractTest {
 
     @Autowired
-    private MessageRepository messageRepository;
+    private MessageRepository repository;
 
     //Тест на создание нового сообщения
     @Test
     public void testCreateMessage(){
         Message message = new Message("Anonymous", "Hello!!!");
-        messageRepository.create(message);
+        repository.create(message);
         Assert.assertEquals(Arrays.asList(
                 message, MessageTestData.MESSAGE_3, MessageTestData.MESSAGE_2, MessageTestData.MESSAGE_1).toString(),
-                messageRepository.getAll().toString()
+                repository.getAll().toString()
         );
     }
 
     //Тест на получение сообщения по id
     @Test
     public void testGetMessage(){
-        Message message = messageRepository.get(2);
+        Message message = repository.get(2);
         Assert.assertEquals(message, MessageTestData.MESSAGE_2);
     }
 
@@ -42,14 +42,14 @@ public class JpaMessageRepositoryTest extends AbstractTest {
     public void testGetAllMessages(){
         Assert.assertEquals(
                 Arrays.asList(MessageTestData.MESSAGE_3, MessageTestData.MESSAGE_2, MessageTestData.MESSAGE_1).toString(),
-                messageRepository.getAll().toString()
+                repository.getAll().toString()
         );
     }
 
     //Тест на получения последнего добавленного сообщения
     @Test
     public void testGetLastMessage(){
-        Message message = messageRepository.getLast();
+        Message message = repository.getLast();
         Assert.assertEquals(message, MessageTestData.MESSAGE_3);
     }
 }

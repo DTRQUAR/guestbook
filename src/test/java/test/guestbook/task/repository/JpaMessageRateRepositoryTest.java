@@ -20,12 +20,12 @@ import java.util.Arrays;
 public class JpaMessageRateRepositoryTest extends AbstractTest {
 
     @Autowired
-    private MessageRateRepository messageRateRepository;
+    private MessageRateRepository repository;
 
     //Тест на получение оценки
     @Test
     public void testGetMessageRate(){
-        MessageRate messageRate = messageRateRepository.get(1);
+        MessageRate messageRate = repository.get(1);
         Assert.assertEquals(messageRate, MessageRateTestData.MESSAGE_RATE_1);
     }
 
@@ -33,14 +33,14 @@ public class JpaMessageRateRepositoryTest extends AbstractTest {
     @Test
     public void testCreateMessageRate(){
         MessageRate messageRate = new MessageRate(UserTestData.USER_1, MessageTestData.MESSAGE_2, false);
-        messageRateRepository.updateOrCreate(messageRate);
+        repository.updateOrCreate(messageRate);
         Assert.assertEquals(
                 Arrays.asList(
                         MessageRateTestData.MESSAGE_RATE_1,
                         MessageRateTestData.MESSAGE_RATE_2,
                         MessageRateTestData.MESSAGE_RATE_3,
                         messageRate),
-                messageRateRepository.getAll()
+                repository.getAll()
         );
     }
 
@@ -48,25 +48,25 @@ public class JpaMessageRateRepositoryTest extends AbstractTest {
     @Test
     public void testUpdateMessageRate(){
         MessageRate messageRate = new MessageRate(1, UserTestData.USER_1, MessageTestData.MESSAGE_1, false);
-        messageRateRepository.updateOrCreate(messageRate);
+        repository.updateOrCreate(messageRate);
         Assert.assertEquals(
                 Arrays.asList(
                         messageRate,
                         MessageRateTestData.MESSAGE_RATE_2,
                         MessageRateTestData.MESSAGE_RATE_3),
-                messageRateRepository.getAll()
+                repository.getAll()
         );
     }
 
     //Тест на удаление оценки сообщения
     @Test
     public void testDeleteMessageRate() {
-        messageRateRepository.delete(2);
+        repository.delete(2);
         Assert.assertEquals(
                 Arrays.asList(
                         MessageRateTestData.MESSAGE_RATE_1,
                         MessageRateTestData.MESSAGE_RATE_3),
-                messageRateRepository.getAll()
+                repository.getAll()
         );
     }
 

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.AbstractTest;
 import test.guestbook.task.MessageTestData;
-import test.guestbook.task.model.Message;
 import test.guestbook.task.to.MessageTo;
-import test.guestbook.task.util.MessageUtil;
 import test.guestbook.task.util.exception.NotFoundException;
 
 import java.util.Arrays;
@@ -21,18 +19,18 @@ import java.util.List;
 public class MessageServiceTest extends AbstractTest{
 
     @Autowired
-    protected MessageService messageService;
+    protected MessageService service;
 
     //Тест на получение несуществующего сообщения
     @Test(expected = NotFoundException.class)
     public void testNotFoundGet(){
-        messageService.get(10);
+        service.get(10);
     }
 
     //Тест на получение всех сообщений
     @Test
     public void testGetAll(){
-        List<MessageTo> allMessageTo = messageService.getAllMessages();
+        List<MessageTo> allMessageTo = service.getAllMessages();
         Assert.assertEquals(Arrays.asList(
                 MessageTestData.MESSAGE_TO_3,
                 MessageTestData.MESSAGE_TO_2,
@@ -43,7 +41,7 @@ public class MessageServiceTest extends AbstractTest{
     //Тест на получение сообщения по id
     @Test
     public void testGetMessage(){
-        MessageTo messageTo = messageService.get(3);
+        MessageTo messageTo = service.get(3);
         Assert.assertEquals(messageTo, MessageTestData.MESSAGE_TO_3);
     }
 

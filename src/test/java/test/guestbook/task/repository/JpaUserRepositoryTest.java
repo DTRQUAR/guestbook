@@ -21,16 +21,16 @@ import java.util.EnumSet;
 public class JpaUserRepositoryTest extends AbstractTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 
     //Тест на создание нового пользователя
     @Test
     public void testCreate() {
         User user = new User("testuser@yandex.ru", "testuser", "testpas", EnumSet.of(Role.ROLE_USER), false);
-        userRepository.createOrUpdate(user);
+        repository.createOrUpdate(user);
         Assert.assertEquals(
                 Arrays.asList(UserTestData.USER_1, UserTestData.USER_2, UserTestData.USER_3, user).toString(),
-                userRepository.getAll().toString()
+                repository.getAll().toString()
         );
     }
 
@@ -38,7 +38,7 @@ public class JpaUserRepositoryTest extends AbstractTest {
     @Transactional(propagation= Propagation.NEVER)
     @Test(expected = DataAccessException.class)
     public void testDuplicateMailSave() throws Exception {
-        userRepository.createOrUpdate(new User("user1@ya.ru", "Duplicate", "newPass", EnumSet.of(Role.ROLE_USER), false));
+        repository.createOrUpdate(new User("user1@ya.ru", "Duplicate", "newPass", EnumSet.of(Role.ROLE_USER), false));
     }
 
     //Тест на получение всех пользователей
@@ -46,21 +46,21 @@ public class JpaUserRepositoryTest extends AbstractTest {
     public void testGetAllUsers() {
         Assert.assertEquals(
                 Arrays.asList(UserTestData.USER_1, UserTestData.USER_2, UserTestData.USER_3).toString(),
-                userRepository.getAll().toString()
+                repository.getAll().toString()
         );
     }
 
     //Тест на получение пользователя по id
     @Test
     public void testGetUser() {
-        User user = userRepository.get(1);
+        User user = repository.get(1);
         Assert.assertEquals(user, UserTestData.USER_1);
     }
 
     //Тест на получение пользователя по email
     @Test
     public void textGetByEmail(){
-        User user = userRepository.getByEmail("user2@ya.ru");
+        User user = repository.getByEmail("user2@ya.ru");
         Assert.assertEquals(user, UserTestData.USER_2);
     }
 
@@ -68,8 +68,8 @@ public class JpaUserRepositoryTest extends AbstractTest {
     @Test
     public void testUpdateUser(){
         User newUser = new User(1, "newmail@ya.ru", "newName", "111111", EnumSet.of(Role.ROLE_USER), false);
-        userRepository.createOrUpdate(newUser);
-        User user = userRepository.get(1);
+        repository.createOrUpdate(newUser);
+        User user = repository.get(1);
         Assert.assertEquals("newName", user.getName());
     }
 }
