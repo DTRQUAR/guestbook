@@ -14,12 +14,12 @@
         <table class="topTable">
           <tr>
             <td><div class="title">Гостевая книга</div></td>
-            <td class="loginFormAttribute" id="profileButton">
+            <td id="profileButton">
               <form action="register" method="get" class="form-inline">
                 <button type="submit" class="btn btn-primary">Мой профиль</button>
               </form>
             </td>
-            <td class="loginFormAttribute" id="logoutButton">
+            <td id="logoutButton">
               <form action="logout" method="post" >
                 <button type="submit" class="btn btn-danger">Выход</button>
               </form>
@@ -32,7 +32,7 @@
         <table class="topTable">
           <tr>
             <td><div class="title">Гостевая книга</div></td>
-            <td class="loginFormAttribute">
+            <td>
               <c:if test="${auth_error == true}">
                   <form action="spring_security_check" method="post" class="login-form form-inline">
                     <div class="form-group has-error">
@@ -62,7 +62,7 @@
             </td>
 
             </td>
-            <td class="loginFormAttribute" id="registerButton">
+            <td id="registerButton">
               <form action="register" method="get">
                 <button type="submit" class="btn btn-warning">Регистрация</button>
               </form>

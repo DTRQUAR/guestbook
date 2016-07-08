@@ -17,6 +17,8 @@ import test.guestbook.task.util.DbPopulator;
 
 public class SeleniumTest extends AbstractTest{
 
+    String driverChromePath = "C:\\chromedriver.exe";
+
     @Autowired
     private DbPopulator dbPopulator;
 
@@ -32,13 +34,13 @@ public class SeleniumTest extends AbstractTest{
 
     //Тест нажатия кнопки "Отправить сообщение" при пустых полях ввода
     @Test
-    public void textEmptyInputValuesSubmit() throws InterruptedException {
+    public void testEmptyInputValuesSubmit() throws InterruptedException {
 //        File pathBinary = new File("D:\\bundle-windows-x64\\eclipse\\dropins\\tr_win\\Prog_S\\Firefox\\firefox.exe");
 //        FirefoxBinary ffBinary = new FirefoxBinary(pathBinary);
 //        FirefoxProfile ffProfile = new FirefoxProfile();
 //        WebDriver driver = new FirefoxDriver(ffBinary, ffProfile);
 
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
@@ -55,9 +57,9 @@ public class SeleniumTest extends AbstractTest{
 
     //Тест нажатия кнопки "Отправить сообщение" при значение "Введите значение" в полях ввода
     @Test
-    public void textWrongInputValueSubmit() throws InterruptedException {
+    public void testWrongInputValueSubmit() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
@@ -79,9 +81,39 @@ public class SeleniumTest extends AbstractTest{
     //Тест нажатия кнопки "Отправить сообщение" при правильных значениях в полях ввода
     //(значение: не пусто и не "Введите значение")
     @Test
-    public void textRightInputValueSubmit() throws InterruptedException {
+    public void testRightInputValueSubmit() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://localhost:8080/gb/main");
+
+
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('nameField').setAttribute('value', 'Игорь')");
+        js.executeScript("document.getElementById('messageField').innerHTML = 'Бла-бла'");
+
+        WebElement submitButton = driver.findElement(new By.ById("sendButton"));
+        submitButton.click();
+
+        WebElement nameField = driver.findElement(new By.ById("nameField"));
+        WebElement messageField = driver.findElement(new By.ById("messageField"));
+
+        WebElement messageBox = driver.findElement(By.className("MessageBox"));
+        WebElement nameOfMessage = messageBox.findElement(By.className("nameOfMessage"));
+        WebElement textOfMessage = messageBox.findElement(By.className("textOfMessage"));
+
+        String actualNameAndText = nameOfMessage.getText() + " " + textOfMessage.getText();
+
+        String actualInputValues = nameField.getAttribute("value") + " " +  messageField.getAttribute("value") + " ";
+        Assert.assertEquals("  Игорь Бла-бла", actualInputValues + actualNameAndText);
+
+    }
+
+    @Test
+    public void testWrongInputAuthValueSubmit() throws InterruptedException {
+
+        System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
@@ -105,6 +137,7 @@ public class SeleniumTest extends AbstractTest{
         Assert.assertEquals("  Игорь Бла-бла", actualInputValues + actualNameAndText);
 
     }
+
 
 
 }
