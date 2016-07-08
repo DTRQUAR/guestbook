@@ -1,3 +1,5 @@
+
+
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS users;
@@ -13,7 +15,8 @@ CREATE TABLE users
   id INTEGER PRIMARY KEY DEFAULT nextval('user_seq'),
   email VARCHAR NOT NULL,
   name VARCHAR NOT NULL,
-  password VARCHAR NOT NULL
+  password VARCHAR NOT NULL,
+  email_notif BOOLEAN
 );
 
 CREATE TABLE messages

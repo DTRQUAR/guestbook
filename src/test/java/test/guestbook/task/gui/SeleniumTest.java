@@ -50,6 +50,8 @@ public class SeleniumTest extends AbstractTest{
         String actualValue = nameField.getAttribute("value") + " " +  messageField.getAttribute("value");
         Assert.assertEquals("Введите значение Введите значение", actualValue);
 
+        driver.close();
+
     }
 
     //Тест нажатия кнопки "Отправить" при значении "Введите значение" в полях ввода
@@ -72,6 +74,8 @@ public class SeleniumTest extends AbstractTest{
 
         String actualValue = nameField.getAttribute("value") + " " +  messageField.getAttribute("value");
         Assert.assertEquals("Введите значение Введите значение", actualValue);
+
+        driver.close();
 
     }
 
@@ -103,6 +107,8 @@ public class SeleniumTest extends AbstractTest{
         String actualInputValues = nameField.getAttribute("value") + " " +  messageField.getAttribute("value") + " ";
         Assert.assertEquals("  Игорь Бла-бла", actualInputValues + actualNameAndText);
 
+        driver.close();
+
     }
 
     //Тест авторизации при неверных данных
@@ -121,6 +127,8 @@ public class SeleniumTest extends AbstractTest{
         int count = elements.size();
 
         Assert.assertEquals(2, count);
+
+        driver.close();
 
     }
 
@@ -147,6 +155,8 @@ public class SeleniumTest extends AbstractTest{
 
         boolean displayed = profileButton.isDisplayed() && logoutButton.isDisplayed();
         Assert.assertEquals(displayed, true);
+
+        driver.close();
 
     }
 
@@ -181,6 +191,8 @@ public class SeleniumTest extends AbstractTest{
         boolean displayed = selectLikeButton.isDisplayed();
 
         Assert.assertEquals(displayed, true);
+
+        driver.close();
 
     }
 
@@ -222,6 +234,8 @@ public class SeleniumTest extends AbstractTest{
 
         Assert.assertEquals(displayed, true);
 
+        driver.close();
+
     }
 
     //Тест нажатия на дизлайк
@@ -254,6 +268,8 @@ public class SeleniumTest extends AbstractTest{
         boolean displayed = selectNotLikeButton.isDisplayed();
 
         Assert.assertEquals(displayed, true);
+
+        driver.close();
 
     }
 
@@ -294,6 +310,8 @@ public class SeleniumTest extends AbstractTest{
         boolean displayed = notLikeButton_1.isDisplayed();
 
         Assert.assertEquals(displayed, true);
+
+        driver.close();
 
     }
 
@@ -336,6 +354,8 @@ public class SeleniumTest extends AbstractTest{
 
         Assert.assertEquals(displayed, true);
 
+        driver.close();
+
     }
 
     //Тест нажатия на дизлайк после нажатия на лайк
@@ -377,6 +397,8 @@ public class SeleniumTest extends AbstractTest{
 
         Assert.assertEquals(displayed, true);
 
+        driver.close();
+
     }
 
     //Тест регистрации пользователя с уже существующим email'ом
@@ -401,6 +423,8 @@ public class SeleniumTest extends AbstractTest{
         String text = registerEmailField.getAttribute("value");
 
         Assert.assertEquals("Пользователь с таким email'ом уже существует", text);
+
+        driver.close();
 
     }
 
