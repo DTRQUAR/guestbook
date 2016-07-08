@@ -62,7 +62,7 @@
             </td>
 
             </td>
-            <td id="registerButton">
+            <td id="registerButtonTd">
               <form action="register" method="get">
                 <button type="submit" class="btn btn-warning">Регистрация</button>
               </form>
