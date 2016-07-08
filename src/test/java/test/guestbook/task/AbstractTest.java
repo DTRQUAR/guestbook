@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public abstract class AbstractTest {
 
-//    @Rule
-//    public ExpectedException thrown = ExpectedException.none();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
 }

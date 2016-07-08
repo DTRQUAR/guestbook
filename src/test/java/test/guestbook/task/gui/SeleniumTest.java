@@ -7,9 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import test.guestbook.task.AbstractTest;
 import test.guestbook.task.util.DbPopulator;
+
+import java.util.List;
 
 /**
  * Created by Qouer on 07.07.2016.
@@ -17,31 +18,26 @@ import test.guestbook.task.util.DbPopulator;
 
 public class SeleniumTest extends AbstractTest{
 
-    String driverChromePath = "C:\\chromedriver.exe";
+    public static final String driverChromePath = "C:\\chromedriver.exe";
+    public static final WebDriver driver = new ChromeDriver();
 
     @Autowired
-    private DbPopulator dbPopulator;
+    private static DbPopulator dbPopulator;
 
     @Before
     public void setUp() throws Exception {
         dbPopulator.execute();
     }
 
-    @After
-    public void rollBack() throws Exception {
+    @AfterClass
+    public static void rollBack() throws Exception {
         dbPopulator.execute();
     }
 
-    //Тест нажатия кнопки "Отправить сообщение" при пустых полях ввода
+    //Тест нажатия кнопки "Отправить" при пустых полях ввода
     @Test
     public void testEmptyInputValuesSubmit() throws InterruptedException {
-//        File pathBinary = new File("D:\\bundle-windows-x64\\eclipse\\dropins\\tr_win\\Prog_S\\Firefox\\firefox.exe");
-//        FirefoxBinary ffBinary = new FirefoxBinary(pathBinary);
-//        FirefoxProfile ffProfile = new FirefoxProfile();
-//        WebDriver driver = new FirefoxDriver(ffBinary, ffProfile);
 
-        System.setProperty("webdriver.chrome.driver", driverChromePath);
-        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         WebElement submitButton = driver.findElement(new By.ById("sendButton"));
@@ -55,12 +51,10 @@ public class SeleniumTest extends AbstractTest{
 
     }
 
-    //Тест нажатия кнопки "Отправить сообщение" при значение "Введите значение" в полях ввода
+    //Тест нажатия кнопки "Отправить" при значении "Введите значение" в полях ввода
     @Test
     public void testWrongInputValueSubmit() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", driverChromePath);
-        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -78,16 +72,12 @@ public class SeleniumTest extends AbstractTest{
 
     }
 
-    //Тест нажатия кнопки "Отправить сообщение" при правильных значениях в полях ввода
+    //Тест нажатия на кнопку "Отправить" при правильных значениях в полях ввода
     //(значение: не пусто и не "Введите значение")
     @Test
     public void testRightInputValueSubmit() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", driverChromePath);
-        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
-
-
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('nameField').setAttribute('value', 'Игорь')");
@@ -110,34 +100,285 @@ public class SeleniumTest extends AbstractTest{
 
     }
 
+    //Тест авторизации при неверных данных
+    //(поля ввода логина и пароля должны изменить класс на "has-error")
     @Test
-    public void testWrongInputAuthValueSubmit() throws InterruptedException {
+    public void testWrongInputAuthValueLogin() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", driverChromePath);
-        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:8080/gb/main");
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.getElementById('nameField').setAttribute('value', 'Игорь')");
-        js.executeScript("document.getElementById('messageField').innerHTML = 'Бла-бла'");
+        WebElement loginButton = driver.findElement(new By.ById("loginButton"));
+        loginButton.click();
 
-        WebElement submitButton = driver.findElement(new By.ById("sendButton"));
-        submitButton.click();
+        List<WebElement> elements = driver.findElements(By.className("has-error"));
+        int count = elements.size();
 
-        WebElement nameField = driver.findElement(new By.ById("nameField"));
-        WebElement messageField = driver.findElement(new By.ById("messageField"));
-
-        WebElement messageBox = driver.findElement(By.className("MessageBox"));
-        WebElement nameOfMessage = messageBox.findElement(By.className("nameOfMessage"));
-        WebElement textOfMessage = messageBox.findElement(By.className("textOfMessage"));
-
-        String actualNameAndText = nameOfMessage.getText() + " " + textOfMessage.getText();
-
-        String actualInputValues = nameField.getAttribute("value") + " " +  messageField.getAttribute("value") + " ";
-        Assert.assertEquals("  Игорь Бла-бла", actualInputValues + actualNameAndText);
+        Assert.assertEquals(2, count);
 
     }
 
+    //Тест авторизации при корретнфх данных
+    //(должна появится кнопка "Мой профиль" и "Выход")
+    @Test
+    public void testRightInputAuthValueLogin() throws InterruptedException {
 
+        driver.get("http://localhost:8080/gb/main");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
+        js.executeScript("document.getElementById('passwordInput').setAttribute('value', '111111Qw')");
+
+        WebElement loginButton = driver.findElement(new By.ById("loginButton"));
+        loginButton.click();
+
+        Thread.sleep(500);
+
+        WebElement profileButton = driver.findElement(new By.ById("profileButton"));
+        WebElement logoutButton = driver.findElement(new By.ById("logoutButton"));
+
+        boolean displayed = profileButton.isDisplayed() && logoutButton.isDisplayed();
+        Assert.assertEquals(displayed, true);
+
+    }
+
+    //Тест нажатия на лайк
+    //(класс элемента лайк должен измениться на "selectLikeButton")
+    @Test
+    public void testLike() throws InterruptedException {
+
+        driver.get("http://localhost:8080/gb/main");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
+        js.executeScript("document.getElementById('passwordInput').setAttribute('value', '111111Qw')");
+        WebElement loginButton = driver.findElement(new By.ById("loginButton"));
+
+        loginButton.click();
+
+        Thread.sleep(500);
+
+        WebElement message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement likeButton = message_3.findElement(new By.ById("likeButton"));
+
+        likeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement selectLikeButton = new_message_3.findElement(new By.ById("selectLikeButton"));
+
+        boolean displayed = selectLikeButton.isDisplayed();
+
+        Assert.assertEquals(displayed, true);
+
+    }
+
+    //Тест повторного нажатия на лайк
+    //(класс элемента лайк должен измениться c "selectLikeButton" на "likeButton")
+    @Test
+    public void testRepeatLike() throws InterruptedException {
+
+        driver.get("http://localhost:8080/gb/main");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
+        js.executeScript("document.getElementById('passwordInput').setAttribute('value', '111111Qw')");
+        WebElement loginButton = driver.findElement(new By.ById("loginButton"));
+        loginButton.click();
+
+        Thread.sleep(500);
+
+        WebElement message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement likeButton = message_3.findElement(new By.ById("likeButton"));
+
+        likeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement selectLikeButton = new_message_3.findElement(new By.ById("selectLikeButton"));
+
+        selectLikeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement final_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement final_likeButton = final_message_3.findElement(new By.ById("likeButton"));
+
+        boolean displayed = final_likeButton.isDisplayed();
+
+        Assert.assertEquals(displayed, true);
+
+    }
+
+    //Тест нажатия на дизлайк
+    //(класс элемента лайк должен измениться на "selectNotLikeButton")
+    @Test
+    public void testNotLike() throws InterruptedException {
+
+        driver.get("http://localhost:8080/gb/main");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
+        js.executeScript("document.getElementById('passwordInput').setAttribute('value', '111111Qw')");
+        WebElement loginButton = driver.findElement(new By.ById("loginButton"));
+        loginButton.click();
+
+        Thread.sleep(500);
+
+        WebElement message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement notLikeButton = message_3.findElement(new By.ById("notLikeButton"));
+
+        notLikeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement selectNotLikeButton = new_message_3.findElement(new By.ById("selectNotLikeButton"));
+
+        boolean displayed = selectNotLikeButton.isDisplayed();
+
+        Assert.assertEquals(displayed, true);
+
+    }
+
+    //Тест повторого нажатия на дизлайк
+    //(класс элемента лайк должен измениться c "selectNotLikeButton" на "NotLikeButton")
+    @Test
+    public void testRepeatNotLike() throws InterruptedException {
+
+        driver.get("http://localhost:8080/gb/main");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
+        js.executeScript("document.getElementById('passwordInput').setAttribute('value', '111111Qw')");
+        WebElement loginButton = driver.findElement(new By.ById("loginButton"));
+        loginButton.click();
+
+        Thread.sleep(500);
+
+        WebElement message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement notLikeButton = message_3.findElement(new By.ById("notLikeButton"));
+
+        notLikeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement selectNotLikeButton = new_message_3.findElement(new By.ById("selectNotLikeButton"));
+
+        selectNotLikeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement final_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement final_notLikeButton = final_message_3.findElement(new By.ById("notLikeButton"));
+
+        boolean displayed = final_notLikeButton.isDisplayed();
+
+        Assert.assertEquals(displayed, true);
+
+    }
+
+    //Тест нажатия на лайк после нажатия на дизлайк
+    //(класс элемента лайк должен измениться на "selectLikeButton", а элемента дизлайк на "notLikeButton")
+    @Test
+    public void testLikeAfterNotLike() throws InterruptedException {
+
+        driver.get("http://localhost:8080/gb/main");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
+        js.executeScript("document.getElementById('passwordInput').setAttribute('value', '111111Qw')");
+        WebElement loginButton = driver.findElement(new By.ById("loginButton"));
+        loginButton.click();
+
+        Thread.sleep(500);
+
+        WebElement for_dislike_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement notLikeButton = for_dislike_message_3.findElement(new By.ById("notLikeButton"));
+
+        notLikeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement for_like_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement likeButton = for_like_message_3.findElement(new By.ById("likeButton"));
+
+        likeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement selectLikeButton = new_message_3.findElement(new By.ById("selectLikeButton"));
+        WebElement final_notLikeButton = new_message_3.findElement(new By.ById("notLikeButton"));
+
+        boolean displayed = selectLikeButton.isDisplayed() && final_notLikeButton.isDisplayed();
+
+        Assert.assertEquals(displayed, true);
+
+    }
+
+    //Тест нажатия на дизлайк после нажатия на лайк
+    //(класс элемента дизлайк должен измениться на "selectNotLikeButton", а элемента лайк на "likeButton")
+    @Test
+    public void testNotLikeAfterLike() throws InterruptedException {
+
+        driver.get("http://localhost:8080/gb/main");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
+        js.executeScript("document.getElementById('passwordInput').setAttribute('value', '111111Qw')");
+        WebElement loginButton = driver.findElement(new By.ById("loginButton"));
+        loginButton.click();
+
+        Thread.sleep(500);
+
+        WebElement for_like_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement likeButton = for_like_message_3.findElement(new By.ById("likeButton"));
+
+        likeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement for_dislike_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement notLikeButton = for_dislike_message_3.findElement(new By.ById("notLikeButton"));
+
+        notLikeButton.click();
+
+        Thread.sleep(500);
+
+        WebElement new_message_3 = driver.findElement(new By.ById("message_3"));
+        WebElement selectNotLikeButton = new_message_3.findElement(new By.ById("selectNotLikeButton"));
+        WebElement final_likeButton = new_message_3.findElement(new By.ById("likeButton"));
+
+        boolean displayed = selectNotLikeButton.isDisplayed() && final_likeButton.isDisplayed();
+
+        Assert.assertEquals(displayed, true);
+
+    }
+
+    //Тест регистрации пользователя с уже существующим email'ом
+    //(в поле ввода email'а должно быть выведено соообщение: "Пользователь с таким email'ом уже существует")
+    @Test
+    public void testRegisterWithExistingEmail() throws InterruptedException {
+
+        driver.get("http://localhost:8080/gb/register");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('registerEmailField').setAttribute('value', 'user1@ya.ru')");
+        js.executeScript("document.getElementById('registerPasswordField').setAttribute('value', '111111Qw')");
+        js.executeScript("document.getElementById('registerNameField').setAttribute('value', 'NewName')");
+        WebElement loginButton = driver.findElement(new By.ById("saveUserButton"));
+        loginButton.click();
+
+        Thread.sleep(500);
+
+        WebElement registerEmailField = driver.findElement(new By.ById("registerEmailField"));
+        String text = registerEmailField.getAttribute("value");
+
+        Assert.assertEquals("Пользователь с таким email'ом уже существует", text);
+
+    }
 
 }

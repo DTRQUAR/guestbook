@@ -16,7 +16,8 @@ a {
     height: auto;
     left: 25%;
     background-color: #3c3c3c;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;;
+    border-bottom-right-radius: 5px;;
     position: relative;
 }
 
@@ -29,10 +30,6 @@ a {
     text-align: right;
 }
 
-.vis{
-    visibility: hidden;
-}
-
 .authInputField {
     margin: 1%;
     width: 20%;
@@ -42,10 +39,6 @@ a {
     text-align: center;
     padding-right: 2%;
 }
-
-/*#registerForm{*/
-    /*text-align: left;*/
-/*}*/
 
 .registerArea{
     width: 30%;
@@ -59,12 +52,12 @@ a {
     /*margin-left:35%*/
 }
 
-#logoutButton{
+#logoutButtonTd {
     text-align: left;
     padding-left: 2%;
 }
 
-#profileButton{
+#profileButtonTd {
     text-align: right;
 }
 

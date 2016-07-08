@@ -14,14 +14,14 @@
         <table class="topTable">
           <tr>
             <td><div class="title">Гостевая книга</div></td>
-            <td id="profileButton">
+            <td id="profileButtonTd">
               <form action="register" method="get" class="form-inline">
-                <button type="submit" class="btn btn-primary">Мой профиль</button>
+                <button type="submit" class="btn btn-primary" id="profileButton">Мой профиль</button>
               </form>
             </td>
-            <td id="logoutButton">
+            <td id="logoutButtonTd">
               <form action="logout" method="post" >
-                <button type="submit" class="btn btn-danger">Выход</button>
+                <button type="submit" class="btn btn-danger" id="logoutButton">Выход</button>
               </form>
             </td>
           </tr>
@@ -41,9 +41,9 @@
                     </div>
                     <div class="form-group has-error">
                       <input type="password" placeholder="Password"
-                           class="authInputField form-control" name='password' size="10">
+                           class="authInputField form-control" name='password' id="passwordInput" size="10">
                     </div>
-                      <button type="submit" class="btn btn-success">Вход</button>
+                      <button type="submit" class="btn btn-success" id="loginButton">Вход</button>
                   </form>
               </c:if>
               <c:if test="${auth_error == null}">
@@ -54,9 +54,9 @@
                   </div>
                   <div class="form-group">
                     <input type="password" placeholder="Password"
-                           class="authInputField form-control" name='password' size="10">
+                           class="authInputField form-control" name='password' id="passwordInput" size="10">
                   </div>
-                  <button type="submit" class="btn btn-success">Вход</button>
+                  <button type="submit" class="btn btn-success" id="loginButton">Вход</button>
                 </form>
               </c:if>
             </td>

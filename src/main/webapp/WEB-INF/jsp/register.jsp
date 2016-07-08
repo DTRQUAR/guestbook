@@ -20,18 +20,18 @@
                     <input type="text" name="id" value="${authUser.id}" hidden>
                     <label>Введите ваш email:</label>
                     <input type="email"   pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" title="Введи корректный email" required
-                           placeholder="Email" class="registerInputField form-control" name='email' id="registerEmailField"
+                           placeholder="Email" class="form-control" name='email' id="registerEmailField"
                            value="${authUser.email}">
                     <br>
                     <label>Введите ваш пароль:</label>
-                    <input type="password" placeholder="Password" class="registerInputField form-control"
+                    <input type="password" placeholder="Password" class="form-control"
                            name='password' maxlength="100" id="registerPasswordField" required
                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}"
                            title="Не менее пяти символов, содержащих хотя бы одну цифру и символы из верхнего и нижнего регистра"
                            value="${authUser.password}">
                     <br>
                     <label>Введите ваше имя:</label>
-                    <input type="text" placeholder="Your name" class="registerInputField form-control"
+                    <input type="text" placeholder="Your name" class="form-control"
                            name='name' maxlength="800" id="registerNameField" required
                            title="Не менее одного символа"
                            value="${authUser.name}">
@@ -50,18 +50,18 @@
                     <input type="text" name="id" hidden>
                     <label>Введите ваш email:</label>
                     <input type="email"   pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" title="Введи корректный email" required
-                           placeholder="Email" class="registerInputField form-control" name='email' id="registerEmailField"
+                           placeholder="Email" class="form-control" name='email' id="registerEmailField"
                            value="${email}">
                     <br>
                     <label>Введите ваш пароль:</label>
-                    <input type="password" placeholder="Password" class="registerInputField form-control"
+                    <input type="password" placeholder="Password" class="form-control"
                            name='password' maxlength="100" id="registerPasswordField" required
                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}"
                            title="Не менее пяти символов, содержащих хотя бы одну цифру и символы из верхнего и нижнего регистра"
                            value="${password}">
                     <br>
                     <label>Введите ваше имя:</label>
-                    <input type="text" placeholder="Your name" class="registerInputField form-control"
+                    <input type="text" placeholder="Your name" class="form-control"
                            name='name' maxlength="800" id="registerNameField" required
                            title="Не менее одного символа"
                            value="${name}">
@@ -76,7 +76,7 @@
                     <br><br>
                 </sec:authorize>
             </div>
-            <button type="submit" class="btn btn-info" id="submitRegisterButton">Сохранить</button>
+            <button type="submit" class="btn btn-info" id="saveUserButton">Сохранить</button>
         </form>
     </div>
 
