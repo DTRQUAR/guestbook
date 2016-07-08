@@ -28,10 +28,10 @@ public class SeleniumTest extends AbstractTest{
         dbPopulator.execute();
     }
 
-    @After
-    public void rollBack() throws Exception {
-        dbPopulator.execute();
-    }
+//    @After
+//    public void rollBack() throws Exception {
+//        dbPopulator.execute();
+//    }
 
     //Тест нажатия кнопки "Отправить" при пустых полях ввода
     @Test
