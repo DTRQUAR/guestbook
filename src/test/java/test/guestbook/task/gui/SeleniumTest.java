@@ -19,6 +19,10 @@ import java.util.List;
 public class SeleniumTest extends AbstractTest{
 
     String driverChromePath = "C:\\chromedriver.exe";
+    String localhostURL = "http://localhost:8080/";
+    String appURL = "gb/";
+    String resourceURL_main = "main";
+    String resourceURL_register = "register";
 
     @Autowired
     private DbPopulator dbPopulator;
@@ -39,7 +43,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         WebElement submitButton = driver.findElement(new By.ById("sendButton"));
         submitButton.click();
@@ -60,7 +64,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('nameField').setAttribute('value', 'Введите значение')");
@@ -86,7 +90,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('nameField').setAttribute('value', 'Игорь')");
@@ -118,7 +122,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         WebElement loginButton = driver.findElement(new By.ById("loginButton"));
         loginButton.click();
@@ -139,7 +143,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
@@ -167,7 +171,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
@@ -203,7 +207,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
@@ -245,7 +249,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
@@ -280,7 +284,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
@@ -322,7 +326,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
@@ -365,7 +369,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/main");
+        driver.get(localhostURL + appURL + resourceURL_main);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('emailInput').setAttribute('value', 'user1@ya.ru')");
@@ -408,7 +412,7 @@ public class SeleniumTest extends AbstractTest{
 
         System.setProperty("webdriver.chrome.driver", driverChromePath);
         WebDriver driver = new ChromeDriver();
-        driver.get("http://localhost:8080/gb/register");
+        driver.get(localhostURL + appURL + resourceURL_register);
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('registerEmailField').setAttribute('value', 'user1@ya.ru')");
