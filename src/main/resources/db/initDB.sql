@@ -1,14 +1,15 @@
-
-
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS message_rates;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS users;
 
 DROP SEQUENCE IF EXISTS user_seq;
 DROP SEQUENCE IF EXISTS message_seq;
+DROP SEQUENCE IF EXISTS rate_seq;
 
 CREATE SEQUENCE user_seq START WITH 1;
 CREATE SEQUENCE message_seq START WITH 1;
+CREATE SEQUENCE rate_seq START WITH 1;
 
 CREATE TABLE users
 (
@@ -35,6 +36,15 @@ CREATE TABLE user_roles
   role VARCHAR,
   CONSTRAINT user_roles_idx UNIQUE (user_id, role),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE TABLE message_rates(
+  id INTEGER PRIMARY KEY DEFAULT nextval('rate_seq'),
+  rate BOOLEAN NOT NULL,
+  user_id INTEGER NOT NULL,
+  message_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (message_id) REFERENCES messages (id)
 )
 
 
