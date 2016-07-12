@@ -20,6 +20,8 @@
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/spring/spring-security.xml</file>
         </fileset>
+        <fileset id="web application context" profiles="heroku" autodetected="true" />
+        <fileset id="web mvc-dispatcher servlet context" profiles="heroku" autodetected="true" />
       </configuration>
     </facet>
   </component>

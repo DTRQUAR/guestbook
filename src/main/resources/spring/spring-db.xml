@@ -11,55 +11,57 @@
 
     <import resource="spring-security.xml"/>
 
-    <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+    <beans profile="heroku">
 
-    <tx:annotation-driven/>
+        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
-    <!--<bean class="test.guestbook.task.util.DbPopulator">-->
-        <!--<constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>-->
-    <!--</bean>-->
+        <tx:annotation-driven/>
 
-    <context:property-placeholder location="classpath:/db/postgres.properties" system-properties-mode="OVERRIDE"/>
+        <!--<bean class="test.guestbook.task.util.DbPopulator">-->
+            <!--<constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>-->
+        <!--</bean>-->
 
-    <bean class="java.net.URI" id="dbUrl">
-        <constructor-arg value="${DATABASE_URL}"/>
-    </bean>
+        <bean class="java.net.URI" id="dbUrl">
+            <constructor-arg value="${DATABASE_URL}"/>
+        </bean>
 
-    <bean id="dataSource"
-          class="org.apache.tomcat.jdbc.pool.DataSource"
-          p:driverClassName="org.postgresql.Driver"
-          p:url="${database.url}"
-          p:username="${database.username}"
-          p:password="${database.password}"/>
+        <bean id="dataSource"
+              class="org.apache.tomcat.jdbc.pool.DataSource"
+              p:driverClassName="org.postgresql.Driver"
+              p:url="${database.url}"
+              p:username="${database.username}"
+              p:password="${database.password}"/>
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          p:dataSource-ref="dataSource"
-          p:packagesToScan="test.guestbook.**.model">
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+              p:dataSource-ref="dataSource"
+              p:packagesToScan="test.guestbook.**.model">
 
-        <property name="jpaPropertyMap">
-            <map>
-                <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
-                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).DIALECT}" value="org.hibernate.dialect.PostgreSQL94Dialect"/>-->
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_IMPORT_FILES}" value="classpath:/db/populateDB.sql"/>-->
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="create"/>-->
-            </map>
-        </property>
+            <property name="jpaPropertyMap">
+                <map>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
+                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).DIALECT}" value="org.hibernate.dialect.PostgreSQL94Dialect"/>-->
+                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_IMPORT_FILES}" value="classpath:/db/populateDB.sql"/>-->
+                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="create"/>-->
+                </map>
+            </property>
 
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-                  p:showSql="${jpa.showSql}">
-            </bean>
-        </property>
-    </bean>
+            <property name="jpaVendorAdapter">
+                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+                      p:showSql="${jpa.showSql}">
+                </bean>
+            </property>
+        </bean>
 
-    <!--<jdbc:initialize-database data-source="dataSource" enabled="${database.init}">-->
-        <!--&lt;!&ndash;<jdbc:script location="classpath:db/${jdbc.initLocation}"/>&ndash;&gt;-->
-        <!--<jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>-->
-    <!--</jdbc:initialize-database>-->
+        <!--<jdbc:initialize-database data-source="dataSource" enabled="${database.init}">-->
+            <!--&lt;!&ndash;<jdbc:script location="classpath:db/${jdbc.initLocation}"/>&ndash;&gt;-->
+            <!--<jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>-->
+        <!--</jdbc:initialize-database>-->
 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-          p:entityManagerFactory-ref="entityManagerFactory"/>
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+              p:entityManagerFactory-ref="entityManagerFactory"/>
+
+    </beans>
 
     <context:component-scan base-package="test.guestbook.**.repository"/>
     <context:component-scan base-package="test.guestbook.**.service"/>
