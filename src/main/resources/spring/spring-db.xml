@@ -13,7 +13,6 @@
 
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
-    <beans profile="heroku">
 
         <tx:annotation-driven/>
 
@@ -61,9 +60,8 @@
         <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
               p:entityManagerFactory-ref="entityManagerFactory"/>
 
-    </beans>
+        <context:component-scan base-package="test.guestbook.**.repository"/>
+        <context:component-scan base-package="test.guestbook.**.service"/>
 
-    <context:component-scan base-package="test.guestbook.**.repository"/>
-    <context:component-scan base-package="test.guestbook.**.service"/>
 
 </beans>
