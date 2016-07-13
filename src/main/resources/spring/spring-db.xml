@@ -11,9 +11,9 @@
 
     <import resource="spring-security.xml"/>
 
-    <beans profile="heroku">
+    <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
-        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+    <beans profile="heroku">
 
         <tx:annotation-driven/>
 
