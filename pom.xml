@@ -29,10 +29,9 @@
                 <version>2.10</version>
                 <executions>
                     <execution>
+                        <id>copy-dependencies</id>
                         <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
+                        <goals><goal>copy-dependencies</goal></goals>
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
